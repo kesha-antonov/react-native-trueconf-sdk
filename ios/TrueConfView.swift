@@ -69,7 +69,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     activityIndicatorView.centerYAnchor.constraint(equalTo: self.xview!.centerYAnchor).isActive = true
 //    TODO: MOVE TO LEFT/TOP BY -23
 
-    let activityIndicator = UIActivityIndicatorView(style: .white)
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     activityIndicator.frame = CGRect(x: 0, y: 0, width: 46, height: 46)
     activityIndicator.startAnimating()
     activityIndicatorView.addSubview(activityIndicator)
