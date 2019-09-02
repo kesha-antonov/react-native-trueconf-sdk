@@ -1,3 +1,3 @@
-import TrueConfWrapper from 'src/TrueConfWrapper'
+import TrueConfWrapper from './src/TrueConfWrapper'
 
 export default TrueConfWrapper
