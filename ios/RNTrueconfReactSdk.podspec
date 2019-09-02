@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "react-native-trueconf-react-sdk"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "react-native-trueconf-react-sdk"
   s.description  = <<-DESC
                   Wrapper for TrueConf React SDK
