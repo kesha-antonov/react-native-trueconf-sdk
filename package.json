@@ -11,9 +11,11 @@
   ],
   "author": "Kesha Antonov",
   "license": "MIT",
-  "peerDependencies": {
-    "react-native": "^0.59.10",
+  "dependencies": {
     "react-native-swift": "^1.2.2"
+  },
+  "peerDependencies": {
+    "react-native": "^0.59.10"
   },
   "isSwift": true
 }
