@@ -41,7 +41,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
       super.init(coder: aDecoder)
   }
 
-  func initViewsAndSdk() {
+  func initViews() {
     self.xview = UIView()
     self.addSubview(self.xview!)
     self.xview!.backgroundColor = .brown
@@ -74,10 +74,9 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     activityIndicator.frame = CGRect(x: 0, y: 0, width: 46, height: 46)
     activityIndicator.startAnimating()
     activityIndicatorView.addSubview(activityIndicator)
-
-    self.initSdk()
   }
 
+  @objc
   func initSdk() {
     if (self.tcsdk != nil ) { return }
 

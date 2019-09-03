@@ -4,7 +4,7 @@ class RNTrueconfReactSdk: RCTViewManager {
 
   override func view() -> UIView! {
     trueConfView = TrueConfView()
-    trueConfView!.initViewsAndSdk()
+    trueConfView!.initViews()
     return trueConfView
   }
 
@@ -16,6 +16,14 @@ class RNTrueconfReactSdk: RCTViewManager {
     return self.bridge.uiManager.view(
       forReactTag: node
     ) as! TrueConfView
+  }
+
+  @objc
+  func initSdk(_ node: NSNumber) {
+    DispatchQueue.main.async {
+      let component = self.getComponent(node: node)
+      component.initSdk()
+    }
   }
 
   @objc

@@ -13,6 +13,18 @@ import nextFrame from './nextFrame'
 class TrueConfWrapper extends Component {
   ref = createRef()
 
+  componentDidMount() {
+    setTimeout(this.initSdk)
+  }
+
+  initSdk = () => {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.ref.current),
+      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.initSdk,
+      []
+    )
+  }
+
   makeCall = async () => {
     await nextFrame()
 
@@ -73,6 +85,7 @@ class TrueConfWrapper extends Component {
 }
 
 TrueConfWrapper.propTypes = {
+  server: PropTypes.string,
   muted: PropTypes.bool,
   cameraOn: PropTypes.bool,
   onServerStatus: PropTypes.func,

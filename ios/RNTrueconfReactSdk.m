@@ -10,6 +10,9 @@ RCT_EXPORT_VIEW_PROPERTY(cameraOn, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(muted, BOOL)
 
 RCT_EXTERN_METHOD(
+  initSdk:(nonnull NSNumber *)node
+)
+RCT_EXTERN_METHOD(
   makeCall:(nonnull NSNumber *)node
   to:(nonnull NSString *)to
 )
