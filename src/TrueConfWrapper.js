@@ -25,13 +25,13 @@ class TrueConfWrapper extends Component {
     )
   }
 
-  makeCall = async () => {
+  makeCall = async (to) => {
     await nextFrame()
 
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.makeCall,
-      ['test2_SDK']
+      [to]
     )
   }
 
