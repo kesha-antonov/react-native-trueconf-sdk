@@ -7,6 +7,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
   @objc var onStateChanged: RCTDirectEventBlock?
   @objc var onLogin: RCTDirectEventBlock?
 
+  @objc var server: String = "ru10.trueconf.net"
   @objc var muted: Bool {
     set(newValue) {
       print("muted:", newValue)
@@ -82,7 +83,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     DispatchQueue.main.async {
       guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else { return }
-      self.tcsdk = TCSDK(viewController: rootViewController, forServer: "ru10.trueconf.net", confCustomControlsImages: nil)
+      self.tcsdk = TCSDK(viewController: rootViewController, forServer: self.server, confCustomControlsImages: nil)
 
       self.tcsdk!.confControlsDelegate = self // self
       self.tcsdk!.windowsDelegate = self // self
