@@ -1,11 +1,12 @@
+require 'json'
+package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
+
 Pod::Spec.new do |s|
-  s.name         = "react-native-trueconf-react-sdk"
-  s.version      = "1.0.1"
-  s.summary      = "react-native-trueconf-react-sdk"
-  s.description  = <<-DESC
-                  Wrapper for TrueConf React SDK
-                   DESC
-  s.homepage     = "https://github.com/kesha-antonov/react-native-trueconf-react-sdk.git"
+  s.name         = package['name']
+  s.version      = package['version']
+  s.summary      = package['description']
+  s.description  = package['description']
+  s.homepage     = package['repository']['url']
   s.license      = "MIT"
   s.license      = { :type => "MIT" }
   s.author       = { "author" => "Kesha Antonov <innokenty.longway@gmail.com>" }
@@ -16,5 +17,4 @@ Pod::Spec.new do |s|
 
 
   s.dependency "React"
-  #s.dependency "others"
 end
