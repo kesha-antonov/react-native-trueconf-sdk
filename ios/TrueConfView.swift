@@ -44,7 +44,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
   func initViews() {
     self.xview = UIView()
     self.addSubview(self.xview!)
-    self.xview!.backgroundColor = .brown
+//    self.xview!.backgroundColor = .white
 
     self.xview!.translatesAutoresizingMaskIntoConstraints = false
     self.xview!.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
@@ -54,7 +54,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     self.xsview = UIView()
     self.xview!.addSubview(self.xsview!)
-    self.xsview!.backgroundColor = .blue
+//    self.xsview!.backgroundColor = UIColor.white
 
     self.xsview!.translatesAutoresizingMaskIntoConstraints = false
     self.xsview!.rightAnchor.constraint(equalTo: self.xview!.safeRightAnchor).isActive = true
@@ -84,8 +84,8 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
       guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else { return }
       self.tcsdk = TCSDK(viewController: rootViewController, forServer: self.server, confCustomControlsImages: nil)
 
-      self.tcsdk!.confControlsDelegate = self // self
-      self.tcsdk!.windowsDelegate = self // self
+      self.tcsdk!.confControlsDelegate = nil // self
+      self.tcsdk!.windowsDelegate = nil // self
       self.tcsdk!.xview = self.xview!
       self.tcsdk!.xsview = self.xsview!
 
