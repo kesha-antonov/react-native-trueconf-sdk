@@ -13,10 +13,6 @@ import nextFrame from './nextFrame'
 class TrueConfWrapper extends Component {
   ref = createRef()
 
-  componentDidMount() {
-    setTimeout(this.initSdk)
-  }
-
   initSdk = () => {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
