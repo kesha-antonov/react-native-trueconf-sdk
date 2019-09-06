@@ -166,10 +166,12 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     } as? (Bool, String?) -> Void)
 
     self.tcsdk!.onLogout({
+        print("onLogout")
         self.onLogout?([:])
     })
 
     self.tcsdk!.onAccept({ (userId: String, userName: String) in
+        print("onAccept")
         self.onAccept?([
             "userId": userId,
             "userName": userName
@@ -177,6 +179,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     } as? (String?, String?) -> Void)
 
     self.tcsdk!.onReject({ (userId: String, userName: String) in
+        print("onReject")
         self.onAccept?([
             "userId": userId,
             "userName": userName
@@ -184,13 +187,15 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     } as? (String?, String?) -> Void)
 
     self.tcsdk!.onRejectTimeOut({ (userId: String, userName: String) in
+        print("onRejectTimeOut")
         self.onAccept?([
             "userId": userId,
             "userName": userName
         ])
     } as? (String?, String?) -> Void)
 
-    self.tcsdk!.onInvite({ (userId, userName) in
+    self.tcsdk!.onInvite({ (userId: String, userName: String) in
+        print("onInvite")
         self.onInvite?([
             "userId": userId,
             "userName": userName
@@ -198,17 +203,21 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     } as? (String?, String?) -> Void)
 
     self.tcsdk!.onConferenceStart({
+        print("onConferenceStart")
         self.onConferenceStart?([:])
     })
     self.tcsdk!.onConferenceEnd({
+        print("onConferenceEnd")
         self.onConferenceEnd?([:])
     })
-    self.tcsdk!.onUserStatusUpdate({ (user: String, status: TCSDKUserPresStatus) in
+
+    self.tcsdk!.onUserStatusUpdate({ (user: String, status: Int) in
+        print("onUserStatusUpdate")
         self.onUserStatusUpdate?([
             "user": user,
             "status": status
         ])
-    } as! (String?, TCSDKUserPresStatus) -> Void)
+    } as? (String?, TCSDKUserPresStatus) -> Void)
   }
 
   @objc
