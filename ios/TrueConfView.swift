@@ -5,7 +5,19 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
   @objc var onServerStatus: RCTDirectEventBlock?
   @objc var onStateChanged: RCTDirectEventBlock?
+
   @objc var onLogin: RCTDirectEventBlock?
+  @objc var onLogout: RCTDirectEventBlock?
+
+  @objc var onAccept: RCTDirectEventBlock?
+  @objc var onInvite: RCTDirectEventBlock?
+  @objc var onReject: RCTDirectEventBlock?
+  @objc var onRejectTimeout: RCTDirectEventBlock?
+
+  @objc var onConferenceStart: RCTDirectEventBlock?
+  @objc var onConferenceEnd: RCTDirectEventBlock?
+
+  @objc var onUserStatusUpdate: RCTDirectEventBlock?
 
   @objc var server: String = "ru10.trueconf.net"
   @objc var muted: Bool {
@@ -121,9 +133,9 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
    }
 
   @objc
-  func onLogin(isLoggedIn: Bool, userID: String) {
+  func onLogin(isLoggedIn: Bool, userId: String) {
     onLogin?([
-      "userID": userID,
+      "userId": userId,
       "isLoggedIn": isLoggedIn
     ])
   }
@@ -147,13 +159,56 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
       self.notifyOnStateChanged(isConnectedToServer: isConnectedToServer, isLoggedIn: isLoggedIn)
     } )
 
-    self.tcsdk!.onLogin({ (loggedIn: Bool, userID: String) in
+    self.tcsdk!.onLogin({ (loggedIn: Bool, userId: String) in
       print("onLogin isLoggedIn: " + String(loggedIn))
-      print("onLogin userID: " + String(userID))
-      self.onLogin(isLoggedIn: loggedIn, userID: userID)
+      print("onLogin userId: " + String(userId))
+      self.onLogin(isLoggedIn: loggedIn, userId: userId)
     } as? (Bool, String?) -> Void)
 
-    self.tcsdk!.onLogin()
+    self.tcsdk!.onLogout({
+        self.onLogout?([:])
+    })
+
+    self.tcsdk!.onAccept({ (userId: String, userName: String) in
+        self.onAccept?([
+            "userId": userId,
+            "userName": userName
+        ])
+    } as? (String?, String?) -> Void)
+
+    self.tcsdk!.onReject({ (userId: String, userName: String) in
+        self.onAccept?([
+            "userId": userId,
+            "userName": userName
+        ])
+    } as? (String?, String?) -> Void)
+
+    self.tcsdk!.onRejectTimeOut({ (userId: String, userName: String) in
+        self.onAccept?([
+            "userId": userId,
+            "userName": userName
+        ])
+    } as? (String?, String?) -> Void)
+
+    self.tcsdk!.onInvite({ (userId, userName) in
+        self.onInvite?([
+            "userId": userId,
+            "userName": userName
+        ])
+    } as? (String?, String?) -> Void)
+
+    self.tcsdk!.onConferenceStart({
+        self.onConferenceStart?([:])
+    })
+    self.tcsdk!.onConferenceEnd({
+        self.onConferenceEnd?([:])
+    })
+    self.tcsdk!.onUserStatusUpdate({ (user: String, status: TCSDKUserPresStatus) in
+        self.onUserStatusUpdate?([
+            "user": user,
+            "status": status
+        ])
+    } as! (String?, TCSDKUserPresStatus) -> Void)
   }
 
   @objc

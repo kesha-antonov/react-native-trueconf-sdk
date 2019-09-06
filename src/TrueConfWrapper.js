@@ -33,6 +33,7 @@ class TrueConfWrapper extends Component {
 
   hangup = async () => {
     await nextFrame()
+    
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.hangup,
@@ -42,6 +43,7 @@ class TrueConfWrapper extends Component {
 
   login = async ({ userId, password, encryptPassword, enableAutoLogin }) => {
     await nextFrame()
+    
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.login,
