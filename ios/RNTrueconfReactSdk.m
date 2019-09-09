@@ -22,6 +22,9 @@ RCT_EXTERN_METHOD(
   initSdk:(nonnull NSNumber *)node
 )
 RCT_EXTERN_METHOD(
+  stopSdk:(nonnull NSNumber *)node
+)
+RCT_EXTERN_METHOD(
   makeCall:(nonnull NSNumber *)node
   to:(nonnull NSString *)to
 )
@@ -29,11 +32,22 @@ RCT_EXTERN_METHOD(
   hangup:(nonnull NSNumber *)node
 )
 RCT_EXTERN_METHOD(
+  acceptCall:(nonnull NSNumber *)node
+  accept:(nonnull BOOL *)confId
+)
+RCT_EXTERN_METHOD(
+  joinConf:(nonnull NSNumber *)node
+  confId:(nonnull NSString *)confId
+)
+RCT_EXTERN_METHOD(
   login:(nonnull NSNumber *)node
   userId:(nonnull NSString *)userId
   password:(nonnull NSString *)password
   encryptPassword:(nonnull BOOL *)encryptPassword
   enableAutoLogin:(nonnull BOOL *)enableAutoLogin
+)
+RCT_EXTERN_METHOD(
+  logout:(nonnull NSNumber *)node
 )
 
 

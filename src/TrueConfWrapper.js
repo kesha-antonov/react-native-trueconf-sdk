@@ -13,10 +13,20 @@ import nextFrame from './nextFrame'
 class TrueConfWrapper extends Component {
   ref = createRef()
 
-  initSdk = () => {
+  initSdk = async () => {
+    await nextFrame()
+
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.initSdk,
+      []
+    )
+  }
+
+  stopSdk = () => {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.ref.current),
+      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.stopSdk,
       []
     )
   }
@@ -33,6 +43,7 @@ class TrueConfWrapper extends Component {
 
   hangup = async () => {
     await nextFrame()
+
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.hangup,
@@ -40,12 +51,41 @@ class TrueConfWrapper extends Component {
     )
   }
 
+  acceptCall = async (accept) => {
+    await nextFrame()
+
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.ref.current),
+      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.acceptCall,
+      [accept]
+    )
+  }
+
+  joinConf = async (confId) => {
+    await nextFrame()
+
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.ref.current),
+      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.joinConf,
+      [confId]
+    )
+  }
+
   login = async ({ userId, password, encryptPassword, enableAutoLogin }) => {
     await nextFrame()
+
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.login,
       [userId, password, encryptPassword, enableAutoLogin]
+    )
+  }
+
+  logout = () => {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.ref.current),
+      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.logout,
+      []
     )
   }
 
