@@ -8,14 +8,11 @@ import {
 import PropTypes from 'prop-types'
 const TRUE_CONF_VIEW_NATIVE_NAME = 'RNTrueconfReactSdk'
 const RNTrueconfReactSdk = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME, TrueConfWrapper)
-import nextFrame from './nextFrame'
 
 class TrueConfWrapper extends Component {
   ref = createRef()
 
   initSdk = async () => {
-    await nextFrame()
-
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.initSdk,
@@ -32,8 +29,6 @@ class TrueConfWrapper extends Component {
   }
 
   makeCall = async (to) => {
-    await nextFrame()
-
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.makeCall,
@@ -42,8 +37,6 @@ class TrueConfWrapper extends Component {
   }
 
   hangup = async () => {
-    await nextFrame()
-
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.hangup,
@@ -52,8 +45,6 @@ class TrueConfWrapper extends Component {
   }
 
   acceptCall = async (accept) => {
-    await nextFrame()
-
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.acceptCall,
@@ -62,8 +53,6 @@ class TrueConfWrapper extends Component {
   }
 
   joinConf = async (confId) => {
-    await nextFrame()
-
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.joinConf,
@@ -72,8 +61,6 @@ class TrueConfWrapper extends Component {
   }
 
   login = async ({ userId, password, encryptPassword, enableAutoLogin }) => {
-    await nextFrame()
-
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.login,
