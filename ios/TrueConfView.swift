@@ -171,7 +171,11 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
             self.onStateChanged?([
                 "isConnectedToServer": isConnectedToServer,
-                "isLoggedIn": isLoggedIn
+                "isLoggedIn": isLoggedIn,
+                "isStarted": self.tcsdk!.isStarted(),
+                "isInConference": self.tcsdk!.isInConference(),
+                "isCameraMuted": self.tcsdk!.cameraMuted(),
+                "isMicrophoneMuted": self.tcsdk!.microphoneMuted()
             ])
         } )
 
