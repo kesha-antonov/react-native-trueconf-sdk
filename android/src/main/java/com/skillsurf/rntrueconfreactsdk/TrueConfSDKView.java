@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import com.facebook.react.ReactActivity;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.skillsurf.rntrueconfreactsdk.MainActivity;
-import com.skillsurf.rntrueconfreactsdk.R;
+import com.skillsurf.rntrueconfreactsdk.TrueConfSDKReactActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +40,8 @@ public class TrueConfSDKView extends LinearLayout {
     LinearLayout root = (LinearLayout) LayoutInflater.from(themedReactContext)
                 .inflate(R.layout.layout_container, this);
 
-      FragmentManager fm = MainActivity.getInstance().getfm();
+      // FragmentManager fm = MainActivity.getInstance().getfm();
+      FragmentManager fm = TrueConfSDKReactActivity.getInstance().getfm();
 
 //      fragment = MyFragment.newInstance();
     PlaceholderFragment fragment = new PlaceholderFragment();

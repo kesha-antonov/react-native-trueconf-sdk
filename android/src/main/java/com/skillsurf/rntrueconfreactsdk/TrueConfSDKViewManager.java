@@ -1,31 +1,12 @@
 package com.skillsurf.rntrueconfreactsdk;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentActivity;
-
-//import android.support.v4.app.Fragment;
-//import androidx.legacy.app.Fragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
+import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.SimpleViewManager;
-import com.google.android.gms.maps.MapFragment;
-import com.skillsurf.rntrueconfreactsdk.MainActivity;
-import com.skillsurf.rntrueconfreactsdk.MainApplication;
-import com.skillsurf.rntrueconfreactsdk.R;
 import com.skillsurf.rntrueconfreactsdk.TrueConfSDKViewManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import javax.annotation.Nullable;

@@ -19,8 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
-import com.skillsurf.rntrueconfreactsdk.R;
-//import android.R;
 import com.vc.TrueConfSDK;
 import com.vc.data.enums.tUserPresStatus;
 import com.vc.interfaces.TrueConfListener;

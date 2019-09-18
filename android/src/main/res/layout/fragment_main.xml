@@ -1,0 +1,140 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context="com.trueconfsdk.MainActivity$PlaceholderFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_login_pass"
+            android:layout_below="@+id/tv_login_pass"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:visibility="gone">
+        </EditText>
+
+        <EditText
+            android:id="@+id/et_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_login"
+            android:layout_alignRight="@+id/et_login"
+            android:layout_below="@+id/et_login"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_pass"
+            android:layout_below="@+id/et_pass"
+            android:text="@string/login"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_login"
+            android:layout_below="@+id/et_pass"
+            android:text="@string/logout"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_call_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btn_login"
+            android:layout_below="@+id/btn_logout"
+            android:layout_marginTop="25dp"
+            android:text="@string/call_to"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/tv_connection_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="18dp"/>
+
+        <EditText
+            android:id="@+id/et_call_to_peer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_call_to"
+            android:layout_below="@+id/tv_call_to"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_login_pass"
+            android:layout_alignParentTop="true"
+            android:text="@string/connect_to_server"/>
+
+        <FrameLayout
+            android:id="@+id/server_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1">
+            <EditText
+                android:id="@+id/et_server_adress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/server_id" />
+
+            <Spinner
+                android:id="@+id/sp_server_adress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"/>
+        </FrameLayout>
+
+
+        <Button
+            android:id="@+id/btn_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/server_id"
+            android:text="@string/connect"/>
+
+        <Button
+            android:id="@+id/btn_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_call_to_peer"
+            android:layout_below="@+id/et_call_to_peer"
+            android:layout_marginTop="17dp"
+            android:text="@string/action_call"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_login_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btn_connect"
+            android:layout_below="@+id/btn_connect"
+            android:layout_marginTop="19dp"
+            android:text="@string/login_pass"
+            android:visibility="gone"/>
+
+
+    </RelativeLayout>
+</ScrollView>

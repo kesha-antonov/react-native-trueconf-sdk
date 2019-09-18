@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.skillsurf.rntrueconfreactsdk.R;
-
 public class MyFragment extends Fragment {
     public static MyFragment newInstance() {
         MyFragment myFragment = new MyFragment();

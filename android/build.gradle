@@ -1,6 +1,8 @@
 
 buildscript {
     repositories {
+        mavenLocal()
+        google()
         jcenter()
     }
 
@@ -36,4 +38,5 @@ repositories {
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
+    implementation files('../../react-native-trueconf-sdk/android/TrueConfSDK.aar')    
 }
