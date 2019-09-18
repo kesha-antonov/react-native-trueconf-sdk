@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.pmt.mobiapp.R;
+import com.skillsurf.rntrueconfreactsdk.R;
 
 public class MyFragment extends Fragment {
     public static MyFragment newInstance() {

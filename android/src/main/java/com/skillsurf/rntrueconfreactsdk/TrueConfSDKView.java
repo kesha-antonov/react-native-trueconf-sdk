@@ -5,8 +5,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.pmt.mobiapp.MainActivity;
-import com.pmt.mobiapp.R;
+import com.skillsurf.rntrueconfreactsdk.MainActivity;
+import com.skillsurf.rntrueconfreactsdk.R;
 
 import android.view.LayoutInflater;
 import android.view.View;
