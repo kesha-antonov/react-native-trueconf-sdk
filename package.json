@@ -1,6 +1,6 @@
 {
   "name": "react-native-trueconf-react-sdk",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Wrapper for TrueConf React SDK",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "react-native-swift": "^1.2.2"
   },
   "peerDependencies": {
-    "react-native": "^0.59.10"
+    "react-native": "^0.61.1"
   },
   "isSwift": true
 }
