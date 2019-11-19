@@ -30,6 +30,7 @@ RCT_EXTERN_METHOD(
 )
 RCT_EXTERN_METHOD(
   hangup:(nonnull NSNumber *)node
+  forAll:(nonnull BOOL *)forAll
 )
 RCT_EXTERN_METHOD(
   acceptCall:(nonnull NSNumber *)node

@@ -36,11 +36,11 @@ class TrueConfWrapper extends Component {
     )
   }
 
-  hangup = async () => {
+  hangup = async (forAll = true) => {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.ref.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.hangup,
-      []
+      [forAll]
     )
   }
 

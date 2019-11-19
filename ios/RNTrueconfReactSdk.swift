@@ -43,10 +43,10 @@ class RNTrueconfReactSdk: RCTViewManager {
     }
 
     @objc
-    func hangup(_ node: NSNumber) {
+    func hangup(_ node: NSNumber, forAll: Bool) {
         DispatchQueue.main.async {
             let component = self.getComponent(node: node)
-            component.hangup()
+            component.hangup(forAll: forAll)
         }
     }
 
