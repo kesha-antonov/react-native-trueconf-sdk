@@ -126,7 +126,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     @objc
     func hangup(forAll: Bool) {
-        self.tcsdk!.hangup(forAll)
+        self.tcsdk?.hangup(forAll)
     }
 
     @objc
