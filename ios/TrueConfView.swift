@@ -109,13 +109,13 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     @objc
     func logout() {
-        self.tcsdk!.logout()
+        self.tcsdk?.logout()
     }
 
     @objc
     func stopSdk() {
         self.logout()
-        self.tcsdk!.stop()
+        self.tcsdk?.stop()
         self.tcsdk = nil
     }
 
