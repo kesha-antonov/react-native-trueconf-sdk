@@ -65,7 +65,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         self.xview!.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
 
         self.xsview = UIView()
-        self.xview!.addSubview(self.xsview!)
+        self.addSubview(self.xsview!)
         //    self.xsview!.backgroundColor = UIColor.white
 
         self.xsview!.translatesAutoresizingMaskIntoConstraints = false
