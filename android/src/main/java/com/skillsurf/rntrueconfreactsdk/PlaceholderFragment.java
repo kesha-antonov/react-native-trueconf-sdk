@@ -283,7 +283,7 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
     }
 
     @Override
-    public void onServerStateChanged() {
+    public void onStateChanged() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
