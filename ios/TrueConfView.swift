@@ -53,6 +53,13 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         super.init(coder: aDecoder)
     }
 
+    @objc func draggedView(_ sender:UIPanGestureRecognizer){
+        self.xview!.bringSubview(toFront: self.xsview!)
+        let translation = sender.translation(in: self.xview)
+        self.xsview!.center = CGPoint(x: self.xsview!.center.x + translation.x, y: self.xsview!.center.y + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.xview!)
+    }
+
     func initViews() {
         self.xview = UIView()
         self.addSubview(self.xview!)
@@ -65,15 +72,22 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         self.xview!.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
 
         self.xsview = UIView()
-        self.xview!.addSubview(self.xsview!)
-        //    self.xsview!.backgroundColor = UIColor.white
+        self.addSubview(self.xsview!)
+        self.xsview!.backgroundColor = UIColor.white
 
         self.xsview!.translatesAutoresizingMaskIntoConstraints = false
-        self.xsview!.rightAnchor.constraint(equalTo: self.xview!.safeRightAnchor).isActive = true
-        self.xsview!.bottomAnchor.constraint(equalTo: self.xview!.safeBottomAnchor).isActive = true
-        let xsview_width = UIScreen.main.bounds.width / 3
+        // MARGIN RIGHT 16
+        self.xsview!.rightAnchor.constraint(equalTo: self.xview!.safeRightAnchor, constant: -16.0).isActive = true
+        // MARGIN TOP 100
+        self.xsview!.topAnchor.constraint(equalTo: self.xview!.safeTopAnchor, constant: 100.0).isActive = true
+        // WIDTH & HEIGHT
+        let xsview_width = UIScreen.main.bounds.width / 3.5
         self.xsview!.widthAnchor.constraint(equalToConstant: xsview_width).isActive = true
-        self.xsview!.heightAnchor.constraint(equalToConstant: xsview_width * 2).isActive = true
+        self.xsview!.heightAnchor.constraint(equalToConstant: xsview_width).isActive = true
+        // ADD PAN GESTURE
+        let xsviewPanGesture = UIPanGestureRecognizer(target: self, action: #selector(TrueConfView.draggedView(_:)))
+        self.xsview!.isUserInteractionEnabled = true
+        self.xsview!.addGestureRecognizer(xsviewPanGesture)
 
         let activityIndicatorView = UIView()
         self.xview!.addSubview(activityIndicatorView)
