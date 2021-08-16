@@ -54,7 +54,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     }
 
     @objc func draggedView(_ sender:UIPanGestureRecognizer){
-        self.xview!.bringSubview(toFront: self.xsview!)
+        self.xview!.bringSubviewToFront(self.xsview!)
         let translation = sender.translation(in: self.xview)
         self.xsview!.center = CGPoint(x: self.xsview!.center.x + translation.x, y: self.xsview!.center.y + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.xview!)
