@@ -36,7 +36,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         set(newValue) {
             print("cameraOn:", newValue)
 
-            self.tcsdk?.muteCamera(!newValue)
+            self.tcsdk?.muteCamera(newValue)
         }
         get {
             if (self.tcsdk == nil) { return true }
