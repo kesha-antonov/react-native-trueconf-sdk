@@ -20,28 +20,30 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     @objc var onUserStatusUpdate: RCTDirectEventBlock?
 
     @objc var server: String = "ru10.trueconf.net"
-    @objc var muted: Bool {
-        set(newValue) {
-            print("muted:", newValue)
 
+    @objc private var _isMuted : Bool
+    @objc private var _isCameraOn : Bool
+
+    @objc var isMuted: Bool {
+        set(newValue) {
+            print("react-native-trueconf-react-sdk TrueConfView isMuted:", newValue)
+
+            self._isMuted = newValue
             self.tcsdk?.muteMicrophone(newValue)
         }
         get {
-            if (self.tcsdk == nil) { return false }
-
-            return self.tcsdk!.microphoneMuted()
+            return self._isMuted
         }
     }
-    @objc var cameraOn: Bool {
+    @objc var isCameraOn: Bool {
         set(newValue) {
-            print("cameraOn:", newValue)
+            print("react-native-trueconf-react-sdk TrueConfView isCameraOn:", newValue)
 
-            self.tcsdk?.muteCamera(newValue)
+            self._isCameraOn = newValue
+            self.tcsdk?.muteCamera(!self._isCameraOn)
         }
         get {
-            if (self.tcsdk == nil) { return true }
-
-            return !self.tcsdk!.cameraMuted()
+            return self._isCameraOn
         }
     }
 
@@ -51,6 +53,22 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+
+    @objc func getIsCameraOn () {
+        if (self.tcsdk == nil) {
+            return nil
+        }
+
+        return !self.tcsdk!.cameraMuted()
+    }
+
+    @objc func getIsMicrophoneMuted () {
+        if (self.tcsdk == nil) {
+            return nil
+        }
+
+        return self.tcsdk!.microphoneMuted()
     }
 
     @objc func draggedView(_ sender:UIPanGestureRecognizer){
@@ -118,6 +136,10 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
             self.initEvents()
 
+            // CALLS MIC/CAMERA ON/OFF AFTER SDK INIT
+            self.isMuted = self._isMuted
+            self.isCameraOn = self._isCameraOn
+
             self.tcsdk!.start()
         }
     }
@@ -146,10 +168,10 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     @objc
     func login(userId: NSString, password: NSString, encryptPassword: Bool, enableAutoLogin: Bool) {
-        print("login userId: " + String(userId))
-        print("login password: " + String(password))
-        print("login encryptPassword: " + String(encryptPassword))
-        print("login enableAutoLogin: " + String(enableAutoLogin))
+        print("react-native-trueconf-react-sdk TrueConfView login userId: " + String(userId))
+        print("react-native-trueconf-react-sdk TrueConfView login password: " + String(password))
+        print("react-native-trueconf-react-sdk TrueConfView login encryptPassword: " + String(encryptPassword))
+        print("react-native-trueconf-react-sdk TrueConfView login enableAutoLogin: " + String(enableAutoLogin))
         self.tcsdk!.login(as: String(userId), password: String(password), encryptPassword: encryptPassword, enableAutoLogin: enableAutoLogin)
     }
 
@@ -165,9 +187,9 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     func initEvents() {
         self.tcsdk!.onServerStatus( { (connected: Bool, serverName: String, serverPort: Int) -> () in
-            print("connected: " + String(connected))
-            print("serverName: " + serverName)
-            print("serverPort: " + String(serverPort))
+            print("react-native-trueconf-react-sdk TrueConfView connected: " + String(connected))
+            print("react-native-trueconf-react-sdk TrueConfView serverName: " + serverName)
+            print("react-native-trueconf-react-sdk TrueConfView serverPort: " + String(serverPort))
 
             self.onServerStatus?([
                 "connected": connected,
@@ -177,26 +199,26 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             } as? (Bool, String?, Int) -> Void  )
 
         self.tcsdk!.onStateChanged( { () -> () in
-            print("onStateChanged")
+            print("react-native-trueconf-react-sdk TrueConfView onStateChanged")
             let isConnectedToServer = self.tcsdk!.isConnectedToServer()
-            print("onStateChanged isConnectedToServer: " + String(isConnectedToServer))
+            print("react-native-trueconf-react-sdk TrueConfView onStateChanged isConnectedToServer: " + String(isConnectedToServer))
 
             let isLoggedIn = self.tcsdk!.isLoggedIn()
-            print("onStateChanged isLoggedIn: \(isLoggedIn)")
+            print("react-native-trueconf-react-sdk TrueConfView onStateChanged isLoggedIn: \(isLoggedIn)")
 
             self.onStateChanged?([
                 "isConnectedToServer": isConnectedToServer,
                 "isLoggedIn": isLoggedIn,
                 "isStarted": self.tcsdk!.isStarted(),
                 "isInConference": self.tcsdk!.isInConference(),
-                "isCameraMuted": self.tcsdk!.cameraMuted(),
-                "isMicrophoneMuted": self.tcsdk!.microphoneMuted()
+                "isCameraOn": self.getIsCameraOn(),
+                "isMicrophoneMuted": self.getIsMicrophoneMuted()
             ])
         } )
 
         self.tcsdk!.onLogin({ (loggedIn: Bool, userId: String) in
-            print("onLogin isLoggedIn: " + String(loggedIn))
-            print("onLogin userId: " + String(userId))
+            print("react-native-trueconf-react-sdk TrueConfView onLogin isLoggedIn: " + String(loggedIn))
+            print("react-native-trueconf-react-sdk TrueConfView onLogin userId: " + String(userId))
             self.onLogin?([
                 "userId": userId,
                 "isLoggedIn": loggedIn
@@ -204,12 +226,12 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             } as? (Bool, String?) -> Void)
 
         self.tcsdk!.onLogout({
-            print("onLogout")
+            print("react-native-trueconf-react-sdk TrueConfView onLogout")
             self.onLogout?([:])
         })
 
         self.tcsdk!.onAccept({ (userId: String, userName: String) in
-            print("onAccept")
+            print("react-native-trueconf-react-sdk TrueConfView onAccept")
             self.onAccept?([
                 "userId": userId,
                 "userName": userName
@@ -217,7 +239,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             } as? (String?, String?) -> Void)
 
         self.tcsdk!.onReject({ (userId: String, userName: String) in
-            print("onReject")
+            print("react-native-trueconf-react-sdk TrueConfView onReject")
             self.onAccept?([
                 "userId": userId,
                 "userName": userName
@@ -225,7 +247,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             } as? (String?, String?) -> Void)
 
         self.tcsdk!.onRejectTimeOut({ (userId: String, userName: String) in
-            print("onRejectTimeOut")
+            print("react-native-trueconf-react-sdk TrueConfView onRejectTimeOut")
             self.onAccept?([
                 "userId": userId,
                 "userName": userName
@@ -233,7 +255,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             } as? (String?, String?) -> Void)
 
         self.tcsdk!.onInvite({ (userId: String, userName: String) in
-            print("onInvite")
+            print("react-native-trueconf-react-sdk TrueConfView onInvite")
             self.onInvite?([
                 "userId": userId,
                 "userName": userName
@@ -241,16 +263,16 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             } as? (String?, String?) -> Void)
 
         self.tcsdk!.onConferenceStart({
-            print("onConferenceStart")
+            print("react-native-trueconf-react-sdk TrueConfView onConferenceStart")
             self.onConferenceStart?([:])
         })
         self.tcsdk!.onConferenceEnd({
-            print("onConferenceEnd")
+            print("react-native-trueconf-react-sdk TrueConfView onConferenceEnd")
             self.onConferenceEnd?([:])
         })
 
         self.tcsdk!.onUserStatusUpdate({ (user: String, status: Int) in
-            print("onUserStatusUpdate")
+            print("react-native-trueconf-react-sdk TrueConfView onUserStatusUpdate")
             self.onUserStatusUpdate?([
                 "user": user,
                 "status": status
