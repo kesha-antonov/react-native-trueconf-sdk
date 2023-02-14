@@ -1,95 +1,106 @@
-import React, { createRef, Component } from 'react'
+import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import {
-  View,
   requireNativeComponent,
   UIManager,
   findNodeHandle
 } from 'react-native'
 import PropTypes from 'prop-types'
+
 const TRUE_CONF_VIEW_NATIVE_NAME = 'RNTrueconfReactSdk'
-const RNTrueconfReactSdk = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME, TrueConfWrapper)
+const RNTrueconfReactSdk = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME)
 
-class TrueConfWrapper extends Component {
-  ref = createRef()
+function TrueConfWrapper (props, ref) {
+  const innerRef = useRef()
 
-  initSdk = async () => {
+  const initSdk = useCallback(async () => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.initSdk,
       []
     )
-  }
+  }, [])
 
-  stopSdk = () => {
+  const stopSdk = useCallback(() => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.stopSdk,
       []
     )
-  }
+  }, [])
 
-  makeCall = async (to) => {
+  const makeCall = useCallback(async to => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.makeCall,
       [to]
     )
-  }
+  }, [])
 
-  hangup = async (forAll = true) => {
+  const hangup = useCallback(async (forAll = true) => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.hangup,
       [forAll]
     )
-  }
+  }, [])
 
-  acceptCall = async (accept) => {
+  const acceptCall = useCallback(async accept => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.acceptCall,
       [accept]
     )
-  }
+  }, [])
 
-  joinConf = async (confId) => {
+  const joinConf = useCallback(async confId => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.joinConf,
       [confId]
     )
-  }
+  }, [])
 
-  login = async ({ userId, password, encryptPassword, enableAutoLogin }) => {
+  const login = useCallback(async ({ userId, password, encryptPassword, enableAutoLogin }) => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.login,
       [userId, password, encryptPassword, enableAutoLogin]
     )
-  }
+  }, [])
 
-  logout = () => {
+  const logout = useCallback(() => {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
+      findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.logout,
       []
     )
-  }
+  }, [])
 
-  render () {
-    return (
-      <RNTrueconfReactSdk
-        {...this.props}
-        ref={this.ref}
-      />
-    )
-  }
+  useImperativeHandle(ref, () => ({
+    initSdk,
+    stopSdk,
+    makeCall,
+    hangup,
+    acceptCall,
+    joinConf,
+    login,
+    logout,
+  }))
+
+  return (
+    <RNTrueconfReactSdk
+      {...props}
+      ref={innerRef}
+    />
+  )
 }
+
+TrueConfWrapper = forwardRef(TrueConfWrapper)
 
 TrueConfWrapper.propTypes = {
   server: PropTypes.string,
-  muted: PropTypes.bool,
-  cameraOn: PropTypes.bool,
+  isMuted: PropTypes.bool,
+  isCameraOn: PropTypes.bool,
 
   onServerStatus: PropTypes.func,
   onStateChanged: PropTypes.func,
@@ -103,9 +114,10 @@ TrueConfWrapper.propTypes = {
   onConferenceEnd: PropTypes.func,
   onUserStatusUpdate: PropTypes.func,
 }
+
 TrueConfWrapper.defaultProps = {
-  muted: false,
-  cameraOn: true
+  isMuted: false,
+  isCameraOn: true
 }
 
 export default TrueConfWrapper
