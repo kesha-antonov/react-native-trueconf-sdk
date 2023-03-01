@@ -1,4 +1,4 @@
-package com.skillsurf.rntrueconfreactsdk;
+package com.kesha_antonov.rn_trueconf_react_sdk;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

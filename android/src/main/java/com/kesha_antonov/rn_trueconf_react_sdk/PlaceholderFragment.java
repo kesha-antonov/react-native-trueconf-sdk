@@ -1,4 +1,4 @@
-package com.skillsurf.rntrueconfreactsdk;
+package com.trueconfsdk;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,8 +20,10 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
 import com.vc.TrueConfSDK;
-import com.vc.data.enums.tUserPresStatus;
+import com.vc.data.SelfViewInfo;
+import com.vc.data.VideoViewInfo;
 import com.vc.interfaces.TrueConfListener;
+
 
 import java.util.Objects;
 
@@ -41,7 +43,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
     private InputMethodManager imm;
     private String[] data;
 
-
     public PlaceholderFragment() {
     }
 
@@ -54,15 +55,12 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
             hideSoftInput();
 
             if (TextUtils.isEmpty(mETLogin.getText()) & TextUtils.isEmpty(mETPass.getText())) {
-
                 showToast(R.string.msg_empty_login_or_pass);
-
             } else {
                 String login = mETLogin.getText().toString().trim();
                 String pass = mETPass.getText().toString().trim();
-                TrueConfSDK.getInstance().loginAs(login, pass, true, true);
+                Boolean b = TrueConfSDK.getInstance().loginAs(login, pass, true, true);
             }
-
         }
     };
 
@@ -70,11 +68,9 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("RCTTrueConfSDKView", "PlaceholderFragment-1");
-        imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         data = getResources().getStringArray(R.array.ip_set);
-        Log.d("RCTTrueConfSDKView", "PlaceholderFragment-2");
         return rootView;
     }
 
@@ -94,7 +90,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
 
 
     public void onPause() {
-        TrueConfSDK.getInstance().removeTrueconfListener(this);
         super.onPause();
     }
 
@@ -102,7 +97,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
     private void afterServerEnter() {
 
         hideSoftInput();
-
         String server;
 
         if (data == null || data.length == 0) {
@@ -137,7 +131,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
                 return false;
             }
 
-
             if (!isValidPort(port)) {
                 showToast(R.string.msg_invalid_server_port_value);
                 return false;
@@ -160,9 +153,7 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
             showToast(R.string.msg_invalid_server_value);
             return;
         }
-
         TrueConfSDK.getInstance().start(getContext(), server, true);
-
     }
 
 
@@ -177,8 +168,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
 
 
     private void setUpUI(View v) {
-
-
 
         mETLogin = v.findViewById(R.id.et_login);
         mETPass = v.findViewById(R.id.et_pass);
@@ -219,29 +208,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
         mTvLoginPass = v.findViewById(R.id.tv_login_pass);
     }
 
-
-    private void updateConnectionStatus() {
-
-        boolean isConnectedToServer = TrueConfSDK.getInstance().isConnectedToServer();
-        if (isConnectedToServer && !TrueConfSDK.getInstance().isLoggedIn()) {
-            mConnectionStatus.setText(R.string.state_connected);
-            mConnectionStatus.setText(R.string.state_connected);
-            mETLogin.setVisibility(View.VISIBLE);
-            mETPass.setVisibility(View.VISIBLE);
-            mBtnLogin.setVisibility(View.VISIBLE);
-            mBtnLogout.setVisibility(View.GONE);
-            mTvLoginPass.setVisibility(View.VISIBLE);
-        } else if (!isConnectedToServer) {
-            mConnectionStatus.setText(R.string.state_disconnected);
-            mETLogin.setVisibility(View.GONE);
-            mETPass.setVisibility(View.GONE);
-            mBtnLogin.setVisibility(View.GONE);
-            mTvLoginPass.setVisibility(View.GONE);
-        }
-
-    }
-
-
     private void loginOkActions() {
         mBtnCall.setVisibility(View.VISIBLE);
         mETUserId.setVisibility(View.VISIBLE);
@@ -269,7 +235,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
                 }
             });
         }
-
     }
 
     @Override
@@ -283,19 +248,34 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
     }
 
     @Override
-    public void onStateChanged() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updateConnectionStatus();
-            }
-        });
-
-    }
+    public void onStateChanged() { }
 
     @Override
     public void onServerStatus(boolean b, String s, int i) {
-
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (b) {
+                    mConnectionStatus.setText(R.string.state_connected);
+                    mETLogin.setVisibility(View.VISIBLE);
+                    mETPass.setVisibility(View.VISIBLE);
+                    mBtnLogin.setVisibility(View.VISIBLE);
+                    mBtnLogout.setVisibility(View.GONE);
+                    mTvLoginPass.setVisibility(View.VISIBLE);
+                } else {
+                    mConnectionStatus.setText(R.string.state_disconnected);
+                    mETLogin.setVisibility(View.GONE);
+                    mETPass.setVisibility(View.GONE);
+                    mBtnLogin.setVisibility(View.GONE);
+                    mTvLoginPass.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        TrueConfSDK.getInstance().removeTrueconfListener(this);
+    }
 }

@@ -1,4 +1,4 @@
-package com.skillsurf.rntrueconfreactsdk;
+package com.kesha_antonov.rn_trueconf_react_sdk;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
-import com.skillsurf.rntrueconfreactsdk.TrueConfSDKViewManager;
+import com.kesha_antonov.rn_trueconf_react_sdk.TrueConfSDKViewManager;
 
 public class TrueConfSDKViewPackage implements ReactPackage {
     @Override

@@ -1,4 +1,4 @@
-package com.skillsurf.rntrueconfreactsdk;
+package com.kesha_antonov.rn_trueconf_react_sdk;
 
 import android.util.Log;
 
@@ -7,7 +7,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.SimpleViewManager;
-import com.skillsurf.rntrueconfreactsdk.TrueConfSDKViewManager;
+import com.kesha_antonov.rn_trueconf_react_sdk.TrueConfSDKViewManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import javax.annotation.Nullable;
 
@@ -23,8 +23,13 @@ public class TrueConfSDKViewManager extends SimpleViewManager<TrueConfSDKView> {
   public static final String TAG = "RCTTrueConfSDKView";
   public static final int COMMAND_INIT_SDK = 0;
 
+  ReactApplicationContext mCallerContext;
   private ThemedReactContext reactContext;
   private TrueConfSDKView view;
+
+  public TrueConfSDKViewManager(ReactApplicationContext reactContext) {
+    mCallerContext = reactContext;
+  }
 
   @Override
   public String getName() {
@@ -35,9 +40,11 @@ public class TrueConfSDKViewManager extends SimpleViewManager<TrueConfSDKView> {
   public TrueConfSDKView createViewInstance(ThemedReactContext reactContext) {
     this.reactContext = reactContext;
 
-    view = new TrueConfSDKView(reactContext, this);
+    view = new TrueConfSDKView(mCallerContext, this);
     return view;
   }
+
+
 
   @ReactProp(name = "server")
   public void setServer(TrueConfSDKView view, @Nullable String server) {

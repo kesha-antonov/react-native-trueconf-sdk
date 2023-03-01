@@ -1,4 +1,4 @@
-package com.skillsurf.rntrueconfreactsdk;
+package com.kesha_antonov.rn_trueconf_react_sdk;
 
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.skillsurf.rntrueconfreactsdk.TrueConfSDKReactActivity;
+import com.kesha_antonov.rn_trueconf_react_sdk.TrueConfSDKReactActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,9 +47,9 @@ public class TrueConfSDKView extends LinearLayout {
     PlaceholderFragment fragment = new PlaceholderFragment();
 
       fm
-              .beginTransaction()
-              .add(fragment, "interface_tag")
-              .commit();
+        .beginTransaction()
+        .add(fragment, "interface_tag")
+        .commit();
       // Execute the commit immediately or can use commitNow() instead
       fm.executePendingTransactions();
       // This step is needed to in order for ReactNative to render your view
@@ -63,9 +63,9 @@ public class TrueConfSDKView extends LinearLayout {
 
     outgoingCallFragment = new MyFragment();
     fm
-            .beginTransaction()
-            .add(outgoingCallFragment, "outgoing_call_tag")
-            .commit();
+      .beginTransaction()
+      .add(outgoingCallFragment, "outgoing_call_tag")
+      .commit();
     fm.executePendingTransactions();
 
     root.addView(outgoingCallFragment.getView(), 1);
