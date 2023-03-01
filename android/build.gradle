@@ -28,8 +28,8 @@ android {
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
-        versionCode 3
-        versionName "1.02"
+        versionCode 4
+        versionName "1.03"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
