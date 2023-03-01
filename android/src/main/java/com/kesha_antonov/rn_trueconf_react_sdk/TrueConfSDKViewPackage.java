@@ -24,7 +24,7 @@ public class TrueConfSDKViewPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
       return Arrays.<ViewManager>asList(
-          new TrueConfSDKViewManager()
+          new TrueConfSDKViewManager(reactContext)
       );
     }
 }

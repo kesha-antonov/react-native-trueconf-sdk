@@ -1,27 +1,36 @@
-import React, { Component, createRef } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 import { requireNativeComponent, UIManager, findNodeHandle } from 'react-native'
 
-const TRUE_CONF_VIEW_NATIVE_NAME = 'RCTTrueConfSDKView'
-const TrueConfViewNative = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME, TrueConfView)
-console.log('TrueConfViewNative', TrueConfViewNative)
+const TRUE_CONF_VIEW_MANAGER_NATIVE_NAME = 'RCTTrueConfSDKViewManager'
+const TrueConfViewManagerNative = requireNativeComponent(TRUE_CONF_VIEW_MANAGER_NATIVE_NAME)
+console.log('UIManager', UIManager)
+console.log('TrueConfViewManagerNative', TrueConfViewManagerNative)
 
 // TODO: MV TO IOS IMPLEMENTATION
-class TrueConfView extends Component {
-  ref = createRef()
+function TrueConfView (props) {
+  const ref = useRef()
 
-  componentDidMount () {
+  const createFragment = useCallback(() => {
+    const viewId = findNodeHandle(ref.current)
+
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.ref.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.initSdk,
-      []
+      viewId,
+      // UIManager.getViewManagerConfig(TRUE_CONF_VIEW_MANAGER_NATIVE_NAME).Commands.initSdk,
+      UIManager[TRUE_CONF_VIEW_MANAGER_NATIVE_NAME].Commands.create.toString(),
+      [viewId]
     )
-  }
+  }, [])
 
-  render() {
-    return (
-      <TrueConfViewNative ref={this.ref} style={{height: '80%', backgroundColor: 'green'}} />
-    )
-  }
+  useEffect(() => {
+    createFragment()
+  }, [])
+
+  return (
+    <TrueConfViewManagerNative
+      ref={ref}
+      style={{height: '80%', backgroundColor: 'green'}}
+    />
+  )
 }
 
 export default TrueConfView
