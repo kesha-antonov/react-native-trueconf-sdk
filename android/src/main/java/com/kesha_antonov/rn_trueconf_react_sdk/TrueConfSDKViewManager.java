@@ -15,6 +15,7 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.ThemedReactContext;
+import android.view.ViewGroup;
 
 import java.util.Map;
 
@@ -77,7 +78,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
       int reactNativeViewId = args.getInt(0);
       int commandIdInt = Integer.parseInt(commandId);
 
-      switch (commandId) {
+      switch (commandIdInt) {
         case COMMAND_CREATE:
           createFragment(root, reactNativeViewId);
           break;
@@ -91,11 +92,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
   @ReactPropGroup(names = {"width", "height"}, customType = "Style")
   public void setStyle(FrameLayout view, int index, Integer value) {
     if (index == 0) {
-      propWidth = value;
+      propWidth = Integer.parseInt(String.valueOf(value));
     }
 
     if (index == 1) {
-      propHeight = value;
+      propHeight = Integer.parseInt(String.valueOf(value));
     }
   }
 

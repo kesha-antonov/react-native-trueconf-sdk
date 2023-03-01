@@ -28,7 +28,7 @@ function TrueConfView (props) {
   return (
     <TrueConfViewManagerNative
       ref={ref}
-      style={{height: '80%', backgroundColor: 'green'}}
+      {...props}
     />
   )
 }

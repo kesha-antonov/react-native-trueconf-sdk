@@ -1,4 +1,4 @@
-package com.trueconfsdk;
+package com.kesha_antonov.rn_trueconf_react_sdk;
 
 import android.content.Context;
 import android.os.Bundle;
