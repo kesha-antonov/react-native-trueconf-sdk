@@ -41,6 +41,19 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
             self._isCameraOn = newValue
             self.tcsdk?.muteCamera(!self._isCameraOn)
+
+            if (self.tcsdk != nil) {
+                let isCameraMuted = !newValue
+                self.tcsdk!.muteCamera(isCameraMuted)
+
+                print("cameraOn set: " + String(isCameraMuted))
+
+                if (isCameraMuted) {
+                    self.tcsdk!.xsview = nil
+                } else {
+                    self.tcsdk!.xsview = self.xsview!
+                }
+            }
         }
         get {
             return self._isCameraOn
