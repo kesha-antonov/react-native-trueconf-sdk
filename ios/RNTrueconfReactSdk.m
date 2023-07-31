@@ -20,6 +20,8 @@ RCT_EXPORT_VIEW_PROPERTY(onUserStatusUpdate, RCTDirectEventBlock)
 
 RCT_EXTERN_METHOD(
   initSdk:(nonnull NSNumber *)node
+  isMuted:(nonnull BOOL *)isMuted
+  isCameraOn:(nonnull BOOL *)isCameraOn
 )
 RCT_EXTERN_METHOD(
   stopSdk:(nonnull NSNumber *)node

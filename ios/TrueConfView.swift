@@ -121,7 +121,10 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     }
 
     @objc
-    func initSdk() {
+    func initSdk(isMuted: Bool, isCameraOn: Bool) {
+        print("initSdk isMuted-1: " + String(isMuted))
+        print("initSdk isCameraMuted-1: " + String(isCameraOn))
+
         if (self.tcsdk != nil ) { return }
 
         DispatchQueue.main.async {
@@ -141,6 +144,9 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             self.isCameraOn = self._isCameraOn
 
             self.tcsdk!.start()
+
+            self.tcsdk!.muteMicrophone(isMuted)
+            self.tcsdk!.muteCamera(!isCameraOn)
         }
     }
 

@@ -46,5 +46,5 @@ repositories {
 
 dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-    implementation files('../../react-native-trueconf-sdk/android/TrueConfSDK.aar')
+    // implementation files('../../react-native-trueconf-sdk/android/TrueConfSDK.aar')
 }
