@@ -21,8 +21,8 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     @objc var server: String = "ru10.trueconf.net"
 
-    @objc private var _isMuted : Bool
-    @objc private var _isCameraOn : Bool
+    @objc private var _isMuted : Bool = false
+    @objc private var _isCameraOn : Bool = true
 
     @objc var isMuted: Bool {
         set(newValue) {
@@ -68,17 +68,17 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         super.init(coder: aDecoder)
     }
 
-    @objc func getIsCameraOn () {
+    @objc func getIsCameraOn () -> Bool {
         if (self.tcsdk == nil) {
-            return nil
+            return self._isCameraOn
         }
 
         return !self.tcsdk!.cameraMuted()
     }
 
-    @objc func getIsMicrophoneMuted () {
+    @objc func getIsMicrophoneMuted () -> Bool {
         if (self.tcsdk == nil) {
-            return nil
+            return self._isMuted
         }
 
         return self.tcsdk!.microphoneMuted()
