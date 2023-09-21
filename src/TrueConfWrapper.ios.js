@@ -16,7 +16,7 @@ function TrueConfWrapper (props, ref) {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(innerRef.current),
       UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.initSdk,
-      [this.props.muted, this.props.cameraOn]
+      [props.muted, props.cameraOn]
     )
   }, [])
 
