@@ -10,7 +10,7 @@ export default function Join (props) {
     onCam,
   } = props
 
-  const [confId, setConfId] = useState('')
+  const [confId, setConfId] = useState('sdk_test')
   const [confIdError, setConfIdError] = useState()
 
   const handlePressJoin = useCallback(() => {

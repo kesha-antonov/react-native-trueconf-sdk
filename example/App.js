@@ -36,7 +36,6 @@ export default function App () {
 
     const {
       isConnected,
-      server,
     } = e.nativeEvent
 
     setIsConnected(isConnected)
@@ -48,13 +47,13 @@ export default function App () {
 
     setIsLoggedIn(isLoggedIn)
     setCurrentUserId(userId)
-  }, [server])
+  }, [])
 
   const onLogout = useCallback(e => {
     console.log('onLogout', e.nativeEvent)
 
     setIsLoggedIn(false)
-  }, [server])
+  }, [])
 
   const onInvite = useCallback(e => {
     console.log('onInvite', e.nativeEvent)
@@ -120,37 +119,71 @@ export default function App () {
     })
   }, [])
 
+  const handleJoinConf = useCallback(confId => {
+    trueconfRef.current?.joinConf(confId)
+  }, [])
+
+  const handleLogin = useCallback((userId, password) => {
+    console.log('Login onLogin', userId, password)
+    trueconfRef.current?.login({
+      userId,
+      password,
+      encryptPassword: true,
+      enableAutoLogin: true,
+    })
+  }, [])
+
+  const handleLogout = useCallback(() => {
+    trueconfRef.current?.logout()
+  }, [])
+
+  const handleHangup = useCallback(() => {
+    const hangupForAll = true
+    trueconfRef.current?.hangup(hangupForAll)
+  }, [])
+
+  const handleToggleMic = useCallback(() => {
+    setIsMuted(isMuted => !isMuted)
+  }, [])
+
+  const handleToggleCam = useCallback(() => {
+    setIsCameraOn(isCameraOn => !isCameraOn)
+  }, [])
+
   const loginOrConfId = useCallback(() => {
     if (isLoggedIn)
       return (
         <Join
-          onJoin={confId => trueconfRef.current?.joinConf(confId)}
-          onLogout={() => trueconfRef.current?.logout()}
-          onHangup={() => trueconfRef.current?.hangup(true)}
-          onMic={() => setIsMuted(isMuted => !isMuted)}
-          onCam={() => setIsCameraOn(isCameraOn => !isCameraOn)}
+          onJoin={handleJoinConf}
+          onLogout={handleLogout}
+          onHangup={handleHangup}
+          onMic={handleToggleMic}
+          onCam={handleToggleCam}
         />
       )
     else if (isConnected)
       return (
         <Login
-          onLogin={(userId, password) => {
-            console.log('Login onLogin', userId, password, !!trueconfRef.current)
-            trueconfRef.current?.login({
-              userId,
-              password,
-              encryptPassword: true,
-              enableAutoLogin: true,
-            })
-          }}
-          onDisconnect={() => setIsConnected(false)}
+          onLogin={handleLogin}
+          onChangeServer={() => setIsConnected(false)}
         />
       )
     else
       return (
         <Connect server={server} onPressConnect={handlePressConnect} />
       )
-  }, [isLoggedIn, isConnected, server])
+  }, [
+    isLoggedIn,
+    isConnected,
+    server,
+    handleJoinConf,
+    handleLogout,
+    handleHangup,
+    handleToggleMic,
+    handleToggleCam,
+    handlePressConnect,
+    handleLogin,
+  ])
 
   useEffect(() => {
     let status

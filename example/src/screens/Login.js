@@ -4,7 +4,7 @@ import { Text, View, TextInput, Button } from 'react-native'
 export default function Login (props) {
   const {
     onLogin,
-    onDisconnect,
+    onChangeServer,
   } = props
 
   const [login, setLogin] = useState('sdk_test1')
@@ -66,7 +66,7 @@ export default function Login (props) {
       <View style={{ margin: 7 }} />
       <Button onPress={handlePressLogin} title="Login" />
       <View style={{ margin: 7 }} />
-      <Button onPress={onDisconnect} title="Change server" />
+      <Button onPress={onChangeServer} title="Change server" />
     </View>
   )
 }
