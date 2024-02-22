@@ -19,7 +19,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     @objc var onUserStatusUpdate: RCTDirectEventBlock?
 
-    @objc var server: String = "ru10.trueconf.net"
+    @objc var server: String = "qa4.trueconf.net"
 
     @objc private var _isMuted : Bool = false
     @objc private var _isCameraOn : Bool = true
@@ -147,7 +147,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         DispatchQueue.main.async {
             // guard let rootViewController = RCTSharedApplication().delegate?.window??.rootViewController else { return }
 
-            self.tcsdk = TCSDK(viewController: nil, forServer: self.server, directConnection: false)
+            self.tcsdk = TCSDK(viewController: nil, forServer: self.server)
             self.tcsdk!.trueConfSDKLogEnable = true;
 
             self.tcsdk!.confControlsDelegate = self
