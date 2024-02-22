@@ -1,0 +1,6 @@
+framework module TrueConfSDK {
+  umbrella header "TrueConfSDK.h"
+
+  export *
+  module * { export * }
+}
