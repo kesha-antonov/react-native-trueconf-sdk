@@ -8,7 +8,7 @@
 #import "React/RCTEventEmitter.h"
 #import "React/RCTUIManager.h"
 
-#import <TrueConfSDK/TrueConf.h>
-#import <TrueConfSDK/TrueConfSDK.h>
+#import <TrueConfSDK/TrueConf.h> // для работы с SDK
+#import <TrueConfSDK/TrueConfSDK.h> // для работы с константами версии SDK
 
 #endif
