@@ -213,12 +213,12 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     func initEvents() {
         self.tcsdk!.onServerStatus( { (connected: Bool, serverName: String, serverPort: Int) -> () in
-            print("react-native-trueconf-react-sdk TrueConfView connected: " + String(connected))
+            print("react-native-trueconf-react-sdk TrueConfView isConnected: " + String(connected))
             print("react-native-trueconf-react-sdk TrueConfView serverName: " + serverName)
             print("react-native-trueconf-react-sdk TrueConfView serverPort: " + String(serverPort))
 
             self.onServerStatus?([
-                "connected": connected,
+                "isConnected": connected,
                 "serverName": serverName,
                 "serverPort": serverPort
             ])
