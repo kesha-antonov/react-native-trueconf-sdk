@@ -37,7 +37,7 @@ RCT_EXTERN_METHOD(
 )
 RCT_EXTERN_METHOD(
   acceptCall:(nonnull NSNumber *)node
-  accept:(nonnull BOOL *)confId
+  accept:(nonnull BOOL *)accept
 )
 RCT_EXTERN_METHOD(
   joinConf:(nonnull NSNumber *)node
