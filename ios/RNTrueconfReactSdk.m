@@ -18,40 +18,40 @@ RCT_EXPORT_VIEW_PROPERTY(onConferenceStart, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onConferenceEnd, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onUserStatusUpdate, RCTDirectEventBlock)
 
-RCT_EXTERN_METHOD(
+#pragma mark - JS exported methods
+RCT_EXPORT_METHOD(
   initSdk:(nonnull NSNumber *)node
   isMuted:(nonnull BOOL *)isMuted
   isCameraOn:(nonnull BOOL *)isCameraOn
 )
-RCT_EXTERN_METHOD(
+RCT_EXPORT_METHOD(
   stopSdk:(nonnull NSNumber *)node
 )
-RCT_EXTERN_METHOD(
+RCT_EXPORT_METHOD(
   makeCall:(nonnull NSNumber *)node
   to:(nonnull NSString *)to
 )
-RCT_EXTERN_METHOD(
+RCT_EXPORT_METHOD(
   hangup:(nonnull NSNumber *)node
   forAll:(nonnull BOOL *)forAll
 )
-RCT_EXTERN_METHOD(
+RCT_EXPORT_METHOD(
   acceptCall:(nonnull NSNumber *)node
   accept:(nonnull BOOL *)confId
 )
-RCT_EXTERN_METHOD(
+RCT_EXPORT_METHOD(
   joinConf:(nonnull NSNumber *)node
   confId:(nonnull NSString *)confId
 )
-RCT_EXTERN_METHOD(
+RCT_EXPORT_METHOD(
   login:(nonnull NSNumber *)node
   userId:(nonnull NSString *)userId
   password:(nonnull NSString *)password
   encryptPassword:(nonnull BOOL *)encryptPassword
   enableAutoLogin:(nonnull BOOL *)enableAutoLogin
 )
-RCT_EXTERN_METHOD(
+RCT_EXPORT_METHOD(
   logout:(nonnull NSNumber *)node
 )
-
 
 @end
