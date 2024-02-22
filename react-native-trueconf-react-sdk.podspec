@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.license      = { :type => "MIT" }
   s.author       = { "author" => "Kesha Antonov <innokenty.longway@gmail.com>" }
-  s.platform     = :ios, "10.0"
-  s.source       = { :git => "https://github.com/kesha-antonov/react-native-trueconf-react-sdk.git", :tag => "v#{version}" }
+  s.platform     = :ios, "13.0"
+  s.source       = { :git => "https://github.com/kesha-antonov/react-native-trueconf-react-sdk.git", :tag => "v#{s.version}" }
   s.source_files = "**/*.{h,m,swift}"
   s.requires_arc = true
 

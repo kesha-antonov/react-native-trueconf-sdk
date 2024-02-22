@@ -12,69 +12,74 @@ const RNTrueconfReactSdk = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME)
 function TrueConfWrapper (props, ref) {
   const innerRef = useRef()
 
-  const initSdk = useCallback(async () => {
+  const {
+    isMuted = false,
+    isCameraOn = true,
+  } = props
+
+  const callCommand = useCallback((command, args) => {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.initSdk,
-      []
+      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands[command],
+      args
     )
   }, [])
+
+  const initSdk = useCallback(async () => {
+    callCommand(
+      'initSdk',
+      [isMuted, isCameraOn]
+    )
+  }, [callCommand, isMuted, isCameraOn])
 
   const stopSdk = useCallback(() => {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.stopSdk,
+    callCommand(
+      'stopSdk',
       []
     )
-  }, [])
+  }, [callCommand])
 
   const makeCall = useCallback(async to => {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.makeCall,
+    callCommand(
+      'makeCall',
       [to]
     )
-  }, [])
+  }, [callCommand])
 
   const hangup = useCallback(async (forAll = true) => {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.hangup,
+    callCommand(
+      'hangup',
       [forAll]
     )
-  }, [])
+  }, [callCommand])
 
   const acceptCall = useCallback(async accept => {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.acceptCall,
+    callCommand(
+      'acceptCall',
       [accept]
     )
-  }, [])
+  }, [callCommand])
 
   const joinConf = useCallback(async confId => {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.joinConf,
+    callCommand(
+      'joinConf',
       [confId]
     )
-  }, [])
+  }, [callCommand])
 
   const login = useCallback(async ({ userId, password, encryptPassword, enableAutoLogin }) => {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.login,
+    callCommand(
+      'login',
       [userId, password, encryptPassword, enableAutoLogin]
     )
-  }, [])
+  }, [callCommand])
 
   const logout = useCallback(() => {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands.logout,
+    callCommand(
+      'logout',
       []
     )
-  }, [])
+  }, [callCommand])
 
   useImperativeHandle(ref, () => ({
     initSdk,
@@ -113,11 +118,6 @@ TrueConfWrapper.propTypes = {
   onConferenceStart: PropTypes.func,
   onConferenceEnd: PropTypes.func,
   onUserStatusUpdate: PropTypes.func,
-}
-
-TrueConfWrapper.defaultProps = {
-  isMuted: false,
-  isCameraOn: true
 }
 
 export default TrueConfWrapper

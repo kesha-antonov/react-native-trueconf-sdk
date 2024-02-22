@@ -19,10 +19,10 @@ class RNTrueconfReactSdk: RCTViewManager {
     }
 
     @objc
-    func initSdk(_ node: NSNumber) {
+    func initSdk(_ node: NSNumber, isMuted: Bool, isCameraOn: Bool) {
         DispatchQueue.main.async {
             let component = self.getComponent(node: node)
-            component.initSdk()
+            component.initSdk(isMuted: isMuted, isCameraOn: isCameraOn)
         }
     }
 

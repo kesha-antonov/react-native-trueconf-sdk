@@ -8,6 +8,7 @@
 #import "React/RCTEventEmitter.h"
 #import "React/RCTUIManager.h"
 
+#import <TrueConfSDK/TrueConf.h>
 #import <TrueConfSDK/TrueConfSDK.h>
 
 #endif
