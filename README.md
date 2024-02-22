@@ -14,9 +14,5 @@ Then
 `$ cd ios && pod install`
 
 ## Usage
-```javascript
-import RNTrueconfReactSdk from 'react-native-trueconf-react-sdk'
 
-// TODO: What to do with the module?
-RNTrueconfReactSdk
-```
+See `example` folder for usage example.
