@@ -115,6 +115,7 @@ TrueConfWrapper.propTypes = {
   onInvite: PropTypes.func,
   onReject: PropTypes.func,
   onRejectTimeout: PropTypes.func,
+  onRecordRequest: PropTypes.func,
   onConferenceStart: PropTypes.func,
   onConferenceEnd: PropTypes.func,
   onUserStatusUpdate: PropTypes.func,
