@@ -147,11 +147,11 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         DispatchQueue.main.async {
             // guard let rootViewController = RCTSharedApplication().delegate?.window??.rootViewController else { return }
 
-            self.tcsdk = TCSDK(viewController: nil, forServer: self.server, confCustomControlsImages: nil)
+            self.tcsdk = TCSDK(viewController: nil, forServer: self.server, directConnection: false)
             self.tcsdk!.trueConfSDKLogEnable = true;
 
-            self.tcsdk!.confControlsDelegate = self // self
-            self.tcsdk!.windowsDelegate = self // self
+            self.tcsdk!.confControlsDelegate = self
+            self.tcsdk!.windowsDelegate = self
             self.tcsdk!.xview = self.xview!
             self.tcsdk!.xsview = self.xsview!
 
