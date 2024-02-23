@@ -23,13 +23,17 @@ function TrueConfWrapper(props, ref) {
   } = props
 
   const callCommand = useCallback((command, args) => {
+    let cmd = (
+      IS_IOS
+        ? UIManager.getViewManagerConfig(NATIVE_COMPONENT_NAME)
+        : UIManager[NATIVE_COMPONENT_NAME]
+    ).Commands[command]
+    if (IS_ANDROID)
+      cmd = cmd.toString()
+
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(innerRef.current),
-      (
-        IS_IOS
-          ? UIManager.getViewManagerConfig(NATIVE_COMPONENT_NAME)
-          : UIManager[NATIVE_COMPONENT_NAME]
-      ).Commands[command],
+      cmd,
       args
     )
   }, [])
