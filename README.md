@@ -48,3 +48,12 @@ buildscript {
 ## Usage
 
 See `example` folder for usage example.
+
+
+## TODO
+
+- [ ] Fix iOS crash when mute camera
+- [ ] Fix iOS connect on real device
+- [ ] Add support for Android
+- [ ] Check that example works for Android
+- [ ] Check that mute mic and camera works on iOS and it's confirmed in Privacy section on top of system screen
