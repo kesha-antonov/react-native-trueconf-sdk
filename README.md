@@ -52,9 +52,14 @@ See `example` folder for usage example.
 
 ## TODO
 
+### iOS
 - [ ] Fix iOS crash when mute camera
 - [ ] Fix iOS connect on real device
+- [ ] Check that mute mic and camera works on iOS and it's confirmed in Privacy section on top of system screen
+
+### Android
 - [ ] Add support for Android
 - [ ] Check that example works for Android
-- [ ] Check that mute mic and camera works on iOS and it's confirmed in Privacy section on top of system screen
+
+### General
 - [ ] Add react-navigation to example and more examples from TrueConf SDK Docs
