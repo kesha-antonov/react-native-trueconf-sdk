@@ -90,13 +90,13 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
   }
 
   @ReactPropGroup(names = {"width", "height"}, customType = "Style")
-  public void setStyle(FrameLayout view, int index, Integer value) {
+  public void setStyle(FrameLayout view, int index, @Nullable Integer value) {
     if (index == 0) {
-      propWidth = value;
+      propWidth = value != null ? value : 0;
     }
 
     if (index == 1) {
-      propHeight = value;
+      propHeight = value != null ? value : 0;
     }
   }
 
@@ -110,9 +110,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
     final MyFragment myFragment = new MyFragment();
     FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
     activity.getSupportFragmentManager()
-            .beginTransaction()
-            .replace(reactNativeViewId, myFragment, String.valueOf(reactNativeViewId))
-            .commit();
+      .beginTransaction()
+      .replace(reactNativeViewId, myFragment, String.valueOf(reactNativeViewId))
+      .commit();
   }
 
   public void setupLayout(View view) {
@@ -130,15 +130,28 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
    * Layout all children properly
    */
   public void manuallyLayoutChildren(View view) {
-    // propWidth and propHeight coming from react-native props
-    int width = propWidth;
-    int height = propHeight;
+    if (propWidth > 0 && propHeight > 0) {
+      // propWidth and propHeight coming from react-native props
+      int width = propWidth;
+      int height = propHeight;
 
-    view.measure(
-            View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-            View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
+      view.measure(
+          View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+          View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
 
-    view.layout(0, 0, width, height);
+      view.layout(0, 0, width, height);
+    } else {
+      ViewGroup parentView = (ViewGroup) view.getParent();
+
+      for (int i = 0; i < parentView.getChildCount(); i++) {
+        View child = parentView.getChildAt(i);
+        child.measure(
+            View.MeasureSpec.makeMeasureSpec(parentView.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(parentView.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
+
+        child.layout(0, 0, child.getMeasuredWidth(), child.getMeasuredHeight());
+      }
+    }
   }
 
 

@@ -14,8 +14,8 @@ public class TrueConfSDKView extends FrameLayout {
   public TrueConfSDKView(@NonNull Context context) {
     super(context);
     // set padding and background color
-    this.setPadding(16,16,16,16);
-    this.setBackgroundColor(Color.parseColor("#5FD3F3"));
+    this.setPadding(16, 16, 16, 16);
+    this.setBackgroundColor(Color.parseColor("#00ff00"));
 
     // add default text view
     TextView text = new TextView(context);
