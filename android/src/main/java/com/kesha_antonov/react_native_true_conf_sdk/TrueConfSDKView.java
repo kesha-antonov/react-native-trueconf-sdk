@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-public class CustomView extends FrameLayout {
+public class TrueConfSDKView extends FrameLayout {
   private String LOG_TAG = "TrueConfSDKView";
 
-  public CustomView(@NonNull Context context) {
+  public TrueConfSDKView(@NonNull Context context) {
     super(context);
     // set padding and background color
     this.setPadding(16,16,16,16);

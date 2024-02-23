@@ -44,6 +44,6 @@ class MainApplication : Application(), ReactApplication {
     }
     ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
     TrueConfSDK.getInstance().registerApp(this)
-    TrueConfSDK.getInstance().setFallbackActivity(MainActivity.class)
+    TrueConfSDK.getInstance().setFallbackActivity(MainActivity::class.java)
   }
 }
