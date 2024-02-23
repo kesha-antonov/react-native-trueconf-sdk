@@ -12,6 +12,8 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
 
+import com.trueconf.sdk.TrueConfSDK
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
@@ -41,5 +43,7 @@ class MainApplication : Application(), ReactApplication {
       load()
     }
     ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
+    TrueConfSDK.getInstance().registerApp(this)
+    TrueConfSDK.getInstance().setFallbackActivity(MainActivity.class)
   }
 }

@@ -1,4 +1,4 @@
-package com.kesha_antonov.rn_trueconf_react_sdk;
+package com.kesha_antonov.rn_true_conf_react_sdk;
 
 import android.view.Choreographer;
 import android.view.View;
@@ -19,8 +19,8 @@ import android.view.ViewGroup;
 
 import java.util.Map;
 
-import com.vc.TrueConfSDK;
-import com.kesha_antonov.rn_trueconf_react_sdk.MyFragment;
+import com.trueconf.sdk.TrueConfSDK;
+import com.kesha_antonov.rn_true_conf_react_sdk.MyFragment;
 
 import android.util.Log;
 

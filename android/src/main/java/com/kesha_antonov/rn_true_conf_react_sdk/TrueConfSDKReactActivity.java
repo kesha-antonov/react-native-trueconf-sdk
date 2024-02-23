@@ -1,4 +1,4 @@
-package com.kesha_antonov.rn_trueconf_react_sdk;
+package com.kesha_antonov.rn_true_conf_react_sdk;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import com.facebook.react.ReactActivity;

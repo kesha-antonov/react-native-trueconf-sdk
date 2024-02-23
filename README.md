@@ -13,6 +13,38 @@ Then
 
 `$ cd ios && pod install`
 
+### Extra steps for Android
+
+1. In `MainApplication.kt` add the following code:
+
+```kotlin
+import com.trueconf.sdk.TrueConfSDK
+
+...
+
+  override fun onCreate() {
+    ...
+
+    TrueConfSDK.getInstance().registerApp(this)
+    TrueConfSDK.getInstance().setFallbackActivity(MainActivity.class)
+  }
+
+```
+
+2. In `build.gradle` add the following code with your TrueConf credentials:
+
+```gradle
+buildscript {
+    ext {
+        ...
+        trueConfSDKRepositoryUsername = "trueconfUsername"
+        trueConfSDKRepositoryPassword = "trueconfPassword"
+        ...
+    }
+    ...
+}
+```
+
 ## Usage
 
 See `example` folder for usage example.

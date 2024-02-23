@@ -1,4 +1,4 @@
-package com.kesha_antonov.rn_trueconf_react_sdk;
+package com.kesha_antonov.rn_true_conf_react_sdk;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,14 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
-import com.vc.TrueConfSDK;
-import com.vc.data.SelfViewInfo;
-import com.vc.data.VideoViewInfo;
-import com.vc.interfaces.TrueConfListener;
-
+import com.trueconf.sdk.TrueConfSDK;
+import com.trueconf.sdk.gui.fragments.ConferenceFragment;
+import com.trueconf.sdk.interfaces.TrueConfListener;
 
 import java.util.Objects;
-
 
 /**
  * A placeholder fragment containing a simple view.
@@ -45,7 +42,6 @@ public class PlaceholderFragment extends Fragment implements TrueConfListener.Lo
 
     public PlaceholderFragment() {
     }
-
 
     private final View.OnClickListener loginClickListener = new View.OnClickListener() {
 
