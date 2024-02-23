@@ -25,7 +25,7 @@ function TrueConfWrapper (props, ref) {
     )
   }, [])
 
-  const initSdk = useCallback(async () => {
+  const initSdk = useCallback(() => {
     callCommand(
       'initSdk',
       [isMuted, isCameraOn]
@@ -39,35 +39,35 @@ function TrueConfWrapper (props, ref) {
     )
   }, [callCommand])
 
-  const makeCall = useCallback(async to => {
+  const makeCall = useCallback(to => {
     callCommand(
       'makeCall',
       [to]
     )
   }, [callCommand])
 
-  const hangup = useCallback(async (forAll = true) => {
+  const hangup = useCallback((forAll = true) => {
     callCommand(
       'hangup',
       [forAll]
     )
   }, [callCommand])
 
-  const acceptCall = useCallback(async accept => {
+  const acceptCall = useCallback(accept => {
     callCommand(
       'acceptCall',
       [accept]
     )
   }, [callCommand])
 
-  const joinConf = useCallback(async confId => {
+  const joinConf = useCallback(confId => {
     callCommand(
       'joinConf',
       [confId]
     )
   }, [callCommand])
 
-  const login = useCallback(async ({ userId, password, encryptPassword, enableAutoLogin }) => {
+  const login = useCallback(({ userId, password, encryptPassword, enableAutoLogin }) => {
     callCommand(
       'login',
       [userId, password, encryptPassword, enableAutoLogin]
