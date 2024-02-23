@@ -1,14 +1,14 @@
 buildscript {
     ext {
         buildToolsVersion = "34.0.0"
-        minSdkVersion = 21
+        minSdkVersion = 24
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "25.1.8937393"
         kotlinVersion = "1.8.0"
 
-        trueConfSDKRepositoryUsername = "trueconfUsername"
-        trueConfSDKRepositoryPassword = "trueconfPassword"
+        trueConfSDKRepositoryUsername = ''
+        trueConfSDKRepositoryPassword = ''
     }
     repositories {
         google()
@@ -22,3 +22,4 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+apply from: file("../node_modules/react-native-trueconf-sdk/android/shared.gradle")

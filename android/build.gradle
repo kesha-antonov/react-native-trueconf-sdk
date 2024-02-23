@@ -21,17 +21,6 @@ android {
     }
 }
 
-repositories {
-    mavenCentral()
-    maven {
-        credentials {
-            username safeExtGet('trueConfSDKRepositoryUsername', '')
-            password safeExtGet('trueConfSDKRepositoryPassword', '')
-        }
-        url 'https://sdk.trueconf.com/maven/repository/maven-public/'
-    }
-}
-
 dependencies {
     api 'com.trueconf:trueconfsdk:2.2.0.92@aar'
     api 'com.trueconf:media:2.2.0.92@aar'

@@ -43,6 +43,8 @@ buildscript {
     }
     ...
 }
+
+apply from: file("../node_modules/react-native-trueconf-sdk/android/shared.gradle")
 ```
 
 ## Usage
