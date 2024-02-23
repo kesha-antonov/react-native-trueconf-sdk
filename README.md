@@ -66,3 +66,9 @@ See `example` folder for usage example.
 
 ### General
 - [ ] Add react-navigation to example and more examples from TrueConf SDK Docs
+
+## Notes
+
+- Extensive guide on Android Fragments in React Native: https://stefan-majiros.com/blog/native-android-fragments-in-react-native/
+- Android docs: https://developer.android.com/guide/fragments
+- RN docs: https://reactnative.dev/docs/native-components-android?android-language=java#integration-with-an-android-fragment-example
