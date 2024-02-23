@@ -26,11 +26,11 @@ import android.util.Log;
 
 public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
 
-  public static final String REACT_CLASS = "RCTTrueConfSDKViewManager";
-  public static final String TAG = "RCTTrueConfSDKViewManager";
+  public static final String REACT_CLASS = "TrueConfSDKViewManager";
+  public static final String TAG = "TrueConfSDKViewManager";
   // COMMANDS
-  public static final int COMMAND_CREATE = 0;
-  public static final int COMMAND_INIT_SDK = 1;
+  public final int COMMAND_CREATE = 1;
+  public final int COMMAND_INIT_SDK = 2;
   // PROPS
   private int propWidth;
   private int propHeight;
@@ -92,11 +92,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
   @ReactPropGroup(names = {"width", "height"}, customType = "Style")
   public void setStyle(FrameLayout view, int index, Integer value) {
     if (index == 0) {
-      propWidth = Integer.parseInt(String.valueOf(value));
+      propWidth = value;
     }
 
     if (index == 1) {
-      propHeight = Integer.parseInt(String.valueOf(value));
+      propHeight = value;
     }
   }
 

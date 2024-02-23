@@ -16,6 +16,7 @@
   "author": "Kesha Antonov",
   "license": "MIT",
   "dependencies": {
+    "prop-types": "^15.8.1",
     "react-native-swift": "^1.2.3"
   },
   "peerDependencies": {

@@ -213,7 +213,10 @@ export default function App () {
       <View style={[styles.fill, styles.relative, {backgroundColor: 'grey' }]}>
         <TrueConf
           ref={trueconfRef}
-          style={[styles.fill, styles.absoluteFill]}
+          style={[
+            styles.fill,
+            styles.absoluteFill,
+          ]}
 
           server={server}
           isMuted={isMuted}

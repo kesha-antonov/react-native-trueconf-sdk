@@ -1,13 +1,17 @@
 import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import {
+  Platform,
   requireNativeComponent,
   UIManager,
   findNodeHandle
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-const TRUE_CONF_VIEW_NATIVE_NAME = 'RNTrueConfSdk'
-const RNTrueConfSdk = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME)
+const IS_IOS = Platform.OS === 'ios'
+const IS_ANDROID = Platform.OS === 'android'
+
+const NATIVE_COMPONENT_NAME = IS_IOS ? 'RNTrueConfSdk' : 'TrueConfSDKViewManager'
+const NativeComponent = requireNativeComponent(NATIVE_COMPONENT_NAME)
 
 function TrueConfWrapper (props, ref) {
   const innerRef = useRef()
@@ -15,12 +19,17 @@ function TrueConfWrapper (props, ref) {
   const {
     isMuted = false,
     isCameraOn = true,
+    ...rest
   } = props
 
   const callCommand = useCallback((command, args) => {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(innerRef.current),
-      UIManager.getViewManagerConfig(TRUE_CONF_VIEW_NATIVE_NAME).Commands[command],
+      (
+        IS_IOS
+          ? UIManager.getViewManagerConfig(NATIVE_COMPONENT_NAME)
+          : UIManager[TRUE_CONF_SDK_VIEW_MANAGER_NATIVE_NAME]
+      ).Commands[command],
       args
     )
   }, [])
@@ -81,6 +90,17 @@ function TrueConfWrapper (props, ref) {
     )
   }, [callCommand])
 
+  const createFragment = useCallback(() => {
+    if (!IS_ANDROID) return
+
+    const viewId = findNodeHandle(innerRef.current)
+    callCommand('create', [viewId])
+  }, [])
+
+  useEffect(() => {
+    createFragment()
+  }, [])
+
   useImperativeHandle(ref, () => ({
     initSdk,
     stopSdk,
@@ -93,8 +113,10 @@ function TrueConfWrapper (props, ref) {
   }))
 
   return (
-    <RNTrueConfSdk
-      {...props}
+    <NativeComponent
+      {...rest}
+      isMuted={isMuted}
+      isCameraOn={isCameraOn}
       ref={innerRef}
     />
   )
