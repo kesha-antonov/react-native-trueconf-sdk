@@ -1,4 +1,4 @@
-package com.kesha_antonov.rn_true_conf_react_sdk;
+package com.kesha_antonov.react_native_true_conf_sdk;
 
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.kesha_antonov.rn_true_conf_react_sdk.TrueConfSDKReactActivity;
+import com.kesha_antonov.react_native_true_conf_sdk.TrueConfSDKReactActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -129,9 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RNTrueconfReactSdkModule.cs" />
-    <Compile Include="RNTrueconfReactSdkPackage.cs" />
-    <EmbeddedResource Include="Properties\RNTrueconfReactSdk.rd.xml" />
+    <Compile Include="RNTrueConfSdkModule.cs" />
+    <Compile Include="RNTrueConfSdkPackage.cs" />
+    <EmbeddedResource Include="Properties\RNTrueConfSdk.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(ReactWindowsRoot)\react-native-windows\ReactWindows\ReactNative\ReactNative.csproj">

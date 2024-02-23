@@ -4,7 +4,7 @@ using ReactNative.UIManager;
 using System;
 using System.Collections.Generic;
 
-namespace Trueconf.React.Sdk.RNTrueconfReactSdk
+namespace Trueconf.React.Sdk.RNTrueConfSdk
 {
     /// <summary>
     /// Package defining core framework modules (e.g., <see cref="UIManagerModule"/>).
@@ -12,7 +12,7 @@ namespace Trueconf.React.Sdk.RNTrueconfReactSdk
     /// other framework parts (e.g., with the list of packages to load view
     /// managers from).
     /// </summary>
-    public class RNTrueconfReactSdkPackage : IReactPackage
+    public class RNTrueConfSdkPackage : IReactPackage
     {
         /// <summary>
         /// Creates the list of native modules to register with the react
@@ -24,7 +24,7 @@ namespace Trueconf.React.Sdk.RNTrueconfReactSdk
         {
             return new List<INativeModule>
             {
-                new RNTrueconfReactSdkModule(),
+                new RNTrueConfSdkModule(),
             };
         }
 

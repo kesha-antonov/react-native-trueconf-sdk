@@ -1,5 +1,5 @@
-@objc(RNTrueconfReactSdk)
-class RNTrueconfReactSdk: RCTViewManager {
+@objc(RNTrueConfSdk)
+class RNTrueConfSdk: RCTViewManager {
     var trueConfView: TrueConfView?
 
     override func view() -> UIView! {

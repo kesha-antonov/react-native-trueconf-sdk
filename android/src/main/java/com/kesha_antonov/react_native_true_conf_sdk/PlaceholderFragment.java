@@ -1,4 +1,4 @@
-package com.kesha_antonov.rn_true_conf_react_sdk;
+package com.kesha_antonov.react_native_true_conf_sdk;
 
 import android.content.Context;
 import android.os.Bundle;

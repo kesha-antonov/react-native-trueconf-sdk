@@ -1,4 +1,4 @@
-package com.kesha_antonov.rn_true_conf_react_sdk;
+package com.kesha_antonov.react_native_true_conf_sdk;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 // replace with your view's import
-import com.kesha_antonov.rn_true_conf_react_sdk.TrueConfSDKView;
+import com.kesha_antonov.react_native_true_conf_sdk.TrueConfSDKView;
 
 public class MyFragment extends Fragment {
     TrueConfSDKView trueConfSDKView;

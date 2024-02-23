@@ -6,8 +6,8 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-const TRUE_CONF_VIEW_NATIVE_NAME = 'RNTrueconfReactSdk'
-const RNTrueconfReactSdk = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME)
+const TRUE_CONF_VIEW_NATIVE_NAME = 'RNTrueConfSdk'
+const RNTrueConfSdk = requireNativeComponent(TRUE_CONF_VIEW_NATIVE_NAME)
 
 function TrueConfWrapper (props, ref) {
   const innerRef = useRef()
@@ -93,7 +93,7 @@ function TrueConfWrapper (props, ref) {
   }))
 
   return (
-    <RNTrueconfReactSdk
+    <RNTrueConfSdk
       {...props}
       ref={innerRef}
     />

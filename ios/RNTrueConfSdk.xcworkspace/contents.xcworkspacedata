@@ -3,7 +3,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:RNTrueconfReactSdk.xcodeproj">
+      location = "group:RNTrueConfSdk.xcodeproj">
    </FileRef>
 </Workspace>
-  

@@ -8,7 +8,7 @@ android {
     def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
     // Check AGP version for backward compatibility reasons (for RN < 0.71)
     if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
-        namespace "com.kesha_antonov.rn_true_conf_react_sdk"
+        namespace "com.kesha_antonov.react_native_true_conf_sdk"
     }
 
     compileSdkVersion safeExtGet('compileSdkVersion', 34)

@@ -1,5 +1,5 @@
-#ifndef RNTrueconfReactSdk_Bridging_Header_h
-#define RNTrueconfReactSdk_Bridging_Header_h
+#ifndef RNTrueConfSdk_Bridging_Header_h
+#define RNTrueConfSdk_Bridging_Header_h
 
 #import "React/RCTBridgeModule.h"
 

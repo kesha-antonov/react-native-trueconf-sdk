@@ -1,6 +1,6 @@
 #import "React/RCTViewManager.h"
 
-@interface RCT_EXTERN_MODULE(RNTrueconfReactSdk, RCTViewManager)
+@interface RCT_EXTERN_MODULE(RNTrueConfSdk, RCTViewManager)
 
 RCT_EXPORT_VIEW_PROPERTY(server, NSString)
 RCT_EXPORT_VIEW_PROPERTY(isCameraOn, BOOL)

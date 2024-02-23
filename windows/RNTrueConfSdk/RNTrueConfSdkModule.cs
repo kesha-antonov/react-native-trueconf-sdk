@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
-namespace Trueconf.React.Sdk.RNTrueconfReactSdk
+namespace Trueconf.React.Sdk.RNTrueConfSdk
 {
     /// <summary>
     /// A module that allows JS to share data.
     /// </summary>
-    class RNTrueconfReactSdkModule : NativeModuleBase
+    class RNTrueConfSdkModule : NativeModuleBase
     {
         /// <summary>
-        /// Instantiates the <see cref="RNTrueconfReactSdkModule"/>.
+        /// Instantiates the <see cref="RNTrueConfSdkModule"/>.
         /// </summary>
-        internal RNTrueconfReactSdkModule()
+        internal RNTrueConfSdkModule()
         {
 
         }
@@ -26,7 +26,7 @@ namespace Trueconf.React.Sdk.RNTrueconfReactSdk
         {
             get
             {
-                return "RNTrueconfReactSdk";
+                return "RNTrueConfSdk";
             }
         }
     }
