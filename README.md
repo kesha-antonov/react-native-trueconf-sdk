@@ -57,3 +57,4 @@ See `example` folder for usage example.
 - [ ] Add support for Android
 - [ ] Check that example works for Android
 - [ ] Check that mute mic and camera works on iOS and it's confirmed in Privacy section on top of system screen
+- [ ] Add react-navigation to example and more examples from TrueConf SDK Docs
