@@ -130,11 +130,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
    * Layout all children properly
    */
   public void manuallyLayoutChildren(View view) {
-    if (propWidth > 0 && propHeight > 0) {
-      // propWidth and propHeight coming from react-native props
-      int width = propWidth;
-      int height = propHeight;
+    // propWidth and propHeight coming from react-native props
+    int width = propWidth;
+    int height = propHeight;
 
+    if (width > 0 && height > 0) {
       view.measure(
           View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
           View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
