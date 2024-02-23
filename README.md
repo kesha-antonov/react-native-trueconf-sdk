@@ -66,6 +66,7 @@ See `example` folder for usage example.
 
 ### General
 - [ ] Add react-navigation to example and more examples from TrueConf SDK Docs
+- [ ] Describe which permissions are needed for Android and iOS and where to put them
 
 ## Notes
 
