@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react'
 import {
   Platform,
   requireNativeComponent,
@@ -13,7 +13,7 @@ const IS_ANDROID = Platform.OS === 'android'
 const NATIVE_COMPONENT_NAME = IS_IOS ? 'RNTrueConfSdk' : 'TrueConfSDKViewManager'
 const NativeComponent = requireNativeComponent(NATIVE_COMPONENT_NAME)
 
-function TrueConfWrapper (props, ref) {
+function TrueConfWrapper(props, ref) {
   const innerRef = useRef()
 
   const {
@@ -28,7 +28,7 @@ function TrueConfWrapper (props, ref) {
       (
         IS_IOS
           ? UIManager.getViewManagerConfig(NATIVE_COMPONENT_NAME)
-          : UIManager[TRUE_CONF_SDK_VIEW_MANAGER_NATIVE_NAME]
+          : UIManager[NATIVE_COMPONENT_NAME]
       ).Commands[command],
       args
     )

@@ -61,6 +61,7 @@ See `example` folder for usage example.
 
 ### Android
 - [ ] Add support for Android
+- [ ] Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec
 - [ ] Check that example works for Android
 
 ### General
