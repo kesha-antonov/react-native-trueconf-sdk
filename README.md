@@ -26,7 +26,7 @@ import com.trueconf.sdk.TrueConfSDK
     ...
 
     TrueConfSDK.getInstance().registerApp(this)
-    TrueConfSDK.getInstance().setFallbackActivity(MainActivity.class)
+    TrueConfSDK.getInstance().setFallbackActivity(MainActivity::class.java)
   }
 
 ```
