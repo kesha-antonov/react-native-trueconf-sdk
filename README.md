@@ -1,13 +1,13 @@
 
-# react-native-trueconf-react-sdk
+# react-native-trueconf-sdk
 
 ## Getting started
 
-`$ npm install react-native-trueconf-react-sdk --save`
+`$ npm install react-native-trueconf-sdk --save`
 
 or
 
-`$ yarn add react-native-trueconf-react-sdk`
+`$ yarn add react-native-trueconf-sdk`
 
 Then
 

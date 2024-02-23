@@ -1,10 +1,10 @@
 {
-  "name": "react-native-trueconf-react-sdk",
-  "version": "1.4.2",
+  "name": "react-native-trueconf-sdk",
+  "version": "1.4.3",
   "description": "Wrapper for TrueConf React SDK",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kesha-antonov/react-native-trueconf-react-sdk"
+    "url": "https://github.com/kesha-antonov/react-native-trueconf-sdk"
   },
   "main": "index.js",
   "scripts": {

@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
-import TrueConf from 'react-native-trueconf-react-sdk'
+import TrueConf from 'react-native-trueconf-sdk'
 import Join from './src/screens/Join'
 import Login from './src/screens/Login'
 import Connect from './src/screens/Connect'
