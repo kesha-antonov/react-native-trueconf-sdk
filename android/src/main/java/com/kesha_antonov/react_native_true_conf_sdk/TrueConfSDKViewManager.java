@@ -93,7 +93,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         params.putBoolean(CONNECTED, connected);
         params.putString(SERVER_NAME, serverName);
         params.putInt(SERVER_PORT, serverPort);
-        emitMessageToRN(reactContext, ON_SERVER_STATUS, params);
+        emitMessageToRN(ON_SERVER_STATUS, params);
       }
     });
   }
@@ -106,7 +106,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         WritableMap params = Arguments.createMap();
         params.putBoolean(IS_LOGGED_IN, isLoggedIn);
         params.putString(USER_ID, userId);
-        emitMessageToRN(reactContext, ON_LOGIN, params);
+        emitMessageToRN(ON_LOGIN, params);
       }
     });
   }
@@ -116,7 +116,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     UiThreadUtil.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        emitMessageToRN(reactContext, ON_LOGOUT, null);
+        emitMessageToRN(ON_LOGOUT, null);
       }
     });
   }
@@ -126,7 +126,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     UiThreadUtil.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        emitMessageToRN(reactContext, ON_SERVER_STATE_CHANGED, null);
+        emitMessageToRN(ON_SERVER_STATE_CHANGED, null);
       }
     });
   }
@@ -136,7 +136,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     UiThreadUtil.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        emitMessageToRN(reactContext, ON_CONFERENCE_START, null);
+        emitMessageToRN(ON_CONFERENCE_START, null);
       }
     });
   }
@@ -146,7 +146,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     UiThreadUtil.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        emitMessageToRN(reactContext, ON_CONFERENCE_END, null);
+        emitMessageToRN(ON_CONFERENCE_END, null);
       }
     });
   }
@@ -159,7 +159,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         WritableMap params = Arguments.createMap();
         params.putString(USER_ID, userId);
         params.putString(USER_NAME, userName);
-        emitMessageToRN(reactContext, ON_INVITE, params);
+        emitMessageToRN(ON_INVITE, params);
       }
     });
   }
@@ -172,7 +172,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         WritableMap params = Arguments.createMap();
         params.putString(USER_ID, userId);
         params.putString(USER_NAME, userName);
-        emitMessageToRN(reactContext, ON_RECORD_REQUEST, params);
+        emitMessageToRN(ON_RECORD_REQUEST, params);
       }
     });
   }
@@ -185,7 +185,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         WritableMap params = Arguments.createMap();
         params.putString(USER_ID, userId);
         params.putString(USER_NAME, userName);
-        emitMessageToRN(reactContext, ON_ACCEPT, params);
+        emitMessageToRN(ON_ACCEPT, params);
       }
     });
   }
@@ -198,7 +198,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         WritableMap params = Arguments.createMap();
         params.putString(USER_ID, userId);
         params.putString(USER_NAME, userName);
-        emitMessageToRN(reactContext, ON_REJECT, params);
+        emitMessageToRN(ON_REJECT, params);
       }
     });
   }
@@ -211,7 +211,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         WritableMap params = Arguments.createMap();
         params.putString(USER_ID, userId);
         params.putString(USER_NAME, userName);
-        emitMessageToRN(reactContext, ON_REJECT_TIMEOUT, params);
+        emitMessageToRN(ON_REJECT_TIMEOUT, params);
       }
     });
   }
@@ -224,7 +224,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         WritableMap params = Arguments.createMap();
         params.putString(USER_ID, userId);
         params.putInt(USER_STATUS, getUnifiedUserStatus(state));
-        emitMessageToRN(reactContext, ON_USER_STATUS_UPDATE, params);
+        emitMessageToRN(ON_USER_STATUS_UPDATE, params);
       }
     });
   }
@@ -239,7 +239,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
           WritableMap params = Arguments.createMap();
           params.putString(USER_ID, p.getId());
           params.putInt(USER_STATUS, getUnifiedUserStatus(p.getPeerStatusInfo().getPeerStatus()));
-          emitMessageToRN(reactContext, ON_USER_STATUS_UPDATE, params);
+          emitMessageToRN(ON_USER_STATUS_UPDATE, params);
         }
       }
     });
@@ -256,7 +256,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         params.putString(FROM_USER_NAME, fromUserName);
         params.putString(MESSAGE, message);
         params.putString(TO_USER_ID, toUserID);
-        emitMessageToRN(reactContext, ON_CHAT_MESSAGE_RECEIVED, params);
+        emitMessageToRN(ON_CHAT_MESSAGE_RECEIVED, params);
       }
     });
   }
@@ -303,7 +303,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
       .build();
   }
 
-  private void emitMessageToRN(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
+  private void emitMessageToRN(String eventName, @Nullable WritableMap params) {
     // reactContext
     //     .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
     //     .emit(eventName, params);
