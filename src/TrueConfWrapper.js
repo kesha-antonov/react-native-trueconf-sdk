@@ -150,6 +150,7 @@ TrueConfWrapper.propTypes = {
   onConferenceStart: PropTypes.func,
   onConferenceEnd: PropTypes.func,
   onUserStatusUpdate: PropTypes.func,
+  onPressButton: PropTypes.func,
 }
 
 export default TrueConfWrapper

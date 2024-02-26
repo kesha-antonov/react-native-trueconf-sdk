@@ -9,10 +9,10 @@
     android:visibility="visible">
 
     <RelativeLayout
-        android:id="@+id/gfxFragmentCast"
-        android:layout_width="0dp"
+        android:id="@+id/conference_view"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/Green"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -21,11 +21,71 @@
         android:id="@+id/self_view"
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:background="@color/white"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="50dp"
-        android:layout_marginRight="50dp" />
+        android:layout_marginRight="50dp"
+        android:background="@drawable/self_view_shape" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="50dp" >
+
+        <ImageButton
+            android:id="@+id/btnMic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_btn_round"
+            android:src="@drawable/ic_mic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnCam"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_btn_round"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintLeft_toRightOf="@+id/btnMic"
+            app:layout_constraintTop_toTopOf="@+id/btnMic" />
+
+        <ImageButton
+            android:id="@+id/btnSpeaker"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_btn_round"
+            android:src="@drawable/ic_speaker"
+            app:layout_constraintLeft_toRightOf="@+id/btnCam"
+            app:layout_constraintTop_toTopOf="@+id/btnMic" />
+
+        <ImageButton
+            android:id="@+id/btnChat"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_btn_round"
+            android:src="@drawable/ic_chat"
+            app:layout_constraintLeft_toRightOf="@+id/btnSpeaker"
+            app:layout_constraintTop_toTopOf="@+id/btnMic" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_btn_round_red"
+            android:padding="8dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_call_end_call"
+            app:layout_constraintLeft_toRightOf="@+id/btnChat"
+            app:layout_constraintTop_toTopOf="@+id/btnMic" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

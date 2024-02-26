@@ -32,12 +32,10 @@ import com.vc.data.enums.ConnectionEvents;
 import com.vc.data.enums.PeerStatus;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
+import androidx.fragment.app.FragmentResultListener;
+import android.os.Bundle;
 
 import android.util.Log;
 
@@ -90,52 +88,33 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   private final static String ON_USER_STATUS_UPDATE = "onUserStatusUpdate";
   private final static String ON_CHAT_MESSAGE_RECEIVED = "onChatMessageReceived";
   private final static String ON_EXTRA_BUTTON_PRESSED = "onExtraButtonPressed";
+  private final static String ON_PRESS_BUTTON = "onPressButton";
 
   @Override
   public void onServerStatus(final boolean connected, final String serverName, final int serverPort) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putBoolean(CONNECTED, connected);
-        params.putString(SERVER_NAME, serverName);
-        params.putInt(SERVER_PORT, serverPort);
-        emitMessageToRN(ON_SERVER_STATUS, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putBoolean(CONNECTED, connected);
+    params.putString(SERVER_NAME, serverName);
+    params.putInt(SERVER_PORT, serverPort);
+    emitMessageToRN(ON_SERVER_STATUS, params);
   }
 
   @Override
   public void onLogin(final boolean isLoggedIn, final String userId) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putBoolean(IS_LOGGED_IN, isLoggedIn);
-        params.putString(USER_ID, userId);
-        emitMessageToRN(ON_LOGIN, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putBoolean(IS_LOGGED_IN, isLoggedIn);
+    params.putString(USER_ID, userId);
+    emitMessageToRN(ON_LOGIN, params);
   }
 
   @Override
   public void onLogout() {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        emitMessageToRN(ON_LOGOUT, null);
-      }
-    });
+    emitMessageToRN(ON_LOGOUT, null);
   }
 
   @Override
   public void onStateChanged(final ConnectionEvents connectionEvents, final int i) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        emitMessageToRN(ON_SERVER_STATE_CHANGED, null);
-      }
-    });
+    emitMessageToRN(ON_SERVER_STATE_CHANGED, null);
   }
 
   @Override
@@ -150,122 +129,77 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   @Override
   public void onConferenceEnd() {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        emitMessageToRN(ON_CONFERENCE_END, null);
-      }
-    });
+    emitMessageToRN(ON_CONFERENCE_END, null);
   }
 
   @Override
   public void onInvite(final String userId, final String userName) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putString(USER_ID, userId);
-        params.putString(USER_NAME, userName);
-        emitMessageToRN(ON_INVITE, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putString(USER_ID, userId);
+    params.putString(USER_NAME, userName);
+    emitMessageToRN(ON_INVITE, params);
   }
 
   @Override
   public void onRecordRequest(final String userId, final String userName) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putString(USER_ID, userId);
-        params.putString(USER_NAME, userName);
-        emitMessageToRN(ON_RECORD_REQUEST, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putString(USER_ID, userId);
+    params.putString(USER_NAME, userName);
+    emitMessageToRN(ON_RECORD_REQUEST, params);
   }
 
   @Override
   public void onAccept(final String userId, final String userName) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putString(USER_ID, userId);
-        params.putString(USER_NAME, userName);
-        emitMessageToRN(ON_ACCEPT, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putString(USER_ID, userId);
+    params.putString(USER_NAME, userName);
+    emitMessageToRN(ON_ACCEPT, params);
   }
 
   @Override
   public void onReject(final String userId, final String userName) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putString(USER_ID, userId);
-        params.putString(USER_NAME, userName);
-        emitMessageToRN(ON_REJECT, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putString(USER_ID, userId);
+    params.putString(USER_NAME, userName);
+    emitMessageToRN(ON_REJECT, params);
   }
 
   @Override
   public void onRejectTimeout(final String userId, final String userName) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putString(USER_ID, userId);
-        params.putString(USER_NAME, userName);
-        emitMessageToRN(ON_REJECT_TIMEOUT, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putString(USER_ID, userId);
+    params.putString(USER_NAME, userName);
+    emitMessageToRN(ON_REJECT_TIMEOUT, params);
   }
 
   @Override
   public void onUserStatusUpdate(final String userId, final PeerStatus state) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putString(USER_ID, userId);
-        params.putInt(USER_STATUS, getUnifiedUserStatus(state));
-        emitMessageToRN(ON_USER_STATUS_UPDATE, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putString(USER_ID, userId);
+    params.putInt(USER_STATUS, getUnifiedUserStatus(state));
+    emitMessageToRN(ON_USER_STATUS_UPDATE, params);
   }
 
   @Override
   public void onContactListUpdate() {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        var peerList = TrueConfSDK.getInstance().getUsers();
-        for (PeerDescription p : peerList) {
-          WritableMap params = Arguments.createMap();
-          params.putString(USER_ID, p.getId());
-          params.putInt(USER_STATUS, getUnifiedUserStatus(p.getPeerStatusInfo().getPeerStatus()));
-          emitMessageToRN(ON_USER_STATUS_UPDATE, params);
-        }
-      }
-    });
+    var peerList = TrueConfSDK.getInstance().getUsers();
+    for (PeerDescription p : peerList) {
+      WritableMap params = Arguments.createMap();
+      params.putString(USER_ID, p.getId());
+      params.putInt(USER_STATUS, getUnifiedUserStatus(p.getPeerStatusInfo().getPeerStatus()));
+      emitMessageToRN(ON_USER_STATUS_UPDATE, params);
+    }
   }
 
   @Override
   public void onChatMessageReceived(final String fromUserID, final String fromUserName, final String message,
       final String toUserID) {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        WritableMap params = Arguments.createMap();
-        params.putString(FROM_USER_ID, fromUserID);
-        params.putString(FROM_USER_NAME, fromUserName);
-        params.putString(MESSAGE, message);
-        params.putString(TO_USER_ID, toUserID);
-        emitMessageToRN(ON_CHAT_MESSAGE_RECEIVED, params);
-      }
-    });
+    WritableMap params = Arguments.createMap();
+    params.putString(FROM_USER_ID, fromUserID);
+    params.putString(FROM_USER_NAME, fromUserName);
+    params.putString(MESSAGE, message);
+    params.putString(TO_USER_ID, toUserID);
+    emitMessageToRN(ON_CHAT_MESSAGE_RECEIVED, params);
   }
 
   private int getUnifiedUserStatus(PeerStatus state) {
@@ -290,6 +224,13 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     return -127;
   }
 
+  public void onPressButton(String kind) {
+    Log.d(TAG, "onPressButton");
+    WritableMap params = Arguments.createMap();
+    params.putString("kind", kind);
+    emitMessageToRN(ON_PRESS_BUTTON, params);
+  }
+
   public Map getExportedCustomBubblingEventTypeConstants() {
     return MapBuilder.builder()
       .put(ON_SERVER_STATUS, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_SERVER_STATUS)))
@@ -307,6 +248,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
       .put(ON_USER_STATUS_UPDATE, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_USER_STATUS_UPDATE)))
       .put(ON_CHAT_MESSAGE_RECEIVED, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_CHAT_MESSAGE_RECEIVED)))
       .put(ON_EXTRA_BUTTON_PRESSED, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_EXTRA_BUTTON_PRESSED)))
+      .put(ON_PRESS_BUTTON, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_PRESS_BUTTON)))
       .build();
   }
 
@@ -318,8 +260,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     Log.d(TAG, "emitMessageToRN: " + eventName);
 
     reactContext
-        .getJSModule(RCTEventEmitter.class)
-        .receiveEvent(savedRNViewId, eventName, params);
+      .getJSModule(RCTEventEmitter.class)
+      .receiveEvent(savedRNViewId, eventName, params);
   }
 
   public TrueConfSDKViewManager(ReactApplicationContext reactContext) {
@@ -503,7 +445,25 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     params.y = 0;
     TrueConfSDK.getInstance().setCallLayoutParams(params);
 
-    TrueConfSDK.getInstance().setConferenceFragment(new ConferenceFragmentCast(R.layout.fragment_conference_cast));
+    TrueConfSDK.getInstance().setConferenceFragment(
+      new ConferenceFragmentCast( R.layout.fragment_conference_cast, this )
+    );
+
+    // FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
+    // activity.getSupportFragmentManager().setFragmentResultListener("requestKey",
+    //     activity, new FragmentResultListener() {
+    //   @Override
+    //   public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+    //     // We use a String here, but any type that can be put in a Bundle is supported.
+    //     String result = bundle.getString("bundleKey");
+    //     Log.d(TAG, "onFragmentResult result: " + result);
+    //     // Do something with the result.
+    //   }
+    // });
+
+    // TODO
+    // TrueConfSDK.getInstance().setPlaceCallFragment(new PlaceCallFragmentCast(R.layout.fragment_conference_cast));
+    // TrueConfSDK.getInstance().setReceiveCallFragment(new IncomingCallFragmentCast(R.layout.fragment_conference_cast));
   }
 
   private void initEvents () {

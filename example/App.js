@@ -240,6 +240,7 @@ export default function App () {
           onConferenceStart={onConferenceStart}
           onConferenceEnd={onConferenceEnd}
           onUserStatusUpdate={onUserStatusUpdate}
+          onPressButton={e => console.log('onPressButton', e.nativeEvent)}
         />
       </View>
 
