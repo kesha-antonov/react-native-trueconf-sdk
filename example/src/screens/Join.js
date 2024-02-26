@@ -8,6 +8,9 @@ export default function Join (props) {
     onHangup,
     onMic,
     onCam,
+    onShowCallWindow,
+    isMuted,
+    isCameraOn,
   } = props
 
   const [confId, setConfId] = useState('test_sdk')
@@ -59,10 +62,13 @@ export default function Join (props) {
           <Button title="Hangup" onPress={onHangup} />
         </View>
         <View style={{ flex: 1, padding: 10 }}>
-          <Button title="Mic" onPress={onMic} />
+          <Button title={'Mic turned ' + (isMuted ? 'off' : 'on')} onPress={onMic} />
         </View>
         <View style={{ flex: 1, padding: 10 }}>
-          <Button title="Cam" onPress={onCam} />
+          <Button title={'Cam turned ' + (isCameraOn ? 'on' : 'off')} onPress={onCam} />
+        </View>
+        <View style={{ flex: 1, padding: 10 }}>
+          <Button title="Show call window" onPress={onShowCallWindow} />
         </View>
       </View>
     </View>

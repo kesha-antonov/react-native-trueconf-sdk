@@ -159,6 +159,9 @@ export default function App () {
           onHangup={handleHangup}
           onMic={handleToggleMic}
           onCam={handleToggleCam}
+          onShowCallWindow={() => trueconfRef.current?.showCallWindow()}
+          isMuted={isMuted}
+          isCameraOn={isCameraOn}
         />
       )
     else if (isConnected)
@@ -183,6 +186,8 @@ export default function App () {
     handleToggleCam,
     handlePressConnect,
     handleLogin,
+    isMuted,
+    isCameraOn,
   ])
 
   useEffect(() => {

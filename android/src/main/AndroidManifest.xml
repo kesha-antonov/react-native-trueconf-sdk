@@ -54,4 +54,14 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
+    <application>
+        <activity
+            android:name="com.trueconf.DialogActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+        </activity>
+        <activity
+            android:name="com.trueconf.sdk.gui.activities.CallCast">
+        </activity>
+    </application>
+
 </manifest>

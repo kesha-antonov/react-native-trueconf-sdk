@@ -99,6 +99,13 @@ function TrueConfWrapper(props, ref) {
     )
   }, [callCommand])
 
+  const showCallWindow = useCallback(() => {
+    callCommand(
+      'showCallWindow',
+      []
+    )
+  }, [callCommand])
+
   const createFragment = useCallback(() => {
     if (!IS_ANDROID) return
 
@@ -119,6 +126,7 @@ function TrueConfWrapper(props, ref) {
     joinConf,
     login,
     logout,
+    showCallWindow,
   }))
 
   return (

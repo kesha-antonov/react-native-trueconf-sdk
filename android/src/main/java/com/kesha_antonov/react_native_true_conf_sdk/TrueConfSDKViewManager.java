@@ -1,5 +1,7 @@
 package com.kesha_antonov.react_native_true_conf_sdk;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.Choreographer;
 import android.view.ViewGroup;
 import android.view.View;
@@ -18,24 +20,22 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.events.RCTEventEmitter;
 
-import java.util.ArrayList;
 import java.util.Map;
 
+import com.facebook.react.uimanager.events.RCTEventEmitter;
+// TODO: USE IT
+// https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
+// import com.facebook.react.uimanager.events.RCTModernEventEmitter;
 import com.trueconf.sdk.TrueConfSDK;
-import com.trueconf.sdk.TrueConfSDK;
-import com.trueconf.sdk.data.TCSDKExtraButton;
 import com.trueconf.sdk.interfaces.TrueConfListener;
+import com.trueconf.sdk.gui.activities.CallCast;
 import com.vc.data.contacts.PeerDescription;
 import com.vc.data.enums.ConnectionEvents;
 import com.vc.data.enums.PeerStatus;
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
-import androidx.fragment.app.FragmentResultListener;
-import android.os.Bundle;
 
 import android.util.Log;
 
@@ -52,6 +52,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   public final int COMMAND_INIT_SDK = 2;
   public final int COMMAND_LOGIN = 3;
   public final int COMMAND_JOIN_CONF = 4;
+  public final int COMMAND_SHOW_CALL_WINDOW = 5;
   // PROPS
   private int propWidth;
   private int propHeight;
@@ -224,8 +225,31 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     return -127;
   }
 
+  private void moveAppActivityToFront () {
+    Activity activity = reactContext.getCurrentActivity();
+    Intent intent = new Intent(reactContext, activity.getClass());
+    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    activity.startActivity(intent);
+  }
+
+  private void moveCallAcivityToFront () {
+    Activity activity = reactContext.getCurrentActivity();
+    Intent intent = new Intent(reactContext, CallCast.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    activity.startActivity(intent);
+  }
+
   public void onPressButton(String kind) {
     Log.d(TAG, "onPressButton");
+
+    switch (kind) {
+      case "chat":
+        moveAppActivityToFront();
+        break;
+      default:
+        break;
+    }
+
     WritableMap params = Arguments.createMap();
     params.putString("kind", kind);
     emitMessageToRN(ON_PRESS_BUTTON, params);
@@ -253,10 +277,6 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
   private void emitMessageToRN(String eventName, @Nullable WritableMap params) {
-    // reactContext
-    //     .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-    //     .emit(eventName, params);
-
     Log.d(TAG, "emitMessageToRN: " + eventName);
 
     reactContext
@@ -288,7 +308,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
       "create", COMMAND_CREATE,
       "initSdk", COMMAND_INIT_SDK,
       "login", COMMAND_LOGIN,
-      "joinConf", COMMAND_JOIN_CONF
+      "joinConf", COMMAND_JOIN_CONF,
+      "showCallWindow", COMMAND_SHOW_CALL_WINDOW
     );
   }
 
@@ -330,6 +351,10 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         case COMMAND_JOIN_CONF: {
           String confId = args.getString(0);
           boolean result = TrueConfSDK.getInstance().joinConf(confId);
+          break;
+        }
+        case COMMAND_SHOW_CALL_WINDOW: {
+          moveCallAcivityToFront();
           break;
         }
         default: {}
