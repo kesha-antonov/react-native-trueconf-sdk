@@ -494,14 +494,15 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   private void initCustomViews () {
     Log.d(TAG, "initCustomViews");
 
-    final float scale = reactContext.getResources().getDisplayMetrics().density;
-    int height = (int) (400 * scale + 0.5f);
+    // final float scale = reactContext.getResources().getDisplayMetrics().density;
+    // int height = (int) (400 * scale + 0.5f);
     WindowManager.LayoutParams params = new WindowManager.LayoutParams();
     params.width = WindowManager.LayoutParams.MATCH_PARENT;
-    params.height = height;
-    params.gravity = Gravity.BOTTOM;
-    params.y = 150;
+    params.height = WindowManager.LayoutParams.MATCH_PARENT;
+    params.gravity = Gravity.TOP;
+    params.y = 0;
     TrueConfSDK.getInstance().setCallLayoutParams(params);
+
     TrueConfSDK.getInstance().setConferenceFragment(new ConferenceFragmentCast(R.layout.fragment_conference_cast));
   }
 
@@ -539,19 +540,6 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   // public void stop() {
   //     TrueConfSDK.getInstance().stop();
   //     TrueConfSDK.getInstance().removeTrueconfListener(this);
-  // }
-
-  // @ReactMethod
-  // public void initCustomViews() {
-  //     final float scale = context.getResources().getDisplayMetrics().density;
-  //     int height = (int) (400 * scale + 0.5f);
-  //     WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-  //     params.width = WindowManager.LayoutParams.MATCH_PARENT;
-  //     params.height = height;
-  //     params.gravity = Gravity.BOTTOM;
-  //     params.y = 150;
-  //     TrueConfSDK.getInstance().setCallLayoutParams(params);
-  //     TrueConfSDK.getInstance().setConferenceFragment(new ConferenceFragmentCast(R.layout.fragment_conference_cast));
   // }
 
   // @ReactMethod

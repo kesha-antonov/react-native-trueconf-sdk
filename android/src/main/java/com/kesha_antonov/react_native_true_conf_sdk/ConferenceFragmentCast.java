@@ -28,9 +28,9 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         super.onViewCreated(view, savedInstanceState);
 
         RelativeLayout gfxFragmentCast = view.findViewById(R.id.gfxFragmentCast);
-        ViewGroup insertPoint = view.findViewById(R.id.insert_point);
+        ViewGroup selfView = view.findViewById(R.id.self_view);
 
         addGFXFragment(gfxFragmentCast);
-        addGFXSelfViewSurface(insertPoint);
+        addGFXSelfViewSurface(selfView);
     }
 }
