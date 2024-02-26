@@ -20,7 +20,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     @objc var onUserStatusUpdate: RCTDirectEventBlock?
 
-    @objc var server: String = "qa4.trueconf.net"
+    @objc var server: String = "video.trueconf.com"
 
     @objc private var _isMuted : Bool = false
     @objc private var _isCameraOn : Bool = true

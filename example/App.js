@@ -25,7 +25,7 @@ export default function App () {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isConnected, setIsConnected] = useState(false)
-  const [server, setServer] = useState('qa4.trueconf.net')
+  const [server, setServer] = useState('video.trueconf.com')
   const [status, setStatus] = useState(STATUSES.disconnected)
   const [isMuted, setIsMuted] = useState(false)
   const [isCameraOn, setIsCameraOn] = useState(true)
@@ -216,6 +216,12 @@ export default function App () {
           style={[
             styles.fill,
             styles.absoluteFill,
+            {
+              backgroundColor: 'blue',
+              // width: 300,
+              // height: 300,
+              // flex: 1,
+            }
           ]}
 
           server={server}

@@ -28,6 +28,11 @@ function TrueConfWrapper(props, ref) {
         ? UIManager.getViewManagerConfig(NATIVE_COMPONENT_NAME)
         : UIManager[NATIVE_COMPONENT_NAME]
     ).Commands[command]
+    if (!cmd) {
+      console.warn(`TrueConfWrapper: command '${command}' not found`)
+      return
+    }
+
     if (IS_ANDROID)
       cmd = cmd.toString()
 

@@ -7,9 +7,9 @@ export default function Login (props) {
     onChangeServer,
   } = props
 
-  const [login, setLogin] = useState('sdk_test1')
+  const [login, setLogin] = useState('test_sdk1') // test_sdk2
   const [loginError, setLoginError] = useState()
-  const [password, setPassword] = useState('11')
+  const [password, setPassword] = useState('LvAR8rVyeq')
   const [passwordError, setPasswordError] = useState()
 
   const handleChangeLogin = useCallback(login => {

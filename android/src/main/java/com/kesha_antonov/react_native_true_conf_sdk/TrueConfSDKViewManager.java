@@ -1,7 +1,10 @@
 package com.kesha_antonov.react_native_true_conf_sdk;
 
 import android.view.Choreographer;
+import android.view.ViewGroup;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.Gravity;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -15,19 +18,36 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import android.view.ViewGroup;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.util.Map;
 
 import com.trueconf.sdk.TrueConfSDK;
-import com.kesha_antonov.react_native_true_conf_sdk.MyFragment;
+import com.trueconf.sdk.TrueConfSDK;
+import com.trueconf.sdk.data.TCSDKExtraButton;
+import com.trueconf.sdk.interfaces.TrueConfListener;
+import com.vc.data.contacts.PeerDescription;
+import com.vc.data.enums.ConnectionEvents;
+import com.vc.data.enums.PeerStatus;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.UiThreadUtil;
+import com.facebook.react.bridge.WritableMap;
 
 import android.util.Log;
 
-public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
+public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
+    implements TrueConfListener.LoginEventsCallback, TrueConfListener.ConferenceEventsCallback,
+    TrueConfListener.ServerStatusEventsCallback, TrueConfListener.ChatEventsCallback,
+    TrueConfListener.UserStatusEventsCallback {
 
   public static final String REACT_CLASS = "TrueConfSDKViewManager";
   public static final String TAG = "TrueConfSDKViewManager";
+  int savedRNViewId;
   // COMMANDS
   public final int COMMAND_CREATE = 1;
   public final int COMMAND_INIT_SDK = 2;
@@ -36,6 +56,264 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
   private int propHeight;
 
   ReactApplicationContext reactContext;
+
+  // EVENTS
+  private final static String CONNECTED = "isConnected";
+  private final static String SERVER_NAME = "serverName";
+  private final static String SERVER_PORT = "serverPort";
+  private final static String IS_LOGGED_IN = "isLoggedIn";
+  private final static String USER_ID = "userID";
+  private final static String USER_NAME = "userName";
+  private final static String USER_STATUS = "state";
+  private final static String FROM_USER_ID = "fromUserID";
+  private final static String FROM_USER_NAME = "fromUserName";
+  private final static String MESSAGE = "message";
+  private final static String TO_USER_ID = "toUserID";
+  private final static String ON_SERVER_STATUS = "onServerStatus";
+  private final static String ON_LOGIN = "onLogin";
+  private final static String ON_LOGOUT = "onLogout";
+  private final static String ON_SERVER_STATE_CHANGED = "onServerStateChanged";
+  private final static String ON_CONFERENCE_START = "onConferenceStart";
+  private final static String ON_CONFERENCE_END = "onConferenceEnd";
+  private final static String ON_INVITE = "onInvite";
+  private final static String ON_RECORD_REQUEST = "onRecordRequest";
+  private final static String ON_ACCEPT = "onAccept";
+  private final static String ON_REJECT = "onReject";
+  private final static String ON_REJECT_TIMEOUT = "onRejectTimeout";
+  private final static String ON_USER_STATUS_UPDATE = "onUserStatusUpdate";
+  private final static String ON_CHAT_MESSAGE_RECEIVED = "onChatMessageReceived";
+  private final static String ON_EXTRA_BUTTON_PRESSED = "onExtraButtonPressed";
+
+  @Override
+  public void onServerStatus(final boolean connected, final String serverName, final int serverPort) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putBoolean(CONNECTED, connected);
+        params.putString(SERVER_NAME, serverName);
+        params.putInt(SERVER_PORT, serverPort);
+        emitMessageToRN(reactContext, ON_SERVER_STATUS, params);
+      }
+    });
+  }
+
+  @Override
+  public void onLogin(final boolean isLoggedIn, final String userId) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putBoolean(IS_LOGGED_IN, isLoggedIn);
+        params.putString(USER_ID, userId);
+        emitMessageToRN(reactContext, ON_LOGIN, params);
+      }
+    });
+  }
+
+  @Override
+  public void onLogout() {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        emitMessageToRN(reactContext, ON_LOGOUT, null);
+      }
+    });
+  }
+
+  @Override
+  public void onStateChanged(final ConnectionEvents connectionEvents, final int i) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        emitMessageToRN(reactContext, ON_SERVER_STATE_CHANGED, null);
+      }
+    });
+  }
+
+  @Override
+  public void onConferenceStart() {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        emitMessageToRN(reactContext, ON_CONFERENCE_START, null);
+      }
+    });
+  }
+
+  @Override
+  public void onConferenceEnd() {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        emitMessageToRN(reactContext, ON_CONFERENCE_END, null);
+      }
+    });
+  }
+
+  @Override
+  public void onInvite(final String userId, final String userName) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putString(USER_ID, userId);
+        params.putString(USER_NAME, userName);
+        emitMessageToRN(reactContext, ON_INVITE, params);
+      }
+    });
+  }
+
+  @Override
+  public void onRecordRequest(final String userId, final String userName) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putString(USER_ID, userId);
+        params.putString(USER_NAME, userName);
+        emitMessageToRN(reactContext, ON_RECORD_REQUEST, params);
+      }
+    });
+  }
+
+  @Override
+  public void onAccept(final String userId, final String userName) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putString(USER_ID, userId);
+        params.putString(USER_NAME, userName);
+        emitMessageToRN(reactContext, ON_ACCEPT, params);
+      }
+    });
+  }
+
+  @Override
+  public void onReject(final String userId, final String userName) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putString(USER_ID, userId);
+        params.putString(USER_NAME, userName);
+        emitMessageToRN(reactContext, ON_REJECT, params);
+      }
+    });
+  }
+
+  @Override
+  public void onRejectTimeout(final String userId, final String userName) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putString(USER_ID, userId);
+        params.putString(USER_NAME, userName);
+        emitMessageToRN(reactContext, ON_REJECT_TIMEOUT, params);
+      }
+    });
+  }
+
+  @Override
+  public void onUserStatusUpdate(final String userId, final PeerStatus state) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putString(USER_ID, userId);
+        params.putInt(USER_STATUS, getUnifiedUserStatus(state));
+        emitMessageToRN(reactContext, ON_USER_STATUS_UPDATE, params);
+      }
+    });
+  }
+
+  @Override
+  public void onContactListUpdate() {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        var peerList = TrueConfSDK.getInstance().getUsers();
+        for (PeerDescription p : peerList) {
+          WritableMap params = Arguments.createMap();
+          params.putString(USER_ID, p.getId());
+          params.putInt(USER_STATUS, getUnifiedUserStatus(p.getPeerStatusInfo().getPeerStatus()));
+          emitMessageToRN(reactContext, ON_USER_STATUS_UPDATE, params);
+        }
+      }
+    });
+  }
+
+  @Override
+  public void onChatMessageReceived(final String fromUserID, final String fromUserName, final String message,
+      final String toUserID) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        WritableMap params = Arguments.createMap();
+        params.putString(FROM_USER_ID, fromUserID);
+        params.putString(FROM_USER_NAME, fromUserName);
+        params.putString(MESSAGE, message);
+        params.putString(TO_USER_ID, toUserID);
+        emitMessageToRN(reactContext, ON_CHAT_MESSAGE_RECEIVED, params);
+      }
+    });
+  }
+
+  private int getUnifiedUserStatus(PeerStatus state) {
+    switch (state.ordinal()) {
+      case 0:
+        return -127;
+      case 1:
+        return -1;
+      case 2:
+        return 0;
+      case 3:
+        return 1;
+      case 4:
+        return 2;
+      case 5:
+        return 3;
+      case 6:
+        return 4;
+      case 7:
+        return 5;
+    }
+    return -127;
+  }
+
+  public Map getExportedCustomBubblingEventTypeConstants() {
+    return MapBuilder.builder()
+      .put(ON_SERVER_STATUS, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_SERVER_STATUS)))
+      .put(ON_SERVER_STATUS, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_SERVER_STATUS)))
+      .put(ON_LOGIN, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_LOGIN)))
+      .put(ON_LOGOUT, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_LOGOUT)))
+      .put(ON_SERVER_STATE_CHANGED, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_SERVER_STATE_CHANGED)))
+      .put(ON_CONFERENCE_START, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_CONFERENCE_START)))
+      .put(ON_CONFERENCE_END, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_CONFERENCE_END)))
+      .put(ON_INVITE, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_INVITE)))
+      .put(ON_RECORD_REQUEST, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_RECORD_REQUEST)))
+      .put(ON_ACCEPT, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_ACCEPT)))
+      .put(ON_REJECT, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_REJECT)))
+      .put(ON_REJECT_TIMEOUT, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_REJECT_TIMEOUT)))
+      .put(ON_USER_STATUS_UPDATE, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_USER_STATUS_UPDATE)))
+      .put(ON_CHAT_MESSAGE_RECEIVED, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_CHAT_MESSAGE_RECEIVED)))
+      .put(ON_EXTRA_BUTTON_PRESSED, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_EXTRA_BUTTON_PRESSED)))
+      .build();
+  }
+
+  private void emitMessageToRN(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
+    // reactContext
+    //     .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+    //     .emit(eventName, params);
+
+    Log.d(TAG, "emitMessageToRN: " + eventName);
+
+    reactContext
+        .getJSModule(RCTEventEmitter.class)
+        .receiveEvent(savedRNViewId, eventName, params);
+  }
 
   public TrueConfSDKViewManager(ReactApplicationContext reactContext) {
     this.reactContext = reactContext;
@@ -75,12 +353,15 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
       Log.d(TAG, "receiveCommand: " + commandId);
 
       super.receiveCommand(root, commandId, args);
-      int reactNativeViewId = args.getInt(0);
+
       int commandIdInt = Integer.parseInt(commandId);
 
       switch (commandIdInt) {
         case COMMAND_CREATE:
-          createFragment(root, reactNativeViewId);
+          int reactNativeViewId = args.getInt(0);
+          savedRNViewId = reactNativeViewId;
+          // NOT USED FOR NOW
+          // createFragment(root, reactNativeViewId);
           break;
         case COMMAND_INIT_SDK:
           initSdk();
@@ -169,12 +450,39 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout> {
   //   view.setServer(server);
   // }
 
+  private void initCustomViews () {
+    Log.d(TAG, "initCustomViews");
+
+    final float scale = reactContext.getResources().getDisplayMetrics().density;
+    int height = (int) (400 * scale + 0.5f);
+    WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+    params.width = WindowManager.LayoutParams.MATCH_PARENT;
+    params.height = height;
+    params.gravity = Gravity.BOTTOM;
+    params.y = 150;
+    TrueConfSDK.getInstance().setCallLayoutParams(params);
+    TrueConfSDK.getInstance().setConferenceFragment(new ConferenceFragmentCast(R.layout.fragment_conference_cast));
+  }
+
+  private void initEvents () {
+    Log.d(TAG, "initEvents");
+
+    TrueConfSDK.getInstance().addTrueconfListener(this);
+  }
+
   private void initSdk() {
     Log.d(TAG, "initSdk");
 
-    // TrueConfSDK.getInstance().start(reactContext.getApplicationContext(), "ru10.trueconf.net", true);
+    initCustomViews();
+    initEvents();
 
-    // TrueConfSDK.getInstance().setPlaceCallFragment(new MyFragment());
-    // TrueConfSDK.getInstance().setReceiveCallFragment(new MyFragment());
+    TrueConfSDK.getInstance().start("video.trueconf.com", true);
+
+    // TODO: GET FROM PROPS
+    boolean isMuted = false;
+    boolean isCameraOn = true;
+
+    TrueConfSDK.getInstance().muteMicrophone(isMuted);
+    TrueConfSDK.getInstance().muteCamera(isCameraOn);
   }
 }
