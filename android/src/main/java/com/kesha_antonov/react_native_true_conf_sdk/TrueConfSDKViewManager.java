@@ -20,6 +20,7 @@ import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.trueconf.sdk.TrueConfSDK;
@@ -51,9 +52,15 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   // COMMANDS
   public final int COMMAND_CREATE = 1;
   public final int COMMAND_INIT_SDK = 2;
+  public final int COMMAND_LOGIN = 3;
+  public final int COMMAND_JOIN_CONF = 4;
   // PROPS
   private int propWidth;
   private int propHeight;
+
+  private String server = "";
+  private boolean isMuted = false;
+  private boolean isCameraOn = true;
 
   ReactApplicationContext reactContext;
 
@@ -62,13 +69,13 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   private final static String SERVER_NAME = "serverName";
   private final static String SERVER_PORT = "serverPort";
   private final static String IS_LOGGED_IN = "isLoggedIn";
-  private final static String USER_ID = "userID";
+  private final static String USER_ID = "userId";
   private final static String USER_NAME = "userName";
   private final static String USER_STATUS = "state";
-  private final static String FROM_USER_ID = "fromUserID";
+  private final static String FROM_USER_ID = "fromUserId";
   private final static String FROM_USER_NAME = "fromUserName";
   private final static String MESSAGE = "message";
-  private final static String TO_USER_ID = "toUserID";
+  private final static String TO_USER_ID = "toUserId";
   private final static String ON_SERVER_STATUS = "onServerStatus";
   private final static String ON_LOGIN = "onLogin";
   private final static String ON_LOGOUT = "onLogout";
@@ -337,7 +344,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   public Map<String, Integer> getCommandsMap() {
     return MapBuilder.of(
       "create", COMMAND_CREATE,
-      "initSdk", COMMAND_INIT_SDK
+      "initSdk", COMMAND_INIT_SDK,
+      "login", COMMAND_LOGIN,
+      "joinConf", COMMAND_JOIN_CONF
     );
   }
 
@@ -357,18 +366,35 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
       int commandIdInt = Integer.parseInt(commandId);
 
       switch (commandIdInt) {
-        case COMMAND_CREATE:
+        case COMMAND_CREATE: {
           int reactNativeViewId = args.getInt(0);
           savedRNViewId = reactNativeViewId;
           // NOT USED FOR NOW
           // createFragment(root, reactNativeViewId);
           break;
-        case COMMAND_INIT_SDK:
+        }
+        case COMMAND_INIT_SDK: {
           initSdk();
           break;
+        }
+        case COMMAND_LOGIN: {
+          String user = args.getString(0);
+          String pwd = args.getString(1);
+          boolean encryptPassword = args.getBoolean(2);
+          boolean enableAutoLogin = args.getBoolean(3);
+          boolean result = TrueConfSDK.getInstance().loginAs(user, pwd, encryptPassword, enableAutoLogin);
+          break;
+        }
+        case COMMAND_JOIN_CONF: {
+          String confId = args.getString(0);
+          boolean result = TrueConfSDK.getInstance().joinConf(confId);
+          break;
+        }
         default: {}
       }
   }
+
+  // --- PROPS ---
 
   @ReactPropGroup(names = {"width", "height"}, customType = "Style")
   public void setStyle(FrameLayout view, int index, @Nullable Integer value) {
@@ -379,6 +405,21 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     if (index == 1) {
       propHeight = value != null ? value : 0;
     }
+  }
+
+  @ReactProp(name = "server")
+  public void setSrc(FrameLayout view, @Nullable String value) {
+    server = value != null ? value : "";
+  }
+
+  @ReactProp(name = "isMuted")
+  public void setIsMuted(FrameLayout view, @Nullable Boolean value) {
+    isMuted = value != null ? value : false;
+  }
+
+  @ReactProp(name = "isCameraOn")
+  public void setIsCameraOn(FrameLayout view, @Nullable Boolean value) {
+    isCameraOn = value != null ? value : true;
   }
 
   /**
@@ -471,18 +512,194 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
   private void initSdk() {
-    Log.d(TAG, "initSdk");
+    Log.d(TAG, "initSdk server: " + server + " isMuted: " + isMuted + " isCameraOn: " + isCameraOn);
 
     initCustomViews();
     initEvents();
 
-    TrueConfSDK.getInstance().start("video.trueconf.com", true);
-
-    // TODO: GET FROM PROPS
-    boolean isMuted = false;
-    boolean isCameraOn = true;
+    TrueConfSDK.getInstance().start(server, true);
 
     TrueConfSDK.getInstance().muteMicrophone(isMuted);
     TrueConfSDK.getInstance().muteCamera(isCameraOn);
   }
+
+  //
+
+  // @ReactMethod
+  // public void start(String serverList) {
+  //     if(serverList != null && !serverList.isEmpty()) {
+  //         TrueConfSDK.getInstance().start(serverList, true);
+  //     } else {
+  //         TrueConfSDK.getInstance().start(true);
+  //     }
+  //     TrueConfSDK.getInstance().addTrueconfListener(this);
+  // }
+
+  // @ReactMethod
+  // public void stop() {
+  //     TrueConfSDK.getInstance().stop();
+  //     TrueConfSDK.getInstance().removeTrueconfListener(this);
+  // }
+
+  // @ReactMethod
+  // public void initCustomViews() {
+  //     final float scale = context.getResources().getDisplayMetrics().density;
+  //     int height = (int) (400 * scale + 0.5f);
+  //     WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+  //     params.width = WindowManager.LayoutParams.MATCH_PARENT;
+  //     params.height = height;
+  //     params.gravity = Gravity.BOTTOM;
+  //     params.y = 150;
+  //     TrueConfSDK.getInstance().setCallLayoutParams(params);
+  //     TrueConfSDK.getInstance().setConferenceFragment(new ConferenceFragmentCast(R.layout.fragment_conference_cast));
+  // }
+
+  // @ReactMethod
+  // public void addExtraButton(String title, Promise promise) {
+  //     try {
+  //         ArrayList<TCSDKExtraButton> buttons = new ArrayList<>();
+  //         View.OnClickListener onClickListener = btn -> {
+  //             UiThreadUtil.runOnUiThread(new Runnable() {
+  //                 @Override
+  //                 public void run() {
+  //                     RNTrueConfSdkModule.this.emitMessageToRN(context, ON_EXTRA_BUTTON_PRESSED, null);
+  //                 }
+  //             });
+  //         };
+  //         buttons.add(new TCSDKExtraButton(title, onClickListener));
+  //         TrueConfSDK.getInstance().setNewExtraButtons(buttons);
+  //         promise.resolve(true);
+  //     } catch(Exception e) {
+  //         promise.reject("failed to set extra button: " + e.getMessage());
+  //     }
+  // }
+
+  // @ReactMethod
+  // public void showAlertPage(String text) {
+  //     try {
+  //         Intent intent = new Intent(context, DialogActivity.class);
+  //         intent.putExtra("ALERT_TEXT", text);
+  //         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+  //         context.startActivity(intent);
+  //     } catch (Exception e) {
+  //         Log.e(getClass().getName(), "failed to display alert activity: " + e.getMessage());
+  //     }
+  // }
+
+  // @ReactMethod
+  // public void logout(Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().logout();
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void callTo(String userId, Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().callTo(userId);
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void hangup(boolean forAll, Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().hangup(forAll);
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void acceptCall(boolean accept, Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().acceptCall(accept);
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void acceptRecord(boolean accept, String userID) {
+  //     TrueConfSDK.getInstance().acceptRecord(accept, userID);
+  // }
+
+  // @ReactMethod
+  // public void sendChatMessage(String userID, String message, Promise promise) {
+  //     TrueConfSDK.getInstance().sendChatMessage(userID, message);
+  // }
+
+  // @ReactMethod
+  // public void parseProtocolLink(String cmd) {
+  //     TrueConfSDK.getInstance().parseProtocolLink(context, cmd);
+  // }
+
+  // @ReactMethod
+  // public void scheduleLoginAs(String login, String pwd, boolean encryptPassword, String callToUser, boolean autoClose, boolean loginTemp, boolean loginForce, String domain, String serversList, boolean isPublic) {
+  //     TrueConfSDK.getInstance().scheduleLoginAs(login, pwd, encryptPassword, callToUser, autoClose, loginTemp, loginForce, domain, serversList, isPublic);
+  // }
+
+  // @ReactMethod
+  // public void muteMicrophone(boolean mute) {
+  //     TrueConfSDK.getInstance().muteMicrophone(mute);
+  // }
+
+  // @ReactMethod
+  // public void muteCamera(boolean mute) {
+  //     TrueConfSDK.getInstance().muteCamera(mute);
+  // }
+
+  // @ReactMethod
+  // public void getMyId(Promise promise) {
+  //     String myId = TrueConfSDK.getInstance().getMyId();
+  //     promise.resolve(myId);
+  // }
+
+  // @ReactMethod
+  // public void getMyName(Promise promise) {
+  //     String myName = TrueConfSDK.getInstance().getMyName();
+  //     promise.resolve(myName);
+  // }
+
+  // @ReactMethod
+  // public void isStarted(Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().isStarted();
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void isConnectedToServer(Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().isConnectedToServer();
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void isLoggedIn(Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().isLoggedIn();
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void isInConference(Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().isInConference();
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void getUserStatus(String user, Promise promise) {
+  //     int userStatus = getUnifiedUserStatus(TrueConfSDK.getInstance().getUserStatus(user));
+  //     promise.resolve(userStatus);
+  //     UiThreadUtil.runOnUiThread(new Runnable() {
+  //         @Override
+  //         public void run() {
+  //             WritableMap params = Arguments.createMap();
+  //             params.putString(USER_ID, user);
+  //             params.putInt(USER_STATUS, userStatus);
+  //             emitMessageToRN(context, ON_USER_STATUS_UPDATE, params);
+  //         }
+  //     });
+  // }
+
+  // @ReactMethod
+  // public void microphoneMuted(Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().isMicrophoneMuted();
+  //     promise.resolve(result);
+  // }
+
+  // @ReactMethod
+  // public void cameraMuted(Promise promise) {
+  //     boolean result = TrueConfSDK.getInstance().isCameraMuted();
+  //     promise.resolve(result);
+  // }
 }
