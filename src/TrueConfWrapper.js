@@ -17,7 +17,7 @@ function TrueConfWrapper(props, ref) {
   const innerRef = useRef()
 
   const {
-    isMuted = false,
+    isMicMuted = false,
     isCameraMuted = false,
     isSpeakerMuted = false,
     ...rest
@@ -47,9 +47,9 @@ function TrueConfWrapper(props, ref) {
   const initSdk = useCallback(() => {
     callCommand(
       'initSdk',
-      [isMuted, isCameraMuted]
+      [isMicMuted, isCameraMuted]
     )
-  }, [callCommand, isMuted, isCameraMuted])
+  }, [callCommand, isMicMuted, isCameraMuted])
 
   const stopSdk = useCallback(() => {
     callCommand(
@@ -135,7 +135,7 @@ function TrueConfWrapper(props, ref) {
   return (
     <NativeComponent
       {...rest}
-      isMuted={isMuted}
+      isMicMuted={isMicMuted}
       isCameraMuted={isCameraMuted}
       isSpeakerMuted={isSpeakerMuted}
       ref={innerRef}
@@ -147,7 +147,7 @@ TrueConfWrapper = forwardRef(TrueConfWrapper)
 
 TrueConfWrapper.propTypes = {
   server: PropTypes.string,
-  isMuted: PropTypes.bool,
+  isMicMuted: PropTypes.bool,
   isCameraMuted: PropTypes.bool,
   isSpeakerMuted: PropTypes.bool,
 

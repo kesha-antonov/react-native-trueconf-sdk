@@ -27,7 +27,7 @@ export default function Join (props) {
 
     onShowCallWindow,
 
-    isMuted,
+    isMicMuted,
     isCameraMuted,
     isSpeakerMuted,
   } = props
@@ -74,7 +74,7 @@ export default function Join (props) {
       />
 
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <Button title={'Mic: ' + (isMuted ? 'off' : 'on')} onPress={onPressMic} />
+        <Button title={'Mic: ' + (isMicMuted ? 'off' : 'on')} onPress={onPressMic} />
         <Button title={'Cam: ' + (isCameraMuted ? 'off' : 'on')} onPress={onPressCamera} />
         <Button title={'Speaker: ' + (isSpeakerMuted ? 'off' : 'on')} onPress={onPressSpeaker} />
 

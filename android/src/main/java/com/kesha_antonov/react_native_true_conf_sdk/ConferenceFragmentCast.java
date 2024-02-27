@@ -81,8 +81,8 @@ public class ConferenceFragmentCast extends ConferenceFragment {
             tcsdkViewManager.onPressButton("chat", null);
         });
 
-        Log.d(TrueConfSDKViewManager.TAG, "ConferenceFragmentCast isMuted " + tcsdkViewManager.isMuted + " isCameraMuted " + tcsdkViewManager.isCameraMuted + " isSpeakerMuted " + tcsdkViewManager.isSpeakerMuted);
-        updateMicButton(!tcsdkViewManager.isMuted);
+        Log.d(TrueConfSDKViewManager.TAG, "ConferenceFragmentCast isMicMuted " + tcsdkViewManager.isMicMuted + " isCameraMuted " + tcsdkViewManager.isCameraMuted + " isSpeakerMuted " + tcsdkViewManager.isSpeakerMuted);
+        updateMicButton(!tcsdkViewManager.isMicMuted);
         updateCameraButton(!tcsdkViewManager.isCameraMuted);
         updateSpeakerButton(!tcsdkViewManager.isSpeakerMuted);
     }
@@ -116,7 +116,7 @@ public class ConferenceFragmentCast extends ConferenceFragment {
 
         super.onSwitchMicApplied(isMuted);
         updateMicButton(!isMuted);
-        tcsdkViewManager.isMuted = isMuted;
+        tcsdkViewManager.isMicMuted = isMuted;
     }
 
     @Override

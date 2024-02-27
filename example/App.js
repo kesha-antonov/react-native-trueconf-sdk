@@ -28,7 +28,7 @@ export default function App () {
   const [server, setServer] = useState('video.trueconf.com')
   const [status, setStatus] = useState(STATUSES.disconnected)
 
-  const [isMuted, setIsMuted] = useState(false)
+  const [isMicMuted, setIsMicMuted] = useState(false)
   const [isCameraMuted, setIsCameraMuted] = useState(false)
   const [isSpeakerMuted, setIsSpeakerMuted] = useState(false)
 
@@ -146,7 +146,7 @@ export default function App () {
   }, [])
 
   const handleToggleMic = useCallback(() => {
-    setIsMuted(isMuted => !isMuted)
+    setIsMicMuted(isMicMuted => !isMicMuted)
   }, [])
 
   const handleToggleCamera = useCallback(() => {
@@ -169,7 +169,7 @@ export default function App () {
           onPressSpeaker={handleToggleSpeaker}
           onShowCallWindow={() => trueconfRef.current?.showCallWindow()}
 
-          isMuted={isMuted}
+          isMicMuted={isMicMuted}
           isCameraMuted={isCameraMuted}
           isSpeakerMuted={isSpeakerMuted}
         />
@@ -198,7 +198,7 @@ export default function App () {
     handlePressConnect,
     handleLogin,
 
-    isMuted,
+    isMicMuted,
     isCameraMuted,
     isSpeakerMuted,
   ])
@@ -207,7 +207,7 @@ export default function App () {
     console.log('handlePressButton', { kind, isMuted })
     switch (kind) {
       case 'mic':
-        setIsMuted(isMuted)
+        setIsMicMuted(isMuted)
         break
       case 'camera':
         setIsCameraMuted(isMuted)
@@ -231,7 +231,7 @@ export default function App () {
     setStatus(status)
   }, [isConnected, isLoggedIn, server, currentUserId])
 
-  console.log('App', { isLoggedIn, isConnected, status }, { isMuted, isCameraMuted, isSpeakerMuted })
+  console.log('App', { isLoggedIn, isConnected, status }, { isMicMuted, isCameraMuted, isSpeakerMuted })
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -258,7 +258,7 @@ export default function App () {
           ]}
 
           server={server}
-          isMuted={isMuted}
+          isMicMuted={isMicMuted}
           isCameraMuted={isCameraMuted}
           isSpeakerMuted={isSpeakerMuted}
 
