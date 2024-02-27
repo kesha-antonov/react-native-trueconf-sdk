@@ -63,25 +63,37 @@ public class ConferenceFragmentCast extends ConferenceFragment {
                 tcsdkViewManager.onPressButton("chat");
             }
         });
+
+        updateMicButton(!tcsdkViewManager.isMuted);
+        updateCameraButton(tcsdkViewManager.isCameraOn);
     }
 
     private void updateButtonBackground (ImageButton btn, boolean isActive) {
         btn.setBackgroundResource(isActive ? R.drawable.bg_btn_round : R.drawable.bg_btn_round_black);
     }
 
+    private void updateMicButton (boolean isActive) {
+        updateButtonBackground(btnMic, isActive);
+        btnMic.setImageDrawable(
+            AppCompatResources.getDrawable(requireContext(), isActive ? R.drawable.ic_mic : R.drawable.ic_mic_off));
+    }
+
+    private void updateCameraButton (boolean isActive) {
+        updateButtonBackground(btnCam, isActive);
+        btnCam.setImageDrawable(AppCompatResources.getDrawable(requireContext(),
+                isActive ? R.drawable.ic_camera : R.drawable.ic_camera_off));
+    }
+
     @Override
     public void onSwitchMicApplied(boolean isMuted) {
         super.onSwitchMicApplied(isMuted);
-        updateButtonBackground(btnMic, !isMuted);
-        btnMic.setImageDrawable(AppCompatResources.getDrawable(requireContext(), isMuted ? R.drawable.ic_mic_off : R.drawable.ic_mic));
+        updateMicButton(!isMuted);
     }
 
     @Override
     public void onSwitchCameraApplied(boolean isCameraOn) {
         super.onSwitchCameraApplied(isCameraOn);
-        updateButtonBackground(btnCam, isCameraOn);
-        btnCam.setImageDrawable(AppCompatResources.getDrawable(requireContext(),
-                isCameraOn ? R.drawable.ic_camera : R.drawable.ic_camera_off));
+        updateCameraButton(isCameraOn);
     }
 
     @Override

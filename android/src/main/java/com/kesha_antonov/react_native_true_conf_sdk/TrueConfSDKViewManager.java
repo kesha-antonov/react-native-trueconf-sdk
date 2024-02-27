@@ -58,8 +58,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   private int propHeight;
 
   private String server = "";
-  private boolean isMuted = false;
-  private boolean isCameraOn = true;
+  public boolean isMuted = false;
+  public boolean isCameraOn = true;
 
   ReactApplicationContext reactContext;
 
@@ -350,6 +350,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         }
         case COMMAND_JOIN_CONF: {
           String confId = args.getString(0);
+
+          // SETS DEFAULT MIC/CAMERA VALUES
+          TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMuted);
+          TrueConfSDK.getInstance().setDefaultCameraEnabled(isCameraOn);
+
           boolean result = TrueConfSDK.getInstance().joinConf(confId);
           break;
         }
@@ -504,9 +509,6 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     initEvents();
 
     TrueConfSDK.getInstance().start(server, true);
-
-    TrueConfSDK.getInstance().muteMicrophone(isMuted);
-    TrueConfSDK.getInstance().muteCamera(isCameraOn);
   }
 
   //
@@ -675,4 +677,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   //     boolean result = TrueConfSDK.getInstance().isCameraMuted();
   //     promise.resolve(result);
   // }
+
+  // TODO: ADD METHOD
+  // muteSpeaker
 }
