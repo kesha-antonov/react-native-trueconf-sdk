@@ -66,7 +66,6 @@ trueConfRef.current?.showCallWindow()
 
 ### Android
 - [ ] Fix jumping icons in buttons
-- [ ] Add missing methods (hangup etc)
 - [ ] Add onChangeIsMuted, onChangeIsCameraOn - to notify js of android changes since we control mic/camera from native only
 - [ ] Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec
 - [ ] (planned: v2) Customize call fragment to look more modern
@@ -89,3 +88,5 @@ trueConfRef.current?.showCallWindow()
 - Extensive guide on Android Fragments in React Native: https://stefan-majiros.com/blog/native-android-fragments-in-react-native/
 - Android docs: https://developer.android.com/guide/fragments
 - RN docs: https://reactnative.dev/docs/native-components-android?android-language=java#integration-with-an-android-fragment-example
+
+- [Android] Rounded borders can't be applied to SelfView for now. Support will be added to major update of TCSDK in summer of 2024

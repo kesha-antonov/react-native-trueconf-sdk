@@ -53,6 +53,18 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   public final int COMMAND_LOGIN = 3;
   public final int COMMAND_JOIN_CONF = 4;
   public final int COMMAND_SHOW_CALL_WINDOW = 5;
+  public final int COMMAND_STOP_SDK = 6;
+  public final int COMMAND_LOGOUT = 7;
+  public final int COMMAND_CALL_TO = 8;
+  public final int COMMAND_HANGUP = 9;
+  public final int COMMAND_ACCEPT_CALL = 10;
+  public final int COMMAND_ACCEPT_RECORD = 11;
+  public final int COMMAND_MUTE = 12;
+  public final int COMMAND_MUTE_CAMERA = 13;
+  public final int COMMAND_MUTE_SPEAKER = 14;
+  public final int COMMAND_SEND_CHAT_MESSAGE = 15;
+  public final int COMMAND_PARSE_PROTOCOL_LINK = 16;
+  public final int COMMAND_SCHEDULE_LOGIN_AS = 17;
   // PROPS
   private int propWidth;
   private int propHeight;
@@ -304,13 +316,25 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   @Nullable
   @Override
   public Map<String, Integer> getCommandsMap() {
-    return MapBuilder.of(
-      "create", COMMAND_CREATE,
-      "initSdk", COMMAND_INIT_SDK,
-      "login", COMMAND_LOGIN,
-      "joinConf", COMMAND_JOIN_CONF,
-      "showCallWindow", COMMAND_SHOW_CALL_WINDOW
-    );
+    return MapBuilder.<String, Integer>builder()
+      .put("create", COMMAND_CREATE)
+      .put("initSdk", COMMAND_INIT_SDK)
+      .put("login", COMMAND_LOGIN)
+      .put("joinConf", COMMAND_JOIN_CONF)
+      .put("showCallWindow", COMMAND_SHOW_CALL_WINDOW)
+      .put("stopSdk", COMMAND_STOP_SDK)
+      .put("logout", COMMAND_LOGOUT)
+      .put("callTo", COMMAND_CALL_TO)
+      .put("hangup", COMMAND_HANGUP)
+      .put("acceptCall", COMMAND_ACCEPT_CALL)
+      .put("acceptRecord", COMMAND_ACCEPT_RECORD)
+      .put("mute", COMMAND_MUTE)
+      .put("muteCamera", COMMAND_MUTE_CAMERA)
+      .put("muteSpeaker", COMMAND_MUTE_SPEAKER)
+      .put("sendChatMessage", COMMAND_SEND_CHAT_MESSAGE)
+      .put("parseProtocolLink", COMMAND_PARSE_PROTOCOL_LINK)
+      .put("scheduleLoginAs", COMMAND_SCHEDULE_LOGIN_AS)
+      .build();
   }
 
   /**
@@ -342,10 +366,10 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         }
         case COMMAND_LOGIN: {
           String user = args.getString(0);
-          String pwd = args.getString(1);
+          String password = args.getString(1);
           boolean encryptPassword = args.getBoolean(2);
           boolean enableAutoLogin = args.getBoolean(3);
-          boolean result = TrueConfSDK.getInstance().loginAs(user, pwd, encryptPassword, enableAutoLogin);
+          boolean result = TrueConfSDK.getInstance().loginAs(user, password, encryptPassword, enableAutoLogin);
           break;
         }
         case COMMAND_JOIN_CONF: {
@@ -360,6 +384,77 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         }
         case COMMAND_SHOW_CALL_WINDOW: {
           moveCallAcivityToFront();
+          break;
+        }
+        case COMMAND_STOP_SDK: {
+          stopSdk();
+          break;
+        }
+        case COMMAND_LOGOUT: {
+          logout();
+          break;
+        }
+        case COMMAND_CALL_TO: {
+          String userId = args.getString(0);
+          callTo(userId);
+          break;
+        }
+        case COMMAND_HANGUP: {
+          boolean forAll = args.getBoolean(0);
+          hangup(forAll);
+          break;
+        }
+        case COMMAND_ACCEPT_CALL: {
+          boolean accept = args.getBoolean(0);
+          acceptCall(accept);
+          break;
+        }
+        case COMMAND_ACCEPT_RECORD: {
+          boolean accept = args.getBoolean(0);
+          String userId = args.getString(1);
+          acceptRecord(accept, userId);
+          break;
+        }
+        case COMMAND_MUTE: {
+          boolean _isMuted = args.getBoolean(0);
+          isMuted = _isMuted;
+          mute();
+          break;
+        }
+        case COMMAND_MUTE_CAMERA: {
+          boolean _isCameraOn = args.getBoolean(0);
+          isCameraOn = _isCameraOn;
+          muteCamera();
+          break;
+        }
+        case COMMAND_MUTE_SPEAKER: {
+          boolean isMuted = args.getBoolean(0);
+          muteSpeaker(isMuted);
+          break;
+        }
+        case COMMAND_SEND_CHAT_MESSAGE: {
+          String userId = args.getString(0);
+          String message = args.getString(1);
+          sendChatMessage(userId, message);
+          break;
+        }
+        case COMMAND_PARSE_PROTOCOL_LINK: {
+          String cmd = args.getString(0);
+          parseProtocolLink(cmd);
+          break;
+        }
+        case COMMAND_SCHEDULE_LOGIN_AS: {
+          String userId = args.getString(0);
+          String password = args.getString(1);
+          boolean encryptPassword = args.getBoolean(2);
+          String callToUser = args.getString(3);
+          boolean autoClose = args.getBoolean(4);
+          boolean loginTemp = args.getBoolean(5);
+          boolean loginForce = args.getBoolean(6);
+          String domain = args.getString(7);
+          String serversList = args.getString(8);
+          boolean isPublic = args.getBoolean(9);
+          scheduleLoginAs(userId, password, encryptPassword, callToUser, autoClose, loginTemp, loginForce, domain, serversList, isPublic);
           break;
         }
         default: {}
@@ -449,25 +544,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
 
-  // @Override
-  // public TrueConfSDKView createViewInstance(ThemedReactContext reactContext) {
-  //   return new TrueConfSDKView(reactContext, this);
-  // }
-
-
-
-  // @ReactProp(name = "server")
-  // public void setServer(TrueConfSDKView view, @Nullable String server) {
-  //   Log.d(REACT_CLASS, "setServer: " + server.toString());
-  //   if (server == null) { return; }
-  //   view.setServer(server);
-  // }
-
   private void initCustomViews () {
     Log.d(TAG, "initCustomViews");
 
-    // final float scale = reactContext.getResources().getDisplayMetrics().density;
-    // int height = (int) (400 * scale + 0.5f);
     WindowManager.LayoutParams params = new WindowManager.LayoutParams();
     params.width = WindowManager.LayoutParams.MATCH_PARENT;
     params.height = WindowManager.LayoutParams.MATCH_PARENT;
@@ -479,19 +558,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
       new ConferenceFragmentCast( R.layout.fragment_conference_cast, this )
     );
 
-    // FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
-    // activity.getSupportFragmentManager().setFragmentResultListener("requestKey",
-    //     activity, new FragmentResultListener() {
-    //   @Override
-    //   public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-    //     // We use a String here, but any type that can be put in a Bundle is supported.
-    //     String result = bundle.getString("bundleKey");
-    //     Log.d(TAG, "onFragmentResult result: " + result);
-    //     // Do something with the result.
-    //   }
-    // });
-
-    // TODO
+    // TODO: CUSTOMIZE CALL FRAGMENTS (OUTGOING - WHEN JOINING TO CONF)
     // TrueConfSDK.getInstance().setPlaceCallFragment(new PlaceCallFragmentCast(R.layout.fragment_conference_cast));
     // TrueConfSDK.getInstance().setReceiveCallFragment(new IncomingCallFragmentCast(R.layout.fragment_conference_cast));
   }
@@ -511,23 +578,60 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     TrueConfSDK.getInstance().start(server, true);
   }
 
-  //
+  private void stopSdk() {
+      TrueConfSDK.getInstance().stop();
+      TrueConfSDK.getInstance().removeTrueconfListener(this);
+  }
 
-  // @ReactMethod
-  // public void start(String serverList) {
-  //     if(serverList != null && !serverList.isEmpty()) {
-  //         TrueConfSDK.getInstance().start(serverList, true);
-  //     } else {
-  //         TrueConfSDK.getInstance().start(true);
-  //     }
-  //     TrueConfSDK.getInstance().addTrueconfListener(this);
-  // }
+  private void logout() {
+    boolean result = TrueConfSDK.getInstance().logout();
+    Log.d(TAG, "logout: result " + result);
+  }
 
-  // @ReactMethod
-  // public void stop() {
-  //     TrueConfSDK.getInstance().stop();
-  //     TrueConfSDK.getInstance().removeTrueconfListener(this);
-  // }
+  private void callTo(String userId) {
+    boolean result = TrueConfSDK.getInstance().callTo(userId);
+    Log.d(TAG, "callTo: result " + result);
+  }
+
+  private void hangup(boolean forAll) {
+    boolean result = TrueConfSDK.getInstance().hangup(forAll);
+    Log.d(TAG, "hangup: result " + result);
+  }
+
+  private void acceptCall(boolean accept) {
+    boolean result = TrueConfSDK.getInstance().acceptCall(accept);
+    Log.d(TAG, "acceptCall: result " + result);
+  }
+
+  private void acceptRecord(boolean accept, String userId) {
+    TrueConfSDK.getInstance().acceptRecord(accept, userId);
+  }
+
+  private void mute() {
+    TrueConfSDK.getInstance().muteMicrophone(isMuted);
+  }
+
+  private void muteCamera() {
+    TrueConfSDK.getInstance().muteCamera(!isCameraOn);
+  }
+
+  private void muteSpeaker(boolean isMuted) {
+    TrueConfSDK.getInstance().muteSpeaker(isMuted);
+  }
+
+  private void sendChatMessage(String userId, String message) {
+    TrueConfSDK.getInstance().sendChatMessage(userId, message);
+  }
+
+  private void parseProtocolLink(String cmd) {
+    TrueConfSDK.getInstance().parseProtocolLink(reactContext, cmd);
+  }
+
+  private void scheduleLoginAs(String userId, String password, boolean encryptPassword, String callToUser, boolean autoClose, boolean loginTemp, boolean loginForce, String domain, String serversList, boolean isPublic) {
+    TrueConfSDK.getInstance().scheduleLoginAs(userId, password, encryptPassword, callToUser, autoClose, loginTemp, loginForce, domain, serversList, isPublic);
+  }
+
+  // NEED THESE ? OR REMOVE?
 
   // @ReactMethod
   // public void addExtraButton(String title, Promise promise) {
@@ -561,59 +665,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   //     }
   // }
 
-  // @ReactMethod
-  // public void logout(Promise promise) {
-  //     boolean result = TrueConfSDK.getInstance().logout();
-  //     promise.resolve(result);
-  // }
 
-  // @ReactMethod
-  // public void callTo(String userId, Promise promise) {
-  //     boolean result = TrueConfSDK.getInstance().callTo(userId);
-  //     promise.resolve(result);
-  // }
-
-  // @ReactMethod
-  // public void hangup(boolean forAll, Promise promise) {
-  //     boolean result = TrueConfSDK.getInstance().hangup(forAll);
-  //     promise.resolve(result);
-  // }
-
-  // @ReactMethod
-  // public void acceptCall(boolean accept, Promise promise) {
-  //     boolean result = TrueConfSDK.getInstance().acceptCall(accept);
-  //     promise.resolve(result);
-  // }
-
-  // @ReactMethod
-  // public void acceptRecord(boolean accept, String userID) {
-  //     TrueConfSDK.getInstance().acceptRecord(accept, userID);
-  // }
-
-  // @ReactMethod
-  // public void sendChatMessage(String userID, String message, Promise promise) {
-  //     TrueConfSDK.getInstance().sendChatMessage(userID, message);
-  // }
-
-  // @ReactMethod
-  // public void parseProtocolLink(String cmd) {
-  //     TrueConfSDK.getInstance().parseProtocolLink(context, cmd);
-  // }
-
-  // @ReactMethod
-  // public void scheduleLoginAs(String login, String pwd, boolean encryptPassword, String callToUser, boolean autoClose, boolean loginTemp, boolean loginForce, String domain, String serversList, boolean isPublic) {
-  //     TrueConfSDK.getInstance().scheduleLoginAs(login, pwd, encryptPassword, callToUser, autoClose, loginTemp, loginForce, domain, serversList, isPublic);
-  // }
-
-  // @ReactMethod
-  // public void muteMicrophone(boolean mute) {
-  //     TrueConfSDK.getInstance().muteMicrophone(mute);
-  // }
-
-  // @ReactMethod
-  // public void muteCamera(boolean mute) {
-  //     TrueConfSDK.getInstance().muteCamera(mute);
-  // }
+  // TODO: ADD METHODS AND RECEIVE RESULT (THROUGH EVENT/CALLBACK OR JSI ?)
 
   // @ReactMethod
   // public void getMyId(Promise promise) {
@@ -677,7 +730,4 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   //     boolean result = TrueConfSDK.getInstance().isCameraMuted();
   //     promise.resolve(result);
   // }
-
-  // TODO: ADD METHOD
-  // muteSpeaker
 }
