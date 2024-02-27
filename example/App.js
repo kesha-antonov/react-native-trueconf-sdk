@@ -27,8 +27,11 @@ export default function App () {
   const [isConnected, setIsConnected] = useState(false)
   const [server, setServer] = useState('video.trueconf.com')
   const [status, setStatus] = useState(STATUSES.disconnected)
+
   const [isMuted, setIsMuted] = useState(false)
-  const [isCameraOn, setIsCameraOn] = useState(true)
+  const [isCameraMuted, setIsCameraMuted] = useState(false)
+  const [isSpeakerMuted, setIsSpeakerMuted] = useState(false)
+
   const [currentUserId, setCurrentUserId] = useState('')
 
   const onServerStatus = useCallback(e => {
@@ -146,8 +149,12 @@ export default function App () {
     setIsMuted(isMuted => !isMuted)
   }, [])
 
-  const handleToggleCam = useCallback(() => {
-    setIsCameraOn(isCameraOn => !isCameraOn)
+  const handleToggleCamera = useCallback(() => {
+    setIsCameraMuted(isCameraMuted => !isCameraMuted)
+  }, [])
+
+  const handleToggleSpeaker = useCallback(() => {
+    setIsSpeakerMuted(isSpeakerMuted => !isSpeakerMuted)
   }, [])
 
   const loginOrConfId = useCallback(() => {
@@ -157,11 +164,14 @@ export default function App () {
           onJoin={handleJoinConf}
           onLogout={handleLogout}
           onHangup={handleHangup}
-          onMic={handleToggleMic}
-          onCam={handleToggleCam}
+          onPressMic={handleToggleMic}
+          onPressCamera={handleToggleCamera}
+          onPressSpeaker={handleToggleSpeaker}
           onShowCallWindow={() => trueconfRef.current?.showCallWindow()}
+
           isMuted={isMuted}
-          isCameraOn={isCameraOn}
+          isCameraMuted={isCameraMuted}
+          isSpeakerMuted={isSpeakerMuted}
         />
       )
     else if (isConnected)
@@ -183,12 +193,30 @@ export default function App () {
     handleLogout,
     handleHangup,
     handleToggleMic,
-    handleToggleCam,
+    handleToggleCamera,
+    handleToggleSpeaker,
     handlePressConnect,
     handleLogin,
+
     isMuted,
-    isCameraOn,
+    isCameraMuted,
+    isSpeakerMuted,
   ])
+
+  const handlePressButton = useCallback(({ nativeEvent: { kind, isMuted } }) => {
+    console.log('handlePressButton', { kind, isMuted })
+    switch (kind) {
+      case 'mic':
+        setIsMuted(isMuted)
+        break
+      case 'camera':
+        setIsCameraMuted(isMuted)
+        break
+      case 'speaker':
+        setIsSpeakerMuted(isMuted)
+        break
+    }
+  }, [])
 
   useEffect(() => {
     let status
@@ -203,7 +231,7 @@ export default function App () {
     setStatus(status)
   }, [isConnected, isLoggedIn, server, currentUserId])
 
-  console.log('App', { isLoggedIn, isConnected })
+  console.log('App', { isLoggedIn, isConnected, status }, { isMuted, isCameraMuted, isSpeakerMuted })
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -231,7 +259,8 @@ export default function App () {
 
           server={server}
           isMuted={isMuted}
-          isCameraOn={isCameraOn}
+          isCameraMuted={isCameraMuted}
+          isSpeakerMuted={isSpeakerMuted}
 
           onServerStatus={onServerStatus}
           onLogin={onLogin}
@@ -245,13 +274,13 @@ export default function App () {
           onConferenceStart={onConferenceStart}
           onConferenceEnd={onConferenceEnd}
           onUserStatusUpdate={onUserStatusUpdate}
-          onPressButton={e => console.log('onPressButton', e.nativeEvent)}
+          onPressButton={handlePressButton}
         />
       </View>
 
       {/* STATUS */}
       <View style={{ alignItems: 'center', paddingVertical: 10 }}>
-        <Text>{`Status: ${status}`}</Text>
+        <Text style={{color: '#000'}}>{`Status: ${status}`}</Text>
       </View>
     </SafeAreaView>
   )

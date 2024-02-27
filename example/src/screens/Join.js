@@ -1,16 +1,35 @@
 import React, { useCallback, useState } from 'react'
-import { Text, View, TextInput, Button } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity } from 'react-native'
+
+function Button ({ title, onPress }) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.6}
+      style={{ backgroundColor: '#2196F3', flex: 1, margin: 5, paddingHorizontal: 5, paddingVertical: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 10}}
+    >
+      <Text style={{color: '#fff'}}>
+        {title.toUpperCase()}
+      </Text>
+    </TouchableOpacity>
+  )
+}
 
 export default function Join (props) {
   const {
     onJoin,
     onLogout,
     onHangup,
-    onMic,
-    onCam,
+
+    onPressMic,
+    onPressCamera,
+    onPressSpeaker,
+
     onShowCallWindow,
+
     isMuted,
-    isCameraOn,
+    isCameraMuted,
+    isSpeakerMuted,
   } = props
 
   const [confId, setConfId] = useState('test_sdk')
@@ -43,12 +62,8 @@ export default function Join (props) {
       )}
       <View style={{ margin: 7 }} />
       <View style={{ flexDirection: 'row' }}>
-        <View style={{ flex: 1, padding: 10 }}>
-          <Button onPress={handlePressJoin} title="Join" />
-        </View>
-        <View style={{ flex: 1, padding: 10 }}>
-          <Button onPress={onLogout} title="Logout" />
-        </View>
+        <Button onPress={handlePressJoin} title="Join" />
+        <Button onPress={onLogout} title="Logout" />
       </View>
       <View
         style={{
@@ -58,21 +73,14 @@ export default function Join (props) {
         }}
       />
 
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ flex: 1, padding: 10 }}>
-          <Button title={'Mic: ' + (isMuted ? 'off' : 'on')} onPress={onMic} />
-        </View>
-        <View style={{ flex: 1, padding: 10 }}>
-          <Button title={'Cam: ' + (isCameraOn ? 'on' : 'off')} onPress={onCam} />
-        </View>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <Button title={'Mic: ' + (isMuted ? 'off' : 'on')} onPress={onPressMic} />
+        <Button title={'Cam: ' + (isCameraMuted ? 'off' : 'on')} onPress={onPressCamera} />
+        <Button title={'Speaker: ' + (isSpeakerMuted ? 'off' : 'on')} onPress={onPressSpeaker} />
 
         {/* TODO: SHOW ONLY WHEN CONNECTED TO CONFERENCE/CALL */}
-        <View style={{ flex: 1, padding: 10 }}>
-          <Button title='Hangup' onPress={onHangup} />
-        </View>
-        <View style={{ flex: 1, padding: 10 }}>
-          <Button title='Show call window' onPress={onShowCallWindow} />
-        </View>
+        <Button title='Hangup' onPress={onHangup} />
+        <Button title='Show call window' onPress={onShowCallWindow} />
       </View>
     </View>
   )

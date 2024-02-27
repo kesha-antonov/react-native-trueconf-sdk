@@ -34,7 +34,6 @@ import com.vc.data.contacts.PeerDescription;
 import com.vc.data.enums.ConnectionEvents;
 import com.vc.data.enums.PeerStatus;
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 
 import android.util.Log;
@@ -71,7 +70,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   private String server = "";
   public boolean isMuted = false;
-  public boolean isCameraOn = true;
+  public boolean isCameraMuted = false;
+  public boolean isSpeakerMuted = false;
 
   ReactApplicationContext reactContext;
 
@@ -132,12 +132,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   @Override
   public void onConferenceStart() {
-    UiThreadUtil.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        emitMessageToRN(ON_CONFERENCE_START, null);
-      }
-    });
+    muteSpeaker(); // TEMPORARILY HERE SINCE BEFORE JOIN CONF WE CAN'T SET DEFAULT isSpeakerMuted ON TCSDK
+
+    emitMessageToRN(ON_CONFERENCE_START, null);
   }
 
   @Override
@@ -251,8 +248,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     activity.startActivity(intent);
   }
 
-  public void onPressButton(String kind) {
-    Log.d(TAG, "onPressButton");
+  public void onPressButton(String kind, @Nullable WritableMap params) {
+    Log.d(TAG, "onPressButton kind: " + kind);
+    if (params == null) {
+      params = Arguments.createMap();
+    }
 
     switch (kind) {
       case "chat":
@@ -262,14 +262,12 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         break;
     }
 
-    WritableMap params = Arguments.createMap();
     params.putString("kind", kind);
     emitMessageToRN(ON_PRESS_BUTTON, params);
   }
 
   public Map getExportedCustomBubblingEventTypeConstants() {
     return MapBuilder.builder()
-      .put(ON_SERVER_STATUS, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_SERVER_STATUS)))
       .put(ON_SERVER_STATUS, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_SERVER_STATUS)))
       .put(ON_LOGIN, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_LOGIN)))
       .put(ON_LOGOUT, MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", ON_LOGOUT)))
@@ -375,11 +373,12 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         case COMMAND_JOIN_CONF: {
           String confId = args.getString(0);
 
-          Log.d(TAG, "joinConf isMuted " + isMuted + " isCameraOn " + isCameraOn);
+          Log.d(TAG, "joinConf isMuted " + isMuted + " isCameraMuted " + isCameraMuted);
 
           // SETS DEFAULT MIC/CAMERA VALUES
           TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMuted);
-          TrueConfSDK.getInstance().setDefaultCameraEnabled(isCameraOn);
+          TrueConfSDK.getInstance().setDefaultCameraEnabled(!isCameraMuted);
+          // TODO: setDefaultSpeakerEnabled MISSING
 
           boolean result = TrueConfSDK.getInstance().joinConf(confId);
           break;
@@ -424,14 +423,15 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
           break;
         }
         case COMMAND_MUTE_CAMERA: {
-          boolean _isCameraOn = args.getBoolean(0);
-          isCameraOn = _isCameraOn;
+          boolean _isCameraMuted = args.getBoolean(0);
+          isCameraMuted = _isCameraMuted;
           muteCamera();
           break;
         }
         case COMMAND_MUTE_SPEAKER: {
-          boolean isMuted = args.getBoolean(0);
-          muteSpeaker(isMuted);
+          boolean _isSpeakerMuted = args.getBoolean(0);
+          isSpeakerMuted = _isSpeakerMuted;
+          muteSpeaker();
           break;
         }
         case COMMAND_SEND_CHAT_MESSAGE: {
@@ -486,9 +486,14 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     isMuted = value != null ? value : false;
   }
 
-  @ReactProp(name = "isCameraOn")
-  public void setIsCameraOn(FrameLayout view, @Nullable Boolean value) {
-    isCameraOn = value != null ? value : true;
+  @ReactProp(name = "isCameraMuted")
+  public void setIsCameraMuted(FrameLayout view, @Nullable Boolean value) {
+    isCameraMuted = value != null ? value : false;
+  }
+
+  @ReactProp(name = "isSpeakerMuted")
+  public void setIsSpeakerMuted(FrameLayout view, @Nullable Boolean value) {
+    isSpeakerMuted = value != null ? value : false;
   }
 
   /**
@@ -572,7 +577,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
   private void initSdk() {
-    Log.d(TAG, "initSdk server: " + server + " isMuted: " + isMuted + " isCameraOn: " + isCameraOn);
+    Log.d(TAG, "initSdk server: " + server + " isMuted: " + isMuted + " isCameraMuted: " + isCameraMuted + " isSpeakerMuted: " + isSpeakerMuted);
 
     initCustomViews();
     initEvents();
@@ -615,11 +620,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
   private void muteCamera() {
-    TrueConfSDK.getInstance().muteCamera(!isCameraOn);
+    TrueConfSDK.getInstance().muteCamera(isCameraMuted);
   }
 
-  private void muteSpeaker(boolean isMuted) {
-    TrueConfSDK.getInstance().muteSpeaker(isMuted);
+  private void muteSpeaker() {
+    TrueConfSDK.getInstance().muteSpeaker(isSpeakerMuted);
   }
 
   private void sendChatMessage(String userId, String message) {

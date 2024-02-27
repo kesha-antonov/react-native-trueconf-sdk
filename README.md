@@ -66,7 +66,6 @@ trueConfRef.current?.showCallWindow()
 
 ### Android
 - [ ] Fix jumping icons in buttons
-- [ ] Add onChangeIsMuted, onChangeIsCameraOn - to notify js of android changes since we control mic/camera from native only
 - [ ] Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec
 - [ ] (planned: v2) Customize call fragment to look more modern
 - [ ] (planned: v2) Allow customize buttons colors and icons
