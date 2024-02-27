@@ -375,6 +375,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         case COMMAND_JOIN_CONF: {
           String confId = args.getString(0);
 
+          Log.d(TAG, "joinConf isMuted " + isMuted + " isCameraOn " + isCameraOn);
+
           // SETS DEFAULT MIC/CAMERA VALUES
           TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMuted);
           TrueConfSDK.getInstance().setDefaultCameraEnabled(isCameraOn);
@@ -608,6 +610,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
   private void mute() {
+    Log.d(TAG, "mute isMuted " + isMuted);
     TrueConfSDK.getInstance().muteMicrophone(isMuted);
   }
 

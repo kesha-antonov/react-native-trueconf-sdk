@@ -86,6 +86,8 @@ public class ConferenceFragmentCast extends ConferenceFragment {
 
     @Override
     public void onSwitchMicApplied(boolean isMuted) {
+        Log.d(TrueConfSDKViewManager.TAG, "onSwitchMicApplied isMuted " + isMuted);
+
         super.onSwitchMicApplied(isMuted);
         updateMicButton(!isMuted);
     }

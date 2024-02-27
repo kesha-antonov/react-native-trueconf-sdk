@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 public class TrueConfSDKView extends FrameLayout {
-  private String LOG_TAG = "TrueConfSDKView";
-
   public TrueConfSDKView(@NonNull Context context) {
     super(context);
     // set padding and background color
