@@ -67,6 +67,7 @@ See `example` folder for usage example.
 
 ### General
 - [ ] Describe which permissions are needed for iOS and where to put them (like here: https://github.com/zoontek/react-native-permissions?tab=readme-ov-file#ios)
+- [ ] Allow localization
 - [ ] (not urgent) Add react-navigation to example and more examples from TrueConf SDK Docs
 
 ## Notes

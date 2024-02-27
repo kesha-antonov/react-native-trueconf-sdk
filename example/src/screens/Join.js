@@ -57,15 +57,17 @@ export default function Join (props) {
           borderBottomWidth: 1,
         }}
       />
+
+      {/* TODO: SHOW ONLY WHEN CONNECTED TO CONFERENCE/CALL */}
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, padding: 10 }}>
           <Button title="Hangup" onPress={onHangup} />
         </View>
         <View style={{ flex: 1, padding: 10 }}>
-          <Button title={'Mic turned ' + (isMuted ? 'off' : 'on')} onPress={onMic} />
+          <Button title={'Mic: ' + (isMuted ? 'off' : 'on')} onPress={onMic} />
         </View>
         <View style={{ flex: 1, padding: 10 }}>
-          <Button title={'Cam turned ' + (isCameraOn ? 'on' : 'off')} onPress={onCam} />
+          <Button title={'Cam: ' + (isCameraOn ? 'on' : 'off')} onPress={onCam} />
         </View>
         <View style={{ flex: 1, padding: 10 }}>
           <Button title="Show call window" onPress={onShowCallWindow} />

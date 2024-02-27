@@ -10,8 +10,6 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import com.facebook.react.bridge.ReactApplicationContext;
-import androidx.fragment.app.FragmentActivity;
 
 import com.trueconf.sdk.gui.fragments.ConferenceFragment;
 
@@ -45,16 +43,18 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         addGFXSelfViewSurface(selfView);
 
         btnMic = view.findViewById(R.id.btnMic);
-        btnCam = view.findViewById(R.id.btnCam);
-        ImageButton btnClose = view.findViewById(R.id.btnClose);
-        btnSpeaker = view.findViewById(R.id.btnSpeaker);
-        ImageButton btnChat = view.findViewById(R.id.btnChat);
-
         btnMic.setOnClickListener(view1 -> onSwitchMic());
+
+        btnCam = view.findViewById(R.id.btnCam);
         btnCam.setOnClickListener(view1 -> onSwitchCamera());
+
+        btnSpeaker = view.findViewById(R.id.btnSpeaker);
         btnSpeaker.setOnClickListener(view1 -> onSwitchSpeaker());
+
+        ImageButton btnClose = view.findViewById(R.id.btnClose);
         btnClose.setOnClickListener(view1 -> onHangupClick());
 
+        ImageButton btnChat = view.findViewById(R.id.btnChat);
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,34 +65,30 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         });
     }
 
-    @Override
-    public void onSwitchCameraApplied(boolean isVideoEnabled) {
-        super.onSwitchCameraApplied(isVideoEnabled);
-        if (isVideoEnabled) {
-            btnCam.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_camera));
-        } else {
-            btnCam.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_camera_off));
-        }
+    private void updateButtonBackground (ImageButton btn, boolean isActive) {
+        btn.setBackgroundResource(isActive ? R.drawable.bg_btn_round : R.drawable.bg_btn_round_black);
     }
 
     @Override
-    public void onSwitchMicApplied(boolean isRecorderMute) {
-        super.onSwitchMicApplied(isRecorderMute);
-        if (isRecorderMute) {
-            btnMic.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_mic_off));
-        } else {
-            btnMic.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_mic));
-        }
+    public void onSwitchMicApplied(boolean isMuted) {
+        super.onSwitchMicApplied(isMuted);
+        updateButtonBackground(btnMic, !isMuted);
+        btnMic.setImageDrawable(AppCompatResources.getDrawable(requireContext(), isMuted ? R.drawable.ic_mic_off : R.drawable.ic_mic));
     }
 
     @Override
-    public void onSwitchSpeakerApplied(boolean isPlayerMute) {
-        super.onSwitchSpeakerApplied(isPlayerMute);
-        if (isPlayerMute) {
-            btnSpeaker.setImageDrawable(
-                    AppCompatResources.getDrawable(requireContext(), com.vc.videochat.R.drawable.ic_cancel));
-        } else {
-            btnSpeaker.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_speaker));
-        }
+    public void onSwitchCameraApplied(boolean isCameraOn) {
+        super.onSwitchCameraApplied(isCameraOn);
+        updateButtonBackground(btnCam, isCameraOn);
+        btnCam.setImageDrawable(AppCompatResources.getDrawable(requireContext(),
+                isCameraOn ? R.drawable.ic_camera : R.drawable.ic_camera_off));
+    }
+
+    @Override
+    public void onSwitchSpeakerApplied(boolean isMuted) {
+        super.onSwitchSpeakerApplied(isMuted);
+        updateButtonBackground(btnSpeaker, !isMuted);
+        btnSpeaker.setImageDrawable(
+            AppCompatResources.getDrawable(requireContext(), isMuted ? com.vc.videochat.R.drawable.ic_cancel : R.drawable.ic_speaker));
     }
 }

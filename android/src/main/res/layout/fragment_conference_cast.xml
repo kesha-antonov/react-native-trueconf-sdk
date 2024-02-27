@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/self_view"
+        android:id="@+id/self_view_container"
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:orientation="vertical"
@@ -26,7 +26,14 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/self_view_shape" />
+        android:clipChildren="true"
+        android:background="@drawable/self_view_shape">
+        <LinearLayout
+            android:id="@+id/self_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -38,17 +45,17 @@
 
         <ImageButton
             android:id="@+id/btnMic"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/bg_btn_round"
             android:src="@drawable/ic_mic"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnCam"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
             android:background="@drawable/bg_btn_round"
             android:src="@drawable/ic_camera"
             app:layout_constraintLeft_toRightOf="@+id/btnMic"
@@ -56,9 +63,9 @@
 
         <ImageButton
             android:id="@+id/btnSpeaker"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
             android:background="@drawable/bg_btn_round"
             android:src="@drawable/ic_speaker"
             app:layout_constraintLeft_toRightOf="@+id/btnCam"
@@ -66,9 +73,9 @@
 
         <ImageButton
             android:id="@+id/btnChat"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
             android:background="@drawable/bg_btn_round"
             android:src="@drawable/ic_chat"
             app:layout_constraintLeft_toRightOf="@+id/btnSpeaker"
@@ -76,13 +83,13 @@
 
         <ImageButton
             android:id="@+id/btnClose"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
             android:background="@drawable/bg_btn_round_red"
             android:padding="8dp"
             android:scaleType="center"
-            android:src="@drawable/ic_call_end_call"
+            android:src="@drawable/ic_hangup"
             app:layout_constraintLeft_toRightOf="@+id/btnChat"
             app:layout_constraintTop_toTopOf="@+id/btnMic" />
 
