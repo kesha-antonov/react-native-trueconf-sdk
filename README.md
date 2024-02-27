@@ -70,6 +70,9 @@ trueConfRef.current?.showCallWindow()
 - [ ] Check that mute mic and camera works on iOS and it's confirmed in Privacy section on top of system screen
 
 ### Android
+- [ ] Allow join with camera/mic off
+- [ ] Fix jumping icons in buttons
+- [ ] Add missing methods (hangup etc)
 - [ ] Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec
 - [ ] Allow customize buttons colors and icons
 - [ ] (not urgent) Use modern event emitter: https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
