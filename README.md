@@ -51,6 +51,16 @@ apply from: file("../node_modules/react-native-trueconf-sdk/android/shared.gradl
 
 See `example` folder for usage example.
 
+### Methods
+
+#### `showCallWindow (android only)`
+
+Brings up the TrueConf call screen.
+
+```javascript
+trueConfRef.current?.showCallWindow()
+```
+
 
 ## TODO
 

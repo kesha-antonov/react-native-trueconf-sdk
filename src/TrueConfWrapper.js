@@ -100,6 +100,8 @@ function TrueConfWrapper(props, ref) {
   }, [callCommand])
 
   const showCallWindow = useCallback(() => {
+    if (!IS_ANDROID) return
+
     callCommand(
       'showCallWindow',
       []
