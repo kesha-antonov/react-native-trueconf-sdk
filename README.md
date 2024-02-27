@@ -65,7 +65,6 @@ trueConfRef.current?.showCallWindow()
 ## TODO
 
 ### Android
-- [ ] Allow join with camera/mic off
 - [ ] Fix jumping icons in buttons
 - [ ] Add missing methods (hangup etc)
 - [ ] Add onChangeIsMuted, onChangeIsCameraOn - to notify js of android changes since we control mic/camera from native only
