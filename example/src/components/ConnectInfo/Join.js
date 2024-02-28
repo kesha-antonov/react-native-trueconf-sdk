@@ -36,14 +36,14 @@ export default function Join (props) {
     <>
       <Text style={stylesCommon.title}>Join the conference</Text>
       <TextInput
-        style={styles.textInput}
+        style={stylesCommon.textInput}
         placeholder="Conference ID"
         placeholderTextColor="gray"
         onChangeText={setConfId}
         value={confId}
       />
       {!!confIdError && (
-        <Text style={styles.textError}>{confIdError}</Text>
+        <Text style={stylesCommon.textError}>{confIdError}</Text>
       )}
 
       <View style={styles.buttons}>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     marginTop: 7,
   },
   buttonsSeparator: {
-    marginVertical: 10,
+    marginTop: 10,
     borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
