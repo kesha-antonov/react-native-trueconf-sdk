@@ -27,9 +27,9 @@ export default function Join (props) {
 
     onShowCallWindow,
 
-    isMicMuted,
-    isCameraMuted,
     isSpeakerMuted,
+    isCameraMuted,
+    isMicMuted,
   } = props
 
   const [confId, setConfId] = useState('test_sdk')
@@ -74,9 +74,9 @@ export default function Join (props) {
       />
 
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <Button title={'Mic: ' + (isMicMuted ? 'off' : 'on')} onPress={onPressMic} />
-        <Button title={'Cam: ' + (isCameraMuted ? 'off' : 'on')} onPress={onPressCamera} />
         <Button title={'Speaker: ' + (isSpeakerMuted ? 'off' : 'on')} onPress={onPressSpeaker} />
+        <Button title={'Cam: ' + (isCameraMuted ? 'off' : 'on')} onPress={onPressCamera} />
+        <Button title={'Mic: ' + (isMicMuted ? 'off' : 'on')} onPress={onPressMic} />
 
         {/* TODO: SHOW ONLY WHEN CONNECTED TO CONFERENCE/CALL */}
         <Button title='Hangup' onPress={onHangup} />

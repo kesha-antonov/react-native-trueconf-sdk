@@ -28,9 +28,9 @@ export default function App () {
   const [server, setServer] = useState('video.trueconf.com')
   const [status, setStatus] = useState(STATUSES.disconnected)
 
-  const [isMicMuted, setIsMicMuted] = useState(false)
-  const [isCameraMuted, setIsCameraMuted] = useState(false)
   const [isSpeakerMuted, setIsSpeakerMuted] = useState(false)
+  const [isCameraMuted, setIsCameraMuted] = useState(false)
+  const [isMicMuted, setIsMicMuted] = useState(false)
 
   const [currentUserId, setCurrentUserId] = useState('')
 

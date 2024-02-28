@@ -73,6 +73,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   public boolean isCameraMuted = false;
   public boolean isSpeakerMuted = false;
 
+  public boolean isInConference = false;
+  ConferenceFragmentCast conferenceFragmentCast;
+
   ReactApplicationContext reactContext;
 
   // EVENTS
@@ -132,6 +135,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   @Override
   public void onConferenceStart() {
+    isInConference = true;
+    conferenceFragmentCast.updateChatButtonVisibility();
     muteSpeaker(); // TEMPORARILY HERE SINCE BEFORE JOIN CONF WE CAN'T SET DEFAULT isSpeakerMuted ON TCSDK
 
     emitMessageToRN(ON_CONFERENCE_START, null);
@@ -139,6 +144,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   @Override
   public void onConferenceEnd() {
+    isInConference = false;
+    conferenceFragmentCast.updateChatButtonVisibility();
+
     emitMessageToRN(ON_CONFERENCE_END, null);
   }
 
@@ -234,14 +242,21 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     return -127;
   }
 
-  private void moveAppActivityToFront () {
+  // BRINGS APP'S ACTIVITY TO FRONT
+  private void hideCallWindow () {
+    // UPDATE DEFAULT VALUES SINCE WHEN WE WILL CALL showCallWindow
+    // ConferenceFragmentCast WILL BE RE-CREATED
+    TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMicMuted);
+    TrueConfSDK.getInstance().setDefaultCameraEnabled(!isCameraMuted);
+
     Activity activity = reactContext.getCurrentActivity();
     Intent intent = new Intent(reactContext, activity.getClass());
     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
     activity.startActivity(intent);
   }
 
-  private void moveCallAcivityToFront () {
+  // BRINGS LIB'S ACTIVITY TO FRONT
+  private void showCallWindow () {
     Activity activity = reactContext.getCurrentActivity();
     Intent intent = new Intent(reactContext, CallCast.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -256,7 +271,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
     switch (kind) {
       case "chat":
-        moveAppActivityToFront();
+        hideCallWindow();
         break;
       default:
         break;
@@ -378,13 +393,13 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
           // SETS DEFAULT MIC/CAMERA VALUES
           TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMicMuted);
           TrueConfSDK.getInstance().setDefaultCameraEnabled(!isCameraMuted);
-          // TODO: setDefaultSpeakerEnabled MISSING
+          muteSpeaker(); // TODO: setDefaultSpeakerEnabled MISSING
 
           boolean result = TrueConfSDK.getInstance().joinConf(confId);
           break;
         }
         case COMMAND_SHOW_CALL_WINDOW: {
-          moveCallAcivityToFront();
+          showCallWindow();
           break;
         }
         case COMMAND_STOP_SDK: {
@@ -561,12 +576,14 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     params.y = 0;
     TrueConfSDK.getInstance().setCallLayoutParams(params);
 
-    TrueConfSDK.getInstance().setConferenceFragment(
-      new ConferenceFragmentCast( R.layout.fragment_conference_cast, this )
-    );
+    conferenceFragmentCast = new ConferenceFragmentCast(R.layout.fragment_conference_cast, this);
 
-    // TODO: CUSTOMIZE CALL FRAGMENTS (OUTGOING - WHEN JOINING TO CONF)
-    // TrueConfSDK.getInstance().setPlaceCallFragment(new PlaceCallFragmentCast(R.layout.fragment_conference_cast));
+    // CALL FRAGMENT (SHOWED WHEN CALLING - JUST BEFORE JOINING CONF OR CALL)
+    TrueConfSDK.getInstance().setPlaceCallFragment(conferenceFragmentCast);
+    // CONFERENCE FGRAMENT
+    TrueConfSDK.getInstance().setConferenceFragment(conferenceFragmentCast);
+
+    // CAN CUSTOMIZE INCOMING CALL
     // TrueConfSDK.getInstance().setReceiveCallFragment(new IncomingCallFragmentCast(R.layout.fragment_conference_cast));
   }
 
