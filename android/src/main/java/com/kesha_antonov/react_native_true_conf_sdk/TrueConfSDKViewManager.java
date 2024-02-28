@@ -244,11 +244,6 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   // BRINGS APP'S ACTIVITY TO FRONT
   private void hideCallWindow () {
-    // UPDATE DEFAULT VALUES SINCE WHEN WE WILL CALL showCallWindow
-    // ConferenceFragmentCast WILL BE RE-CREATED
-    TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMicMuted);
-    TrueConfSDK.getInstance().setDefaultCameraEnabled(!isCameraMuted);
-
     Activity activity = reactContext.getCurrentActivity();
     Intent intent = new Intent(reactContext, activity.getClass());
     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -257,6 +252,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   // BRINGS LIB'S ACTIVITY TO FRONT
   private void showCallWindow () {
+    // UPDATE DEFAULT VALUES SINCE WHEN WE WILL CALL showCallWindow
+    // ConferenceFragmentCast WILL BE RE-CREATED
+    TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMicMuted);
+    TrueConfSDK.getInstance().setDefaultCameraEnabled(!isCameraMuted);
+
     Activity activity = reactContext.getCurrentActivity();
     Intent intent = new Intent(reactContext, CallCast.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
