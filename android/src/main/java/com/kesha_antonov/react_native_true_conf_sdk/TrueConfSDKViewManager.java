@@ -252,7 +252,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
   // BRINGS LIB'S ACTIVITY TO FRONT
   private void showCallWindow () {
-    // UPDATE DEFAULT VALUES SINCE WHEN WE WILL CALL showCallWindow
+    // UPDATE DEFAULT VALUES SINCE WHEN WE BRING ACTIVITY TO TOP
     // ConferenceFragmentCast WILL BE RE-CREATED
     TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMicMuted);
     TrueConfSDK.getInstance().setDefaultCameraEnabled(!isCameraMuted);
@@ -597,9 +597,12 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     Log.d(TAG, "initSdk server: " + server + " isMicMuted: " + isMicMuted + " isCameraMuted: " + isCameraMuted + " isSpeakerMuted: " + isSpeakerMuted);
 
     initCustomViews();
-    initEvents();
 
     TrueConfSDK.getInstance().start(server, true);
+
+    // EVENTS MUST BE INITED AFTER "start" CALL
+    // OTHERWISE ON FIRST "initSdk" WE WON'T RECEIVE FIRST EVENTS
+    initEvents();
   }
 
   private void stopSdk() {
