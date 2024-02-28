@@ -1,6 +1,16 @@
 
 # react-native-trueconf-sdk
 
+## Preview
+
+**iOS preview**
+
+TODO
+
+**Android preview**
+
+[Android Preview](https://github.com/kesha-antonov/react-native-trueconf-sdk/assets/11584712/42e03f89-d5d6-4506-b18b-661656cb51a8)
+
 ## Getting started
 
 `$ npm install react-native-trueconf-sdk --save`
