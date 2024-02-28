@@ -65,7 +65,6 @@ trueConfRef.current?.showCallWindow()
 ## TODO
 
 ### Android
-- [ ] Customize call fragment to look more modern
 - [ ] (planned: v2) Allow customize buttons colors and icons
 - [ ] (planned: v3) Use modern event emitter: https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
 - [ ] (planned: v3) Add slide up/down transition https://developer.android.com/guide/fragments/animate
