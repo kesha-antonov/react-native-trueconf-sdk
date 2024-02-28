@@ -1,5 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { Text, View, TextInput, Button } from 'react-native'
+import { Text, TextInput, StyleSheet } from 'react-native'
+import Button from '@components/Button'
+
+import stylesCommon from '@styles'
 
 export default function Connect (props) {
   const { server: defaultServer, onPressConnect } = props
@@ -15,25 +18,25 @@ export default function Connect (props) {
   }, [server, onPressConnect])
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 27, color: 'black' }}>Connect to server</Text>
+    <>
+      <Text style={stylesCommon.title}>Connect to server</Text>
       <TextInput
-        style={{
-          height: 40,
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-          color: 'black',
-        }}
+        style={stylesCommon.textInput}
         placeholder="Server name or IP"
         placeholderTextColor="gray"
         onChangeText={setServer}
         value={server}
       />
       {!!serverError && (
-        <Text style={{ color: 'red' }}>{serverError}</Text>
+        <Text style={stylesCommon.textError}>{serverError}</Text>
       )}
-      <View style={{ margin: 7 }} />
-      <Button onPress={handlePressConnect} title="Connect" />
-    </View>
+      <Button style={styles.button} onPress={handlePressConnect} title="Connect" />
+    </>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    marginTop: 15,
+  },
+})

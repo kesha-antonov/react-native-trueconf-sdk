@@ -8,11 +8,13 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native'
-
 import TrueConf from 'react-native-trueconf-sdk'
-import Join from './src/screens/Join'
-import Login from './src/screens/Login'
-import Connect from './src/screens/Connect'
+
+import Join from '@components/ConnectInfo/Join'
+import Login from '@components/ConnectInfo/Login'
+import Connect from '@components/ConnectInfo/Connect'
+
+import stylesCommon from '@styles'
 
 const STATUSES = {
   disconnected: 'No connection',
@@ -234,21 +236,21 @@ export default function App () {
   console.log('App', { isLoggedIn, isConnected, status }, { isMicMuted, isCameraMuted, isSpeakerMuted })
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={[stylesCommon.fill, styles.container]}>
       <StatusBar barStyle={'dark-content'} />
 
       {/* CONNECT/LOGIN/CONF ID */}
-      <View>
+      <View style={styles.connectInfo}>
         {loginOrConfId()}
       </View>
 
       {/* TRUECONF CONF (VIEW + SELF-VIEW) */}
-      <View style={[styles.fill, styles.relative, {backgroundColor: 'grey' }]}>
+      <View style={[stylesCommon.fill, stylesCommon.relative, styles.tcViewContainer]}>
         <TrueConf
           ref={trueconfRef}
           style={[
-            styles.fill,
-            styles.absoluteFill,
+            stylesCommon.fill,
+            stylesCommon.absoluteFill,
             {
               backgroundColor: 'blue',
               // width: 300,
@@ -279,25 +281,31 @@ export default function App () {
       </View>
 
       {/* STATUS */}
-      <View style={{ alignItems: 'center', paddingVertical: 10 }}>
-        <Text style={{color: '#000'}}>{`Status: ${status}`}</Text>
+      <View style={styles.status}>
+        <Text style={styles.statusText}>{`Status: ${status}`}</Text>
       </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  fill: {
-    flex: 1,
+  container: {
+    backgroundColor: 'white',
   },
-  absoluteFill: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+
+  connectInfo: {
+    padding: 20,
   },
-  relative: {
-    position: 'relative',
+
+  tcViewContainer: {
+    backgroundColor: 'grey',
+  },
+
+  status: {
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  statusText: {
+    color: '#000',
   },
 })

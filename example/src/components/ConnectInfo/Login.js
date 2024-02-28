@@ -1,5 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { Text, View, TextInput, Button } from 'react-native'
+import { Text, View, TextInput } from 'react-native'
+import Button from '@components/Button'
+
+import stylesCommon from '@styles'
 
 export default function Login (props) {
   const {
@@ -30,8 +33,8 @@ export default function Login (props) {
   }, [onLogin, login, password, loginError, passwordError])
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 27, color: 'black' }}>Login on server</Text>
+    <>
+      <Text style={stylesCommon.title}>Login on server</Text>
       <TextInput
         style={{
           height: 40,
@@ -45,15 +48,10 @@ export default function Login (props) {
         value={login}
       />
       {loginError && (
-        <Text style={{ color: 'red' }}>{loginError}</Text>
+        <Text style={stylesCommon.textError}>{loginError}</Text>
       )}
       <TextInput
-        style={{
-          height: 40,
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-          color: 'black',
-        }}
+        style={stylesCommon.textInput}
         placeholder="Password"
         placeholderTextColor="gray"
         secureTextEntry={true}
@@ -61,12 +59,12 @@ export default function Login (props) {
         value={password}
       />
       {passwordError && (
-        <Text style={{ color: 'red' }}>{passwordError}</Text>
+        <Text style={stylesCommon.textError}>{passwordError}</Text>
       )}
       <View style={{ margin: 7 }} />
       <Button onPress={handlePressLogin} title="Login" />
       <View style={{ margin: 7 }} />
       <Button onPress={onChangeServer} title="Change server" />
-    </View>
+    </>
   )
 }
