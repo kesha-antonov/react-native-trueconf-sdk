@@ -44,13 +44,24 @@
         android:layout_marginBottom="50dp" >
 
         <ImageButton
-            android:id="@+id/btnMic"
+            android:id="@+id/btnChat"
+            android:contentDescription="@+strings/btnChat"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/bg_btn_round"
-            android:contentDescription="@+strings/btnMic"
-            android:src="@drawable/ic_mic"
+            android:src="@drawable/ic_chat"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnSpeaker"
+            android:contentDescription="@+strings/btnSpeaker"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/bg_btn_round"
+            android:src="@drawable/ic_speaker"
+            app:layout_constraintLeft_toRightOf="@+id/btnChat"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -61,30 +72,19 @@
             android:layout_marginStart="20dp"
             android:background="@drawable/bg_btn_round"
             android:src="@drawable/ic_camera"
-            app:layout_constraintLeft_toRightOf="@+id/btnMic"
-            app:layout_constraintTop_toTopOf="@+id/btnMic" />
-
-        <ImageButton
-            android:id="@+id/btnSpeaker"
-            android:contentDescription="@+strings/btnSpeaker"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/bg_btn_round"
-            android:src="@drawable/ic_speaker"
-            app:layout_constraintLeft_toRightOf="@+id/btnCam"
-            app:layout_constraintTop_toTopOf="@+id/btnMic" />
-
-        <ImageButton
-            android:id="@+id/btnChat"
-            android:contentDescription="@+strings/btnChat"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/bg_btn_round"
-            android:src="@drawable/ic_chat"
             app:layout_constraintLeft_toRightOf="@+id/btnSpeaker"
-            app:layout_constraintTop_toTopOf="@+id/btnMic" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnMic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/bg_btn_round"
+            android:contentDescription="@+strings/btnMic"
+            android:src="@drawable/ic_mic"
+            app:layout_constraintLeft_toRightOf="@+id/btnCam"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnClose"
@@ -96,8 +96,8 @@
             android:padding="8dp"
             android:scaleType="center"
             android:src="@drawable/ic_hangup"
-            app:layout_constraintLeft_toRightOf="@+id/btnChat"
-            app:layout_constraintTop_toTopOf="@+id/btnMic" />
+            app:layout_constraintLeft_toRightOf="@+id/btnMic"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
