@@ -107,7 +107,7 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         updateButtonBackground(btnSpeaker, isActive);
         btnSpeaker.setImageDrawable(
                 AppCompatResources.getDrawable(requireContext(),
-                        isActive ? R.drawable.ic_speaker : com.vc.videochat.R.drawable.ic_cancel));
+                        isActive ? R.drawable.ic_speaker : R.drawable.ic_speaker_off));
     }
 
     @Override
