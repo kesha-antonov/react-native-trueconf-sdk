@@ -77,7 +77,7 @@ trueConfRef.current?.showCallWindow()
 
 Enables or disables fade transition when call window hides.
 
-To use fade out animation this code to `MainActivity.kt`:
+To use fade out animation add this code to `MainActivity.kt`:
 
 ```kotlin
 class MainActivity : ReactActivity() {
