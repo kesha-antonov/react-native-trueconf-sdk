@@ -137,7 +137,7 @@ export default function App() {
       userId,
       password,
       encryptPassword: true,
-      enableAutoLogin: true,
+      enableAutoLogin: false,
     })
   }, [])
 
