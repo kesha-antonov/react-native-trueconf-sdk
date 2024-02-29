@@ -285,7 +285,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         hideCallWindow();
         new Thread(() -> {
           try {
-            Thread.sleep(500);
+            // SET AT LEAST 400ms DELAY TO LET CALL WINDOW HIDE
+            // OTHERWISE YOU'LL SEE WHITE FLICKER (FRAGMENT GETS REMOVED)
+            Thread.sleep(400);
             hangup(true);
           } catch (InterruptedException e) {
             Log.e(TAG, "onPressButton hangup error: " + e.getMessage());
