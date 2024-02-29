@@ -2,14 +2,12 @@ package com.kesha_antonov.react_native_true_conf_sdk;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.facebook.react.bridge.JavaScriptModule;
 
 import com.kesha_antonov.react_native_true_conf_sdk.TrueConfSDKViewManager;
 

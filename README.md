@@ -63,7 +63,7 @@ See `example` folder for usage example.
 
 ### Methods
 
-#### `showCallWindow (android only)`
+#### `showCallWindow` (Android only)
 
 Brings up the TrueConf call screen.
 
@@ -71,6 +71,28 @@ Brings up the TrueConf call screen.
 trueConfRef.current?.showCallWindow()
 ```
 
+### Props
+
+#### `isFadeTransitionEnabled` (Android only)
+
+Enables or disables fade transition when call window hides.
+
+To use fade out animation this code to `MainActivity.kt`:
+
+```kotlin
+class MainActivity : ReactActivity() {
+
+  ...
+
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+
+    val isTrueConfSdkHideCallWindow:Boolean = intent.getBooleanExtra("isTrueConfSdkHideCallWindow", false)
+    if (isTrueConfSdkHideCallWindow)
+      overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+  }
+}
+```
 
 ## TODO
 

@@ -3,7 +3,6 @@ package com.kesha_antonov.react_native_true_conf_sdk;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;

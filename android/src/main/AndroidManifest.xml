@@ -57,7 +57,7 @@
     <application>
         <activity
             android:name="com.trueconf.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name="com.trueconf.sdk.gui.activities.CallCast">

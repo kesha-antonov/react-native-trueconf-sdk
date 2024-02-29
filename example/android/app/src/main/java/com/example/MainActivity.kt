@@ -1,5 +1,6 @@
 package com.example
 
+import android.content.Intent
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -19,4 +20,12 @@ class MainActivity : ReactActivity() {
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+
+    val isTrueConfSdkHideCallWindow:Boolean = intent.getBooleanExtra("isTrueConfSdkHideCallWindow", false)
+    if (isTrueConfSdkHideCallWindow)
+      overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+  }
 }

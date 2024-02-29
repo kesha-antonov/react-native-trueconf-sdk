@@ -277,6 +277,7 @@ export default function App() {
           isMicMuted={isMicMuted}
           isCameraMuted={isCameraMuted}
           isSpeakerMuted={isSpeakerMuted}
+          isFadeTransitionEnabled
 
           onServerStatus={onServerStatus}
           onLogin={onLogin}

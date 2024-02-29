@@ -76,6 +76,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   public boolean isInConference = false;
   ConferenceFragmentCast conferenceFragmentCast;
 
+  public boolean isFadeTransitionEnabled = false;
+
   ReactApplicationContext reactContext;
 
   // EVENTS
@@ -247,6 +249,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     Activity activity = reactContext.getCurrentActivity();
     Intent intent = new Intent(reactContext, activity.getClass());
     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    intent.putExtra("isTrueConfSdkHideCallWindow", true);
+
     activity.startActivity(intent);
   }
 
@@ -260,7 +264,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     Activity activity = reactContext.getCurrentActivity();
     Intent intent = new Intent(reactContext, CallCast.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
     activity.startActivity(intent);
+    if (isFadeTransitionEnabled) {
+      activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
   }
 
   public void onPressButton(String kind, @Nullable WritableMap params) {
@@ -272,6 +280,18 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     switch (kind) {
       case "chat":
         hideCallWindow();
+        break;
+      case "hangup":
+        hideCallWindow();
+        new Thread(() -> {
+          try {
+            Thread.sleep(500);
+            hangup(true);
+          } catch (InterruptedException e) {
+            Log.e(TAG, "onPressButton hangup error: " + e.getMessage());
+            e.printStackTrace();
+          }
+        }).start();
         break;
       default:
         break;
@@ -509,6 +529,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   @ReactProp(name = "isSpeakerMuted")
   public void setIsSpeakerMuted(FrameLayout view, @Nullable Boolean value) {
     isSpeakerMuted = value != null ? value : false;
+  }
+
+  @ReactProp(name = "isFadeTransitionEnabled")
+  public void setIsFadeTransitionEnabled(FrameLayout view, @Nullable Boolean value) {
+    isFadeTransitionEnabled = value != null ? value : false;
   }
 
   /**

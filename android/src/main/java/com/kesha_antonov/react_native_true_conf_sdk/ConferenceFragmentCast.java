@@ -83,7 +83,12 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         });
 
         ImageButton btnClose = view.findViewById(R.id.btnClose);
-        btnClose.setOnClickListener(view1 -> onHangupClick());
+        btnClose.setOnClickListener(view1 -> {
+            // NOT USED FOR NOW BECAUSE OF WHITE FLICKERING
+            // onHangupClick();
+
+            tcsdkViewManager.onPressButton("hangup", null);
+        });
 
         Log.d(TrueConfSDKViewManager.TAG, "ConferenceFragmentCast isMicMuted " + tcsdkViewManager.isMicMuted + " isCameraMuted " + tcsdkViewManager.isCameraMuted + " isSpeakerMuted " + tcsdkViewManager.isSpeakerMuted);
         updateMicButton(!tcsdkViewManager.isMicMuted);
