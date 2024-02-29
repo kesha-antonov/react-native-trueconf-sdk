@@ -20,7 +20,7 @@ import android.util.Log;
 
 public class ConferenceFragmentCast extends ConferenceFragment {
     private ImageButton btnChat;
-    private ImageButton btnSpeaker;
+    private ImageButton btnAudio;
     private ImageButton btnCam;
     private ImageButton btnMic;
 
@@ -55,13 +55,13 @@ public class ConferenceFragmentCast extends ConferenceFragment {
             }
         });
 
-        btnSpeaker = view.findViewById(R.id.btnSpeaker);
-        btnSpeaker.setOnClickListener(view1 -> {
+        btnAudio = view.findViewById(R.id.btnAudio);
+        btnAudio.setOnClickListener(view1 -> {
             onSwitchSpeaker();
 
             WritableMap params = Arguments.createMap();
             params.putBoolean("isMuted", TrueConfSDK.getInstance().isSpeakerMuted());
-            tcsdkViewManager.onPressButton("speaker", params);
+            tcsdkViewManager.onPressButton("audio", params);
         });
 
         btnCam = view.findViewById(R.id.btnCam);
@@ -82,18 +82,18 @@ public class ConferenceFragmentCast extends ConferenceFragment {
             tcsdkViewManager.onPressButton("mic", params);
         });
 
-        ImageButton btnClose = view.findViewById(R.id.btnClose);
-        btnClose.setOnClickListener(view1 -> {
+        ImageButton btnHangup = view.findViewById(R.id.btnHangup);
+        btnHangup.setOnClickListener(view1 -> {
             // NOT USED FOR NOW BECAUSE OF WHITE FLICKERING
             // onHangupClick();
 
             tcsdkViewManager.onPressButton("hangup", null);
         });
 
-        Log.d(TrueConfSDKViewManager.TAG, "ConferenceFragmentCast isMicMuted " + tcsdkViewManager.isMicMuted + " isCameraMuted " + tcsdkViewManager.isCameraMuted + " isSpeakerMuted " + tcsdkViewManager.isSpeakerMuted);
+        Log.d(TrueConfSDKViewManager.TAG, "ConferenceFragmentCast isMicMuted " + tcsdkViewManager.isMicMuted + " isCameraMuted " + tcsdkViewManager.isCameraMuted + " isAudioMuted " + tcsdkViewManager.isAudioMuted);
         updateMicButton(!tcsdkViewManager.isMicMuted);
         updateCameraButton(!tcsdkViewManager.isCameraMuted);
-        updateSpeakerButton(!tcsdkViewManager.isSpeakerMuted);
+        updateAudioButton(!tcsdkViewManager.isAudioMuted);
         updateChatButtonVisibility();
     }
 
@@ -117,11 +117,11 @@ public class ConferenceFragmentCast extends ConferenceFragment {
                 isActive ? R.drawable.ic_camera : R.drawable.ic_camera_off));
     }
 
-    private void updateSpeakerButton(boolean isActive) {
-        updateButtonBackground(btnSpeaker, isActive);
-        btnSpeaker.setImageDrawable(
+    private void updateAudioButton(boolean isActive) {
+        updateButtonBackground(btnAudio, isActive);
+        btnAudio.setImageDrawable(
                 AppCompatResources.getDrawable(requireContext(),
-                        isActive ? R.drawable.ic_speaker : R.drawable.ic_speaker_off));
+                        isActive ? R.drawable.ic_audio : R.drawable.ic_audio_off));
     }
 
     @Override
@@ -145,6 +145,6 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         Log.d(TrueConfSDKViewManager.TAG, "onSwitchSpeakerApplied isMuted " + isMuted);
 
         super.onSwitchSpeakerApplied(isMuted);
-        updateSpeakerButton(!isMuted);
+        updateAudioButton(!isMuted);
     }
 }

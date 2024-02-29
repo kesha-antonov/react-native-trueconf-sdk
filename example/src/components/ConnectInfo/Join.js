@@ -13,11 +13,11 @@ export default function Join (props) {
 
     onPressMic,
     onPressCamera,
-    onPressSpeaker,
+    onPressAudio,
 
     onShowCallWindow,
 
-    isSpeakerMuted,
+    isAudioMuted,
     isCameraMuted,
     isMicMuted,
 
@@ -61,7 +61,7 @@ export default function Join (props) {
       }
 
       <View style={styles.buttons}>
-        <Button style={[stylesCommon.fill, styles.button]} title={'Speaker: ' + (isSpeakerMuted ? 'off' : 'on')} onPress={onPressSpeaker} />
+        <Button style={[stylesCommon.fill, styles.button]} title={'Audio: ' + (isAudioMuted ? 'off' : 'on')} onPress={onPressAudio} />
         <Button style={[stylesCommon.fill, styles.button]} title={'Cam: ' + (isCameraMuted ? 'off' : 'on')} onPress={onPressCamera} />
         <Button style={[stylesCommon.fill, styles.button]} title={'Mic: ' + (isMicMuted ? 'off' : 'on')} onPress={onPressMic} />
 

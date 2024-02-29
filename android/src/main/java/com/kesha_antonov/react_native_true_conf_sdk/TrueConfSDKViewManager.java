@@ -60,7 +60,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   public final int COMMAND_ACCEPT_RECORD = 11;
   public final int COMMAND_MUTE = 12;
   public final int COMMAND_MUTE_CAMERA = 13;
-  public final int COMMAND_MUTE_SPEAKER = 14;
+  public final int COMMAND_MUTE_AUDIO = 14;
   public final int COMMAND_SEND_CHAT_MESSAGE = 15;
   public final int COMMAND_PARSE_PROTOCOL_LINK = 16;
   public final int COMMAND_SCHEDULE_LOGIN_AS = 17;
@@ -71,7 +71,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   private String server = "";
   public boolean isMicMuted = false;
   public boolean isCameraMuted = false;
-  public boolean isSpeakerMuted = false;
+  public boolean isAudioMuted = false;
 
   public boolean isInConference = false;
   ConferenceFragmentCast conferenceFragmentCast;
@@ -139,7 +139,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   public void onConferenceStart() {
     isInConference = true;
     conferenceFragmentCast.updateChatButtonVisibility();
-    muteSpeaker(); // TEMPORARILY HERE SINCE BEFORE JOIN CONF WE CAN'T SET DEFAULT isSpeakerMuted ON TCSDK
+    muteAudio(); // TEMPORARILY HERE SINCE BEFORE JOIN CONF WE CAN'T SET DEFAULT isAudioMuted ON TCSDK
 
     emitMessageToRN(ON_CONFERENCE_START, null);
   }
@@ -365,7 +365,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
       .put("acceptRecord", COMMAND_ACCEPT_RECORD)
       .put("mute", COMMAND_MUTE)
       .put("muteCamera", COMMAND_MUTE_CAMERA)
-      .put("muteSpeaker", COMMAND_MUTE_SPEAKER)
+      .put("muteAudio", COMMAND_MUTE_AUDIO)
       .put("sendChatMessage", COMMAND_SEND_CHAT_MESSAGE)
       .put("parseProtocolLink", COMMAND_PARSE_PROTOCOL_LINK)
       .put("scheduleLoginAs", COMMAND_SCHEDULE_LOGIN_AS)
@@ -410,12 +410,12 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         case COMMAND_JOIN_CONF: {
           String confId = args.getString(0);
 
-          Log.d(TAG, "joinConf isMicMuted " + isMicMuted + " isCameraMuted " + isCameraMuted + " isSpeakerMuted " + isSpeakerMuted);
+          Log.d(TAG, "joinConf isMicMuted " + isMicMuted + " isCameraMuted " + isCameraMuted + " isAudioMuted " + isAudioMuted);
 
           // SETS DEFAULT MIC/CAMERA VALUES
           TrueConfSDK.getInstance().setDefaultAudioEnabled(!isMicMuted);
           TrueConfSDK.getInstance().setDefaultCameraEnabled(!isCameraMuted);
-          muteSpeaker(); // TODO: setDefaultSpeakerEnabled MISSING
+          muteAudio(); // TODO: setDefaultSpeakerEnabled MISSING
 
           boolean result = TrueConfSDK.getInstance().joinConf(confId);
           break;
@@ -465,10 +465,10 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
           muteCamera();
           break;
         }
-        case COMMAND_MUTE_SPEAKER: {
-          boolean _isSpeakerMuted = args.getBoolean(0);
-          isSpeakerMuted = _isSpeakerMuted;
-          muteSpeaker();
+        case COMMAND_MUTE_AUDIO: {
+          boolean _isAudioMuted = args.getBoolean(0);
+          isAudioMuted = _isAudioMuted;
+          muteAudio();
           break;
         }
         case COMMAND_SEND_CHAT_MESSAGE: {
@@ -528,9 +528,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     isCameraMuted = value != null ? value : false;
   }
 
-  @ReactProp(name = "isSpeakerMuted")
-  public void setIsSpeakerMuted(FrameLayout view, @Nullable Boolean value) {
-    isSpeakerMuted = value != null ? value : false;
+  @ReactProp(name = "isAudioMuted")
+  public void setIsAudioMuted(FrameLayout view, @Nullable Boolean value) {
+    isAudioMuted = value != null ? value : false;
   }
 
   @ReactProp(name = "isFadeTransitionEnabled")
@@ -621,7 +621,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
   private void initSdk() {
-    Log.d(TAG, "initSdk server: " + server + " isMicMuted: " + isMicMuted + " isCameraMuted: " + isCameraMuted + " isSpeakerMuted: " + isSpeakerMuted);
+    Log.d(TAG, "initSdk server: " + server + " isMicMuted: " + isMicMuted + " isCameraMuted: " + isCameraMuted + " isAudioMuted: " + isAudioMuted);
 
     TrueConfSDK.getInstance().start(server, true);
 
@@ -672,8 +672,8 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
     TrueConfSDK.getInstance().muteCamera(isCameraMuted);
   }
 
-  private void muteSpeaker() {
-    TrueConfSDK.getInstance().muteSpeaker(isSpeakerMuted);
+  private void muteAudio() {
+    TrueConfSDK.getInstance().muteSpeaker(isAudioMuted);
   }
 
   private void sendChatMessage(String userId, String message) {

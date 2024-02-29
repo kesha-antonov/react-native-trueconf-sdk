@@ -19,7 +19,7 @@ function TrueConfWrapper(props, ref) {
   const {
     isMicMuted = false,
     isCameraMuted = false,
-    isSpeakerMuted = false,
+    isAudioMuted = false,
     ...rest
   } = props
 
@@ -137,7 +137,7 @@ function TrueConfWrapper(props, ref) {
       {...rest}
       isMicMuted={isMicMuted}
       isCameraMuted={isCameraMuted}
-      isSpeakerMuted={isSpeakerMuted}
+      isAudioMuted={isAudioMuted}
       ref={innerRef}
     />
   )
@@ -149,7 +149,7 @@ TrueConfWrapper.propTypes = {
   server: PropTypes.string,
   isMicMuted: PropTypes.bool,
   isCameraMuted: PropTypes.bool,
-  isSpeakerMuted: PropTypes.bool,
+  isAudioMuted: PropTypes.bool,
 
   onServerStatus: PropTypes.func,
   onStateChanged: PropTypes.func,

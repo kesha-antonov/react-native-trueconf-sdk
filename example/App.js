@@ -31,7 +31,7 @@ export default function App() {
   const [server, setServer] = useState('video.trueconf.com')
   const [status, setStatus] = useState(STATUSES.disconnected)
 
-  const [isSpeakerMuted, setIsSpeakerMuted] = useState(false)
+  const [isAudioMuted, setIsAudioMuted] = useState(false)
   const [isCameraMuted, setIsCameraMuted] = useState(false)
   const [isMicMuted, setIsMicMuted] = useState(false)
 
@@ -165,8 +165,8 @@ export default function App() {
     setIsCameraMuted(isCameraMuted => !isCameraMuted)
   }, [])
 
-  const handleToggleSpeaker = useCallback(() => {
-    setIsSpeakerMuted(isSpeakerMuted => !isSpeakerMuted)
+  const handleToggleAudio = useCallback(() => {
+    setIsAudioMuted(isAudioMuted => !isAudioMuted)
   }, [])
 
   const loginOrConfId = useCallback(() => {
@@ -178,12 +178,12 @@ export default function App() {
           onHangup={handleHangup}
           onPressMic={handleToggleMic}
           onPressCamera={handleToggleCamera}
-          onPressSpeaker={handleToggleSpeaker}
+          onPressAudio={handleToggleAudio}
           onShowCallWindow={() => trueconfRef.current?.showCallWindow()}
 
           isMicMuted={isMicMuted}
           isCameraMuted={isCameraMuted}
-          isSpeakerMuted={isSpeakerMuted}
+          isAudioMuted={isAudioMuted}
           isInConference={isInConference}
         />
       )
@@ -209,14 +209,14 @@ export default function App() {
     handleHangup,
     handleToggleMic,
     handleToggleCamera,
-    handleToggleSpeaker,
+    handleToggleAudio,
     handlePressConnect,
     handleLogin,
     handleDisconnectFromServer,
 
     isMicMuted,
     isCameraMuted,
-    isSpeakerMuted,
+    isAudioMuted,
   ])
 
   const handlePressButton = useCallback(({ nativeEvent: { kind, isMuted } }) => {
@@ -228,8 +228,8 @@ export default function App() {
       case 'camera':
         setIsCameraMuted(isMuted)
         break
-      case 'speaker':
-        setIsSpeakerMuted(isMuted)
+      case 'audio':
+        setIsAudioMuted(isMuted)
         break
     }
   }, [])
@@ -247,7 +247,7 @@ export default function App() {
     setStatus(status)
   }, [isConnected, isLoggedIn, server, currentUserId])
 
-  console.log('App', { isLoggedIn, isConnected, status }, { isMicMuted, isCameraMuted, isSpeakerMuted })
+  console.log('App', { isLoggedIn, isConnected, status }, { isMicMuted, isCameraMuted, isAudioMuted })
 
   return (
     <SafeAreaView style={[stylesCommon.fill, styles.container]}>
@@ -276,7 +276,7 @@ export default function App() {
           server={server}
           isMicMuted={isMicMuted}
           isCameraMuted={isCameraMuted}
-          isSpeakerMuted={isSpeakerMuted}
+          isAudioMuted={isAudioMuted}
           isFadeTransitionEnabled
 
           onServerStatus={onServerStatus}

@@ -21,6 +21,11 @@
     <string name="msg_invalid_server_value">Invalid server value</string>
     <string name="server_id">TrueConf Server Hostname/IP</string>
     <string name="empty_id">Empty id</string>
+    <string name="btnChat">Open chat button</string>
+    <string name="btnAudio">Toggle audio button</string>
+    <string name="btnCam">Toggle camera button</string>
+    <string name="btnMic">Toggle microphone button</string>
+    <string name="btnHangup">Hangup</string>
     <string-array name="ip_set">
     </string-array>
 </resources>

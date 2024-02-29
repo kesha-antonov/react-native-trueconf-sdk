@@ -54,13 +54,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnSpeaker"
-            android:contentDescription="@+strings/btnSpeaker"
+            android:id="@+id/btnAudio"
+            android:contentDescription="@+strings/btnAudio"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/bg_btn_round"
-            android:src="@drawable/ic_speaker"
+            android:src="@drawable/ic_audio"
             app:layout_constraintLeft_toRightOf="@+id/btnChat"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,7 +72,7 @@
             android:layout_marginStart="20dp"
             android:background="@drawable/bg_btn_round"
             android:src="@drawable/ic_camera"
-            app:layout_constraintLeft_toRightOf="@+id/btnSpeaker"
+            app:layout_constraintLeft_toRightOf="@+id/btnAudio"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -87,8 +87,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnClose"
-            android:contentDescription="@+strings/btnClose"
+            android:id="@+id/btnHangup"
+            android:contentDescription="@+strings/btnHangup"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
