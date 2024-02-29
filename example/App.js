@@ -267,9 +267,6 @@ export default function App() {
             stylesCommon.absoluteFill,
             {
               backgroundColor: 'blue',
-              // width: 300,
-              // height: 300,
-              // flex: 1,
             }
           ]}
 

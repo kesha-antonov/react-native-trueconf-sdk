@@ -109,9 +109,9 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   private final static String ON_PRESS_BUTTON = "onPressButton";
 
   @Override
-  public void onServerStatus(final boolean connected, final String serverName, final int serverPort) {
+  public void onServerStatus(final boolean isConnected, final String serverName, final int serverPort) {
     WritableMap params = Arguments.createMap();
-    params.putBoolean(CONNECTED, connected);
+    params.putBoolean(CONNECTED, isConnected);
     params.putString(SERVER_NAME, serverName);
     params.putInt(SERVER_PORT, serverPort);
     emitMessageToRN(ON_SERVER_STATUS, params);
@@ -625,18 +625,23 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
     TrueConfSDK.getInstance().start(server, true);
 
-    // INIT CUSTOM FRAGMENTS MUST BE INITED AFTER "start" CALL
-    // OTHERWISE THEY WON'T BE USED
-    initCustomViews();
-
     // EVENTS MUST BE INITED AFTER "start" CALL
     // OTHERWISE ON FIRST "initSdk" WE WON'T RECEIVE FIRST EVENTS
     initEvents();
+
+    // INIT CUSTOM FRAGMENTS MUST BE INITED AFTER "start" CALL
+    // OTHERWISE THEY WON'T BE USED
+    initCustomViews();
   }
 
   private void stopSdk() {
-      TrueConfSDK.getInstance().stop();
-      TrueConfSDK.getInstance().removeTrueconfListener(this);
+    TrueConfSDK.getInstance().stop();
+    logout();
+    removeListeners();
+  }
+
+  private void removeListeners() {
+    TrueConfSDK.getInstance().removeTrueconfListener(this);
   }
 
   private void logout() {
