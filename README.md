@@ -80,6 +80,11 @@ Enables or disables fade transition when call window hides.
 To use fade out animation add this code to `MainActivity.kt`:
 
 ```kotlin
+
+...
+import android.content.Intent
+...
+
 class MainActivity : ReactActivity() {
 
   ...
