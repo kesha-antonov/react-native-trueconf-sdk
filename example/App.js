@@ -22,7 +22,7 @@ const STATUSES = {
   loggedIn: 'Logged in as',
 }
 
-export default function App () {
+export default function App() {
   const trueconfRef = useRef()
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -129,13 +129,20 @@ export default function App () {
   }, [])
 
   const handleLogin = useCallback((userId, password) => {
-    console.log('Login onLogin', userId, password)
+    console.log('Login handleLogin', userId, password)
     trueconfRef.current?.login({
       userId,
       password,
       encryptPassword: true,
       enableAutoLogin: true,
     })
+  }, [])
+
+  const handleDisconnectFromServer = useCallback(() => {
+    console.log('handleDisconnectFromServer')
+
+    trueconfRef.current?.stopSdk()
+    setIsConnected(false)
   }, [])
 
   const handleLogout = useCallback(() => {
@@ -180,7 +187,7 @@ export default function App () {
       return (
         <Login
           onLogin={handleLogin}
-          onChangeServer={() => setIsConnected(false)}
+          onChangeServer={handleDisconnectFromServer}
         />
       )
     else

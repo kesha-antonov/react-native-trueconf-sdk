@@ -596,9 +596,11 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   private void initSdk() {
     Log.d(TAG, "initSdk server: " + server + " isMicMuted: " + isMicMuted + " isCameraMuted: " + isCameraMuted + " isSpeakerMuted: " + isSpeakerMuted);
 
-    initCustomViews();
-
     TrueConfSDK.getInstance().start(server, true);
+
+    // INIT CUSTOM FRAGMENTS MUST BE INITED AFTER "start" CALL
+    // OTHERWISE THEY WON'T BE USED
+    initCustomViews();
 
     // EVENTS MUST BE INITED AFTER "start" CALL
     // OTHERWISE ON FIRST "initSdk" WE WON'T RECEIVE FIRST EVENTS
