@@ -27,6 +27,7 @@ export default function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isConnected, setIsConnected] = useState(false)
+  const [isInConference, setIsInConference] = useState(false)
   const [server, setServer] = useState('video.trueconf.com')
   const [status, setStatus] = useState(STATUSES.disconnected)
 
@@ -106,10 +107,12 @@ export default function App() {
 
   const onConferenceStart = useCallback(e => {
     console.log('onConferenceStart', e.nativeEvent)
+    setIsInConference(true)
   }, [])
 
   const onConferenceEnd = useCallback(e => {
     console.log('onConferenceEnd', e.nativeEvent)
+    setIsInConference(false)
   }, [])
 
   const onUserStatusUpdate = useCallback(e => {
@@ -181,6 +184,7 @@ export default function App() {
           isMicMuted={isMicMuted}
           isCameraMuted={isCameraMuted}
           isSpeakerMuted={isSpeakerMuted}
+          isInConference={isInConference}
         />
       )
     else if (isConnected)
@@ -195,9 +199,11 @@ export default function App() {
         <Connect server={server} onPressConnect={handlePressConnect} />
       )
   }, [
+    server,
     isLoggedIn,
     isConnected,
-    server,
+    isInConference,
+
     handleJoinConf,
     handleLogout,
     handleHangup,
@@ -206,6 +212,7 @@ export default function App() {
     handleToggleSpeaker,
     handlePressConnect,
     handleLogin,
+    handleDisconnectFromServer,
 
     isMicMuted,
     isCameraMuted,

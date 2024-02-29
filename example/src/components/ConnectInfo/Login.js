@@ -4,7 +4,7 @@ import Button from '@components/Button'
 
 import stylesCommon from '@styles'
 
-export default function Login (props) {
+export default function Login(props) {
   const {
     onLogin,
     onChangeServer,

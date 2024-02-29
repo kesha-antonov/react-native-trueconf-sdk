@@ -20,6 +20,8 @@ export default function Join (props) {
     isSpeakerMuted,
     isCameraMuted,
     isMicMuted,
+
+    isInConference,
   } = props
 
   const [confId, setConfId] = useState('test_sdk')
@@ -46,20 +48,31 @@ export default function Join (props) {
         <Text style={stylesCommon.textError}>{confIdError}</Text>
       )}
 
-      <View style={styles.buttons}>
-        <Button style={[stylesCommon.fill, styles.button]} title="Join" onPress={handlePressJoin} />
-        <Button style={[stylesCommon.fill, styles.button]} title="Logout" onPress={onLogout} />
-      </View>
-      <View style={styles.buttonsSeparator} />
+      {
+        !isInConference && (
+          <>
+            <View style={styles.buttons}>
+              <Button style={[stylesCommon.fill, styles.button]} title="Join" onPress={handlePressJoin} />
+              <Button style={[stylesCommon.fill, styles.button]} title="Logout" onPress={onLogout} />
+            </View>
+            <View style={styles.buttonsSeparator} />
+          </>
+        )
+      }
 
       <View style={styles.buttons}>
         <Button style={[stylesCommon.fill, styles.button]} title={'Speaker: ' + (isSpeakerMuted ? 'off' : 'on')} onPress={onPressSpeaker} />
         <Button style={[stylesCommon.fill, styles.button]} title={'Cam: ' + (isCameraMuted ? 'off' : 'on')} onPress={onPressCamera} />
         <Button style={[stylesCommon.fill, styles.button]} title={'Mic: ' + (isMicMuted ? 'off' : 'on')} onPress={onPressMic} />
 
-        {/* TODO: SHOW ONLY WHEN CONNECTED TO CONFERENCE/CALL */}
-        <Button style={[stylesCommon.fill, styles.button]} title='Hangup' onPress={onHangup} />
-        <Button style={[stylesCommon.fill, styles.button]} title='Show call window' onPress={onShowCallWindow} />
+        {
+          isInConference && (
+            <>
+              <Button style={[stylesCommon.fill, styles.button]} title='Hangup' onPress={onHangup} />
+              <Button style={[stylesCommon.fill, styles.button]} title='Show call window' onPress={onShowCallWindow} />
+            </>
+          )
+        }
       </View>
     </>
   )
