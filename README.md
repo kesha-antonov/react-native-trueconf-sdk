@@ -99,7 +99,6 @@ class MainActivity : ReactActivity() {
 ### Android
 - [ ] (planned: v2) Allow customize buttons colors and icons
 - [ ] (planned: v3) Use modern event emitter: https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
-- [ ] (planned: v3) Add slide up/down transition https://developer.android.com/guide/fragments/animate
 - [ ] (planned: sdk issue) Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec (Support will be added to major update of TCSDK in summer of 2024)
 
 ### iOS
