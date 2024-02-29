@@ -101,19 +101,19 @@ class MainActivity : ReactActivity() {
 
 ## TODO
 
-### Android
-- [ ] (planned: v2) Allow customize buttons colors and icons
-- [ ] (planned: v3) Use modern event emitter: https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
-- [ ] (planned: sdk issue) Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec (Support will be added to major update of TCSDK in summer of 2024)
+### General
+- [ ] Describe which permissions are needed for iOS and where to put them (like here: https://github.com/zoontek/react-native-permissions?tab=readme-ov-file#ios)
+- [ ] (planned: v3) Add react-navigation to example and more examples from TrueConf SDK Docs
 
 ### iOS
 - [ ] Fix iOS crash when mute camera
 - [ ] Fix iOS connect on real device
 - [ ] Check that mute mic and camera works on iOS and it's confirmed in Privacy section on top of system screen
 
-### General
-- [ ] Describe which permissions are needed for iOS and where to put them (like here: https://github.com/zoontek/react-native-permissions?tab=readme-ov-file#ios)
-- [ ] (planned: v3) Add react-navigation to example and more examples from TrueConf SDK Docs
+### Android
+- [ ] (planned: v2) Allow customize buttons colors and icons
+- [ ] (planned: v3) Use modern event emitter: https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
+- [ ] (planned: sdk issue) Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec (Support will be added to major update of TCSDK in summer of 2024)
 
 ## Notes
 
