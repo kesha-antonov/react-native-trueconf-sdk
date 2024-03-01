@@ -5,6 +5,9 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import expo.modules.ReactActivityDelegateWrapper
+import android.os.Bundle
+import com.zoontek.rnbootsplash.RNBootSplash
 
 class MainActivity : ReactActivity() {
 
@@ -19,7 +22,9 @@ class MainActivity : ReactActivity() {
    * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
-      DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+      ReactActivityDelegateWrapper(this, fabricEnabled,
+          DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+      )
 
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
@@ -27,5 +32,13 @@ class MainActivity : ReactActivity() {
     val isTrueConfSdkHideCallWindow:Boolean = intent.getBooleanExtra("isTrueConfSdkHideCallWindow", false)
     if (isTrueConfSdkHideCallWindow)
       overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+  }
+
+   override fun onCreate(savedInstanceState: Bundle?) {
+    // ADDED NULL TO PREVENT CRASHES
+    // https://github.com/software-mansion/react-native-screens/issues/17#issuecomment-424704067
+    super.onCreate(null)
+
+    RNBootSplash.init(R.drawable.bootsplash, this)
   }
 }

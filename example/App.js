@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import TrueConf from 'react-native-trueconf-sdk'
 import constants from '@src/constants'
+import RNBootSplash from 'react-native-bootsplash'
 
 import Join from '@components/ConnectInfo/Join'
 import Login from '@components/ConnectInfo/Login'
@@ -247,6 +248,10 @@ export default function App() {
 
     setStatus(status)
   }, [isConnected, isLoggedIn, server, currentUserId])
+
+  useEffect(() => {
+    RNBootSplash.hide({ fade: true })
+  }, [])
 
   console.log('App', { isLoggedIn, isConnected, status }, { isMicMuted, isCameraMuted, isAudioMuted })
 
