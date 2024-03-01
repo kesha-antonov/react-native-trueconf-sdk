@@ -625,13 +625,14 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
 
     TrueConfSDK.getInstance().start(server, true);
 
-    // EVENTS MUST BE INITED AFTER "start" CALL
-    // OTHERWISE ON FIRST "initSdk" WE WON'T RECEIVE FIRST EVENTS
-    initEvents();
-
     // INIT CUSTOM FRAGMENTS MUST BE INITED AFTER "start" CALL
     // OTHERWISE THEY WON'T BE USED
     initCustomViews();
+
+    // EVENTS MUST BE INITED AFTER "start" CALL
+    // OTHERWISE ON FIRST "initSdk" WE WON'T RECEIVE FIRST EVENTS
+    // MUST CALL AFTER "initCustomViews" SINCE WE NEED TO START CALL WITH CUSTOM FRAGMENTS
+    initEvents();
   }
 
   private void stopSdk() {

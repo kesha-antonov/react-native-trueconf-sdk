@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { Text, View, TextInput } from 'react-native'
+import constants from '@src/constants'
+
 import Button from '@components/Button'
 
 import stylesCommon from '@styles'
@@ -10,9 +12,9 @@ export default function Login(props) {
     onChangeServer,
   } = props
 
-  const [login, setLogin] = useState('test_sdk1') // test_sdk2
+  const [login, setLogin] = useState(constants.CONNECT_INFO.userId)
   const [loginError, setLoginError] = useState()
-  const [password, setPassword] = useState('LvAR8rVyeq')
+  const [password, setPassword] = useState(constants.CONNECT_INFO.password)
   const [passwordError, setPasswordError] = useState()
 
   const handleChangeLogin = useCallback(login => {

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { Text, View, TextInput, StyleSheet } from 'react-native'
+import constants from '@src/constants'
 
 import Button from '@components/Button'
 
@@ -24,7 +25,7 @@ export default function Join (props) {
     isInConference,
   } = props
 
-  const [confId, setConfId] = useState('test_sdk')
+  const [confId, setConfId] = useState(constants.CONNECT_INFO.conferenceId)
   const [confIdError, setConfIdError] = useState()
 
   const handlePressJoin = useCallback(() => {

@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import TrueConf from 'react-native-trueconf-sdk'
+import constants from '@src/constants'
 
 import Join from '@components/ConnectInfo/Join'
 import Login from '@components/ConnectInfo/Login'
@@ -28,7 +29,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isConnected, setIsConnected] = useState(false)
   const [isInConference, setIsInConference] = useState(false)
-  const [server, setServer] = useState('video.trueconf.com')
+  const [server, setServer] = useState(constants.CONNECT_INFO.server)
   const [status, setStatus] = useState(STATUSES.disconnected)
 
   const [isAudioMuted, setIsAudioMuted] = useState(false)
