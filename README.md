@@ -99,6 +99,28 @@ class MainActivity : ReactActivity() {
 }
 ```
 
+## Customization
+
+### Android
+
+#### Colors
+
+To customize colors of buttons etc add the following code to `colors.xml`:
+
+```xml
+
+<resources>
+    ...
+    <color name="tcsdk_button_background">#439F24</color>
+    <color name="tcsdk_button_background_inactive">#000000</color>
+    <color name="tcsdk_button_background_hangup">#F57069</color>
+
+    <color name="tcsdk_call_background">#000000</color>
+    <color name="tcsdk_self_view_background">#00FFFFFF</color>
+    ...
+
+```
+
 ## TODO
 
 ### General
