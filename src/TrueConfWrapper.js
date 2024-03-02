@@ -29,7 +29,7 @@ function TrueConfWrapper(props, ref) {
         ? UIManager.getViewManagerConfig(NATIVE_COMPONENT_NAME)
         : UIManager[NATIVE_COMPONENT_NAME]
     ).Commands[command]
-    if (!cmd) {
+    if (cmd == null) {
       console.warn(`TrueConfWrapper: command '${command}' not found`)
       return
     }

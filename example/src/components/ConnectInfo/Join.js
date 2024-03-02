@@ -70,7 +70,11 @@ export default function Join (props) {
           isInConference && (
             <>
               <Button style={[stylesCommon.fill, styles.button]} title='Hangup' onPress={onHangup} />
-              <Button style={[stylesCommon.fill, styles.button]} title='Show call window' onPress={onShowCallWindow} />
+              {
+                constants.IS_ANDROID && (
+                  <Button style={[stylesCommon.fill, styles.button]} title='Show call window' onPress={onShowCallWindow} />
+                )
+              }
             </>
           )
         }

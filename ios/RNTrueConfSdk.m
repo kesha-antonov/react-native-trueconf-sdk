@@ -3,8 +3,9 @@
 @interface RCT_EXTERN_MODULE(RNTrueConfSdk, RCTViewManager)
 
 RCT_EXPORT_VIEW_PROPERTY(server, NSString)
-RCT_EXPORT_VIEW_PROPERTY(isCameraOn, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(isMuted, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(isAudioMuted, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(isCameraMuted, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(isMicMuted, BOOL)
 
 RCT_EXPORT_VIEW_PROPERTY(onServerStatus, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onStateChanged, RCTDirectEventBlock)
@@ -22,8 +23,8 @@ RCT_EXPORT_VIEW_PROPERTY(onUserStatusUpdate, RCTDirectEventBlock)
 #pragma mark - JS exported methods
 RCT_EXTERN_METHOD(
   initSdk:(nonnull NSNumber *)node
-  isMuted:(nonnull BOOL *)isMuted
-  isCameraOn:(nonnull BOOL *)isCameraOn
+  isMicMuted:(nonnull BOOL *)isMicMuted
+  isCameraMuted:(nonnull BOOL *)isCameraMuted
 )
 RCT_EXTERN_METHOD(
   stopSdk:(nonnull NSNumber *)node

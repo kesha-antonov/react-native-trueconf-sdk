@@ -142,9 +142,8 @@ To customize colors of buttons etc add the following code to `colors.xml`:
 - [ ] (planned: v3) Add react-navigation to example and more examples from TrueConf SDK Docs
 
 ### iOS
-- [ ] Fix iOS crash when mute camera
-- [ ] Fix iOS connect on real device
-- [ ] Check that mute mic and camera works on iOS and it's confirmed in Privacy section on top of system screen
+- [ ] Set self-view dimensions & make it rounded & transparent
+- [ ] remove isMicMuted, isCameraMuted from initSdk and ensure that they're passed through props
 
 ### Android
 - [ ] Set new icons
@@ -159,3 +158,4 @@ To customize colors of buttons etc add the following code to `colors.xml`:
 - RN docs: https://reactnative.dev/docs/native-components-android?android-language=java#integration-with-an-android-fragment-example
 
 - [Android] Rounded borders can't be applied to SelfView for now. Support will be added to major update of TCSDK in summer of 2024
+- [iOS] muteAudio is not available for now. Support will be added later.

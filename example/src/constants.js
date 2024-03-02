@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export default {
   CONNECT_INFO: {
     server: 'video.trueconf.com',
@@ -5,4 +7,5 @@ export default {
     password: 'LvAR8rVyeq',
     conferenceId: 'test_sdk',
   },
+  IS_ANDROID: Platform.OS === 'android',
 }

@@ -22,36 +22,45 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
     @objc var server: String = "video.trueconf.com"
 
-    @objc private var _isMuted : Bool = false
-    @objc private var _isCameraOn : Bool = true
+    @objc private var _isAudioMuted : Bool = false
+    @objc private var _isCameraMuted : Bool = false
+    @objc private var _isMicMuted : Bool = false
 
-    @objc var isMuted: Bool {
+    @objc var isAudioMuted: Bool {
         set(newValue) {
-            print("react-native-trueconf-sdk TrueConfView isMuted-1:", newValue)
+            print("react-native-trueconf-sdk: isAudioMuted/set -1: ", String(newValue))
 
-            self._isMuted = newValue
-            DispatchQueue.main.async {
-                print("react-native-trueconf-sdk TrueConfView isMuted-2:", self._isMuted)
-                self.tcsdk?.muteMicrophone(self._isMuted)
-            }
-        }
-        get {
-            return self._isMuted
-        }
-    }
-    @objc var isCameraOn: Bool {
-        set(newValue) {
-            print("react-native-trueconf-sdk TrueConfView isCameraOn-1:", newValue)
-
-            self._isCameraOn = newValue
+            self._isAudioMuted = newValue
             DispatchQueue.main.async {
                 if (self.tcsdk == nil) { return }
 
-                let isCameraMuted = !newValue
-                print("react-native-trueconf-sdk TrueConfView isCameraOn-2:", isCameraMuted)
+                let isAudioMuted = newValue
+                print("react-native-trueconf-sdk: isAudioMuted/set -2: ", String(isAudioMuted))
+
+                // NOT AVAILABLE NOW iN SDK
+                // self.tcsdk!.muteAudio(isAudioMuted)
+
+                print("react-native-trueconf-sdk: isAudioMuted/set -3: " + String(isAudioMuted))
+            }
+        }
+        get {
+            return self._isCameraMuted
+        }
+    }
+
+    @objc var isCameraMuted: Bool {
+        set(newValue) {
+            print("react-native-trueconf-sdk: isCameraMuted/set -1: ", String(newValue))
+
+            self._isCameraMuted = newValue
+            DispatchQueue.main.async {
+                if (self.tcsdk == nil) { return }
+
+                let isCameraMuted = newValue
+                print("react-native-trueconf-sdk: isCameraMuted/set -2: ", String(isCameraMuted))
                 self.tcsdk!.muteCamera(isCameraMuted)
 
-                print("cameraOn set: " + String(isCameraMuted))
+                print("react-native-trueconf-sdk: isCameraMuted/set -3: " + String(isCameraMuted))
 
                 if (isCameraMuted) {
                     self.tcsdk!.xsview = nil
@@ -61,7 +70,22 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             }
         }
         get {
-            return self._isCameraOn
+            return self._isCameraMuted
+        }
+    }
+
+    @objc var isMicMuted: Bool {
+        set(newValue) {
+            print("react-native-trueconf-sdk: isMicMuted/set -1: ", String(newValue))
+
+            self._isMicMuted = newValue
+            DispatchQueue.main.async {
+                print("react-native-trueconf-sdk: isMicMuted/set -2: ", self._isMicMuted)
+                self.tcsdk?.muteMicrophone(self._isMicMuted)
+            }
+        }
+        get {
+            return self._isMicMuted
         }
     }
 
@@ -73,17 +97,17 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
         super.init(coder: aDecoder)
     }
 
-    @objc func getIsCameraOn () -> Bool {
+    @objc func getIsCameraMuted () -> Bool {
         if (self.tcsdk == nil) {
-            return self._isCameraOn
+            return self._isCameraMuted
         }
 
-        return !self.tcsdk!.cameraMuted()
+        return self.tcsdk!.cameraMuted()
     }
 
     @objc func getIsMicrophoneMuted () -> Bool {
         if (self.tcsdk == nil) {
-            return self._isMuted
+            return self._isMicMuted
         }
 
         return self.tcsdk!.microphoneMuted()
@@ -139,9 +163,9 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     }
 
     @objc
-    func initSdk(isMuted: Bool, isCameraOn: Bool) {
-        print("react-native-trueconf-sdk TrueConfView initSdk isMuted-1: " + String(isMuted))
-        print("react-native-trueconf-sdk TrueConfView initSdk isCameraMuted-1: " + String(isCameraOn))
+    func initSdk(isMicMuted: Bool, isCameraMuted: Bool) {
+        print("react-native-trueconf-sdk TrueConfView initSdk isMicMuted-1: " + String(isMicMuted))
+        print("react-native-trueconf-sdk TrueConfView initSdk isCameraMuted-1: " + String(isCameraMuted))
 
         if (self.tcsdk != nil ) { return }
 
@@ -159,15 +183,15 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
             self.initEvents()
 
             // CALLS MIC/CAMERA ON/OFF AFTER SDK INIT
-            self.isMuted = isMuted
-            self.isCameraOn = isCameraOn
+            self.isMicMuted = isMicMuted
+            self.isCameraMuted = isCameraMuted
 
             self.tcsdk!.start()
 
-            print("react-native-trueconf-sdk TrueConfView initSdk isCameraOn-2: " + String(isCameraOn))
+            print("react-native-trueconf-sdk TrueConfView initSdk isCameraMuted-2: " + String(isCameraMuted))
 
-            self.tcsdk!.muteMicrophone(isMuted)
-            self.tcsdk!.muteCamera(!isCameraOn)
+            self.tcsdk!.muteMicrophone(isMicMuted)
+            self.tcsdk!.muteCamera(!isCameraMuted)
         }
     }
 
@@ -238,7 +262,7 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
                 "isLoggedIn": isLoggedIn,
                 "isStarted": self.tcsdk!.isStarted(),
                 "isInConference": self.tcsdk!.isInConference(),
-                "isCameraOn": self.getIsCameraOn(),
+                "isCameraMuted": self.getIsCameraMuted(),
                 "isMicrophoneMuted": self.getIsMicrophoneMuted()
             ])
         })
