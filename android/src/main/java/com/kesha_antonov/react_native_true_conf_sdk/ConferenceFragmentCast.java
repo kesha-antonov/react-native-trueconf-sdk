@@ -102,7 +102,7 @@ public class ConferenceFragmentCast extends ConferenceFragment {
     }
 
     private void updateButtonBackground(ImageButton btn, boolean isActive) {
-        btn.setBackgroundResource(isActive ? R.drawable.bg_btn_round : R.drawable.bg_btn_round_black);
+        btn.setBackgroundResource(isActive ? R.drawable.button_round : R.drawable.button_round_inactive);
     }
 
     private void updateMicButton(boolean isActive) {

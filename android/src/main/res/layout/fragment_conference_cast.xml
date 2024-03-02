@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="top"
     android:visibility="visible"
-    android:background="@color/black">
+    android:background="@color/tcsdk_call_background">
 
     <RelativeLayout
         android:id="@+id/conference_view"
@@ -45,32 +45,32 @@
 
         <ImageButton
             android:id="@+id/btnChat"
-            android:contentDescription="@+strings/btnChat"
+            android:contentDescription="@string/tcsdk_button_chat"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/bg_btn_round_black"
+            android:background="@drawable/button_round_inactive"
             android:src="@drawable/ic_chat"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnAudio"
-            android:contentDescription="@+strings/btnAudio"
+            android:contentDescription="@string/tcsdk_button_audio"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/bg_btn_round"
+            android:background="@drawable/button_round"
             android:src="@drawable/ic_audio"
             app:layout_constraintLeft_toRightOf="@+id/btnChat"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnCam"
-            android:contentDescription="@+strings/btnCam"
+            android:contentDescription="@string/tcsdk_button_cam"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/bg_btn_round"
+            android:background="@drawable/button_round"
             android:src="@drawable/ic_camera"
             app:layout_constraintLeft_toRightOf="@+id/btnAudio"
             app:layout_constraintTop_toTopOf="parent" />
@@ -80,19 +80,19 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/bg_btn_round"
-            android:contentDescription="@+strings/btnMic"
+            android:background="@drawable/button_round"
+            android:contentDescription="@string/tcsdk_button_mic"
             android:src="@drawable/ic_mic"
             app:layout_constraintLeft_toRightOf="@+id/btnCam"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnHangup"
-            android:contentDescription="@+strings/btnHangup"
+            android:contentDescription="@string/tcsdk_button_hangup"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/bg_btn_round_red"
+            android:background="@drawable/button_round_hangup"
             android:padding="8dp"
             android:scaleType="center"
             android:src="@drawable/ic_hangup"

@@ -1,56 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="bg_top">#FFFFFF</color>
-  <color name="primary_dark">#FFFFFF</color>
-  <color name="white">#FFFFFF</color>
-  <color name="black">#000000</color>
+  <color name="tcsdk_button_background">#439F24</color>
+  <color name="tcsdk_button_background_inactive">#000000</color>
+  <color name="tcsdk_button_background_hangup">#F57069</color>
 
-  <color name="CallDialogSolidLayer">#4077add5</color>
-  <color name="ChatSolidLayer">#59ffff</color>
-  <color name="TabNotifyColor">#FFFFFF</color>
-  <color name="ProfileNameTextColor">#000000</color>
-  <color name="ChatDateTextColor">#FF606060</color>
-  <color name="CircleCallButtonBackground">#784cad57</color>
-  <color name="CallDisplayNameColor">#0b5f89</color>
-  <color name="DarkActionBarCollor">#005c92</color>
-  <color name="BacklightCollor">#75ffff</color>
-
-  <color name="ContactIdTextColor">#FF333333</color>
-  <color name="ContactNameTextColor">#FF0066CC</color>
-  <color name="BackgroundColor">#FFFFFF</color>
-  <color name="ActionBarColor">#FFFFFF</color>
-  <color name="ActionBarTextColor">#FF606060</color>
-  <color name="ActionBarPressedTextColor">#FFFFFFFF</color>
-  <color name="ButtonNormalBackColor">#6157FF</color>
-  <color name="ButtonPressedBackColor">#FF1FAEE9</color>
-  <color name="ButtonNormalTextColor">#FF606060</color>
-  <color name="ButtonPressedTextColor">#FFFFFFFF</color>
-  <color name="EditHintTextColor">#FF999999</color>
-
-  <!-- theme default colors -->
-  <color name="theme_green_normal">#FF33CC00</color>
-  <color name="theme_green_pressed">#FF2CB200</color>
-  <color name="theme_blue_normal">#FF0066CC</color>
-  <color name="theme_blue_pressed">#FF0059B2</color>
-  <color name="theme_yellow_normal">#FFFFCC00</color>
-  <color name="theme_yellow_pressed">#FFE5B300</color>
-  <color name="theme_red_normal">#FFCC3333</color>
-  <color name="theme_red_pressed">#FFB22C2C</color>
-
-  <color name="contact_menu_call_normal">@color/theme_green_normal</color>
-  <color name="contact_menu_call_pressed">@color/theme_green_pressed</color>
-  <color name="contact_menu_chat_normal">@color/theme_yellow_normal</color>
-  <color name="contact_menu_chat_pressed">@color/theme_yellow_pressed</color>
-  <color name="contact_menu_profile_normal">@color/theme_blue_normal</color>
-  <color name="contact_menu_profile_pressed">@color/theme_blue_pressed</color>
-
-  <color name="ButtonGrayNormal">#FF999999</color>
-  <color name="ButtonGrayPressed">#FF666666</color>
-  <color name="ButtonGrayChecked">#FF333333</color>
-
-  <color name="SegmentIndicatorDefault">#FF5A5A5A</color>
-  <color name="SegmentIndicatorSelected">#FF33FF00</color>
-
-  <color name="TransparentGray">#99999999</color>
-  <color name="TransparentMain">#99FFFF</color>
+  <color name="tcsdk_call_background">#000000</color>
+  <color name="tcsdk_self_view_background">#00FFFFFF</color>
 </resources>

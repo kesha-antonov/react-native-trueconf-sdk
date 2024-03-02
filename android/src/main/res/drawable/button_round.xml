@@ -4,11 +4,9 @@
     android:shape="rectangle">
 
     <solid
-        android:color="#F57069" >
-    </solid>
+        android:color="@color/tcsdk_button_background" />
 
     <corners
-        android:radius="25dp" >
-    </corners>
+        android:radius="25dp" />
 
 </shape>
