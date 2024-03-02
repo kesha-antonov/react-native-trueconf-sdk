@@ -23,7 +23,22 @@ Then
 
 `$ cd ios && pod install`
 
-### Extra steps for Android
+### iOS
+
+1. Add the following code to `Info.plist`:
+
+```xml
+<dict>
+  ...
+  <key>NSCameraUsageDescription</key>
+	<string>Need camera access to make calls</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need microphone access to make calls</string>
+  ...
+</dict>
+```
+
+### Android
 
 1. In `MainApplication.kt` add the following code:
 
@@ -124,7 +139,6 @@ To customize colors of buttons etc add the following code to `colors.xml`:
 ## TODO
 
 ### General
-- [ ] Describe which permissions are needed for iOS and where to put them (like here: https://github.com/zoontek/react-native-permissions?tab=readme-ov-file#ios)
 - [ ] (planned: v3) Add react-navigation to example and more examples from TrueConf SDK Docs
 
 ### iOS
