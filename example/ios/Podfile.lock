@@ -886,7 +886,7 @@ PODS:
   - React-Mapbuffer (0.73.5):
     - glog
     - React-debug
-  - react-native-trueconf-sdk (1.4.3):
+  - react-native-trueconf-sdk (1.4.4):
     - React
   - React-nativeconfig (0.73.5)
   - React-NativeModulesApple (0.73.5):
@@ -1249,7 +1249,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 32db5e364bcae8fca8cdf8891830636275add0c5
   React-logger: 0331362115f0f5b392bd7ed14636d1a3ea612479
   React-Mapbuffer: 7c35cd53a22d0be04d3f26f7881c7fb7dd230216
-  react-native-trueconf-sdk: b025348cdf91c63a8994970daa3fa43dfcd10303
+  react-native-trueconf-sdk: e8082165e5547b159bfad2b2b4a38669b851dc2a
   React-nativeconfig: 1166714a4f7ea57a0df5c2cb44fbc70f98d580f9
   React-NativeModulesApple: 726664e9829eb5eed8170241000e46ead269a05f
   React-perflogger: 0dd9f1725d55f8264b81efadd373fe1d9cca7dc2
