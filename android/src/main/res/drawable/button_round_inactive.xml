@@ -7,6 +7,6 @@
         android:color="@color/tcsdk_button_background_inactive" />
 
     <corners
-        android:radius="25dp" />
+        android:radius="27dp" />
 
 </shape>
