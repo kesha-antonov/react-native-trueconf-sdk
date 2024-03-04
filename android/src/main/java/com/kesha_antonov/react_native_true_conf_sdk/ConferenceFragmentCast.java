@@ -1,10 +1,16 @@
 package com.kesha_antonov.react_native_true_conf_sdk;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ImageButton;
 
@@ -12,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 
 import com.trueconf.sdk.TrueConfSDK;
@@ -19,11 +26,23 @@ import com.trueconf.sdk.gui.fragments.ConferenceFragment;
 
 import android.util.Log;
 
+import jp.wasabeef.blurry.Blurry;
+
+import android.graphics.drawable.Drawable;
+
+import java.util.Objects;
+
+import eightbitlab.com.blurview.BlurAlgorithm;
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderEffectBlur;
+import eightbitlab.com.blurview.RenderScriptBlur;
+
 public class ConferenceFragmentCast extends ConferenceFragment {
     private ImageButton btnChat;
     private ImageButton btnAudio;
     private ImageButton btnCam;
     private ImageButton btnMic;
+    private View mainView;
 
     TrueConfSDKViewManager tcsdkViewManager;
 
@@ -42,6 +61,8 @@ public class ConferenceFragmentCast extends ConferenceFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mainView = view;
 
         RelativeLayout conferenceView = view.findViewById(R.id.conference_view);
         ViewGroup selfView = view.findViewById(R.id.self_view);
@@ -74,6 +95,25 @@ public class ConferenceFragmentCast extends ConferenceFragment {
             tcsdkViewManager.onPressButton("camera", params);
         });
 
+//        ViewGroup btnCamContainer = view.findViewById(R.id.btnCamContainer);
+        // ImageView imageView = view.findViewById(R.id.btnCamBackground);
+
+        // imageView.post(new Runnable() {
+        //     @Override
+        //     public void run() {
+        //         Blurry.with(requireContext())
+        //             .radius(27)
+        //             .sampling(1)
+        //             .color(Color.argb(60, 255, 255, 255))
+        //             .capture(view.findViewById(R.id.btnCam))
+        //             .into(imageView);
+        //     }
+        // });
+
+        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        //     btnCam.setRenderEffect(RenderEffect.createBlurEffect(5, 5, Shader.TileMode.CLAMP));
+        // }
+
         btnMic = view.findViewById(R.id.btnMic);
         btnMic.setOnClickListener(view1 -> {
             onSwitchMic();
@@ -96,6 +136,53 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         updateCameraButton(!tcsdkViewManager.isCameraMuted);
         updateMicButton(tcsdkViewManager.isMicMuted);
         updateChatButtonVisibility();
+
+        setupBlurView();
+
+//         new Thread(() -> {
+//             try {
+//                 Thread.sleep(2000);
+//                 UiThreadUtil.runOnUiThread(new Runnable() {
+//                     @Override
+//                     public void run() {
+// //                        Thread.sleep(2000);
+//                         setupBlurView();
+//                     }
+//                 });
+//             } catch (InterruptedException e) {
+//                 Log.e(TrueConfSDKViewManager.TAG, "onViewCreated setupBlurView error: " + e.getMessage());
+//                 e.printStackTrace();
+//             }
+//         }).start();
+    }
+
+    @NonNull
+    private BlurAlgorithm getBlurAlgorithm() {
+        BlurAlgorithm algorithm;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            algorithm = new RenderEffectBlur();
+        } else {
+            algorithm = new RenderScriptBlur(requireContext());
+        }
+        return algorithm;
+    }
+
+    private void setupBlurView () {
+        final float radius = 25f;
+
+//        https://github.com/Dimezis/BlurView?tab=readme-ov-file#how-to-use
+        View decorVIew = Objects.requireNonNull(requireActivity()).getWindow().getDecorView();
+//        View decorVIew = Objects.requireNonNull(tcsdkViewManager.reactContext.getCurrentActivity()).getWindow().getDecorView();
+        ViewGroup rootView = decorVIew.findViewById(android.R.id.content);
+        Drawable windowBackground = decorVIew.getBackground();
+        BlurAlgorithm algorithm = getBlurAlgorithm();
+
+        BlurView blurView = mainView.findViewById(R.id.blurView);
+        blurView.setupWith(rootView, algorithm)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurRadius(10)
+                .setBlurEnabled(true)
+                .setBlurAutoUpdate(true);
     }
 
     public void updateChatButtonVisibility () {
@@ -117,7 +204,8 @@ public class ConferenceFragmentCast extends ConferenceFragment {
     }
 
     private void updateCameraButton(boolean isActive) {
-        updateButtonBackground(btnCam, isActive);
+        // updateButtonBackground(btnCam, isActive);
+        // updateButtonBackground(mainView.findViewById(R.id.btnCamContainer), isActive);
     }
 
     private void updateAudioButton(boolean isActive) {
