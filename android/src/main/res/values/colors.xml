@@ -4,6 +4,9 @@
   <color name="tcsdk_button_background_inactive">#26ffffff</color>
   <color name="tcsdk_button_background_hangup">#F57069</color>
 
+  <color name="tcsdk_button_icon">#FFFFFF</color>
+  <color name="tcsdk_button_icon_inactive">#99ffffff</color>
+
   <color name="tcsdk_call_background">#000000</color>
   <color name="tcsdk_self_view_background">#00FFFFFF</color>
 </resources>

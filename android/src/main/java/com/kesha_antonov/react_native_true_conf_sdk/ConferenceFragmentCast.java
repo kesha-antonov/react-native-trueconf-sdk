@@ -1,5 +1,6 @@
 package com.kesha_antonov.react_native_true_conf_sdk;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,14 +92,20 @@ public class ConferenceFragmentCast extends ConferenceFragment {
         });
 
         Log.d(TrueConfSDKViewManager.TAG, "ConferenceFragmentCast isMicMuted " + tcsdkViewManager.isMicMuted + " isCameraMuted " + tcsdkViewManager.isCameraMuted + " isAudioMuted " + tcsdkViewManager.isAudioMuted);
-        updateMicButton(!tcsdkViewManager.isMicMuted);
+        updateAudioButton(tcsdkViewManager.isAudioMuted);
         updateCameraButton(!tcsdkViewManager.isCameraMuted);
-        updateAudioButton(!tcsdkViewManager.isAudioMuted);
+        updateMicButton(tcsdkViewManager.isMicMuted);
         updateChatButtonVisibility();
     }
 
     public void updateChatButtonVisibility () {
-        updateButtonBackground(btnChat, tcsdkViewManager.isInConference);
+        if (tcsdkViewManager.isInConference) {
+            btnChat.setClickable(true);
+            btnChat.getDrawable().setTint(AppCompatResources.getColorStateList(requireContext(), R.color.tcsdk_button_icon).getDefaultColor());
+        } else {
+            btnChat.setClickable(false);
+            btnChat.getDrawable().setTint(AppCompatResources.getColorStateList(requireContext(), R.color.tcsdk_button_icon_inactive).getDefaultColor());
+        }
     }
 
     private void updateButtonBackground(ImageButton btn, boolean isActive) {
@@ -107,29 +114,22 @@ public class ConferenceFragmentCast extends ConferenceFragment {
 
     private void updateMicButton(boolean isActive) {
         updateButtonBackground(btnMic, isActive);
-        btnMic.setImageDrawable(
-                AppCompatResources.getDrawable(requireContext(), isActive ? R.drawable.ic_mic : R.drawable.ic_mic_off));
     }
 
     private void updateCameraButton(boolean isActive) {
         updateButtonBackground(btnCam, isActive);
-        btnCam.setImageDrawable(AppCompatResources.getDrawable(requireContext(),
-                isActive ? R.drawable.ic_camera : R.drawable.ic_camera_off));
     }
 
     private void updateAudioButton(boolean isActive) {
         updateButtonBackground(btnAudio, isActive);
-        btnAudio.setImageDrawable(
-                AppCompatResources.getDrawable(requireContext(),
-                        isActive ? R.drawable.ic_audio : R.drawable.ic_audio_off));
     }
 
     @Override
-    public void onSwitchMicApplied(boolean isMuted) {
-        Log.d(TrueConfSDKViewManager.TAG, "onSwitchMicApplied isMuted " + isMuted);
+    public void onSwitchSpeakerApplied(boolean isMuted) {
+        Log.d(TrueConfSDKViewManager.TAG, "onSwitchSpeakerApplied isMuted " + isMuted);
 
-        super.onSwitchMicApplied(isMuted);
-        updateMicButton(!isMuted);
+        super.onSwitchSpeakerApplied(isMuted);
+        updateAudioButton(isMuted);
     }
 
     @Override
@@ -141,10 +141,11 @@ public class ConferenceFragmentCast extends ConferenceFragment {
     }
 
     @Override
-    public void onSwitchSpeakerApplied(boolean isMuted) {
-        Log.d(TrueConfSDKViewManager.TAG, "onSwitchSpeakerApplied isMuted " + isMuted);
+    public void onSwitchMicApplied(boolean isMuted) {
+        Log.d(TrueConfSDKViewManager.TAG, "onSwitchMicApplied isMuted " + isMuted);
 
-        super.onSwitchSpeakerApplied(isMuted);
-        updateAudioButton(!isMuted);
+        super.onSwitchMicApplied(isMuted);
+        updateMicButton(isMuted);
     }
+
 }

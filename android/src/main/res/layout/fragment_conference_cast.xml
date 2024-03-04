@@ -43,13 +43,20 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="54dp" >
 
+        <!-- CHAT BUTTON DISABLED BY DEFAULT - BECAUSE IT'S USED IN CALL FRAGMENT ALSO
+        AND IF THIS BUTTON WILL BE PRESSED - CALL WILL BE HIDDEN
+        AND CONFERENCE FRAGMENT WILL NOT SHOW SINCE ACTIVITY IS NOT ON TOP
+        -->
         <ImageButton
             android:id="@+id/btnChat"
-            android:contentDescription="@string/tcsdk_button_chat"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:background="@drawable/button_round_inactive"
+            android:clickable="false"
+            android:contentDescription="@string/tcsdk_button_chat"
             android:src="@drawable/ic_chat"
+            android:tint="@color/tcsdk_button_icon_inactive"
+            android:tintMode="src_in"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,6 +68,7 @@
             android:layout_marginStart="18dp"
             android:background="@drawable/button_round_inactive"
             android:src="@drawable/ic_audio_off"
+            android:tint="@color/tcsdk_button_icon"
             app:layout_constraintLeft_toRightOf="@+id/btnChat"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,6 +80,7 @@
             android:layout_marginStart="18dp"
             android:background="@drawable/button_round"
             android:src="@drawable/ic_camera"
+            android:tint="@color/tcsdk_button_icon"
             app:layout_constraintLeft_toRightOf="@+id/btnAudio"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,6 +92,7 @@
             android:background="@drawable/button_round_inactive"
             android:contentDescription="@string/tcsdk_button_mic"
             android:src="@drawable/ic_mic_off"
+            android:tint="@color/tcsdk_button_icon"
             app:layout_constraintLeft_toRightOf="@+id/btnCam"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,6 +106,7 @@
             android:padding="8dp"
             android:scaleType="center"
             android:src="@drawable/ic_hangup"
+            android:tint="@color/tcsdk_button_icon"
             app:layout_constraintLeft_toRightOf="@+id/btnMic"
             app:layout_constraintTop_toTopOf="parent" />
 

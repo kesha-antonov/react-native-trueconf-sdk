@@ -126,9 +126,12 @@ To customize colors of buttons etc add the following code to `colors.xml`:
 
 <resources>
     ...
-    <color name="tcsdk_button_background">#439F24</color>
-    <color name="tcsdk_button_background_inactive">#000000</color>
+    <color name="tcsdk_button_background">#99FFFFFF</color>
+    <color name="tcsdk_button_background_inactive">#26ffffff</color>
     <color name="tcsdk_button_background_hangup">#F57069</color>
+
+    <color name="tcsdk_button_icon">#FFFFFF</color>
+    <color name="tcsdk_button_icon_inactive">#99ffffff</color>
 
     <color name="tcsdk_call_background">#000000</color>
     <color name="tcsdk_self_view_background">#00FFFFFF</color>
@@ -146,7 +149,6 @@ To customize colors of buttons etc add the following code to `colors.xml`:
 - [ ] remove isMicMuted, isCameraMuted from initSdk and ensure that they're passed through props
 
 ### Android
-- [ ] Set new icons
 - [ ] (planned: v2) Allow customize buttons colors and icons
 - [ ] (planned: v3) Use modern event emitter: https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
 - [ ] (planned: sdk issue) Add support to Android 14. Crashes on boot with error https://stackoverflow.com/questions/77235063/one-of-receiver-exported-or-receiver-not-exported-should-be-specified-when-a-rec (Support will be added to major update of TCSDK in summer of 2024)
