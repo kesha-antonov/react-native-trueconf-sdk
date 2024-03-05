@@ -144,10 +144,6 @@ To customize colors of buttons etc add the following code to `colors.xml`:
 ### General
 - [ ] (planned: v3) Add react-navigation to example and more examples from TrueConf SDK Docs
 
-### iOS
-- [ ] Set self-view dimensions & make it rounded & transparent
-- [ ] remove isMicMuted, isCameraMuted from initSdk and ensure that they're passed through props
-
 ### Android
 - [ ] (planned: v2) Allow customize buttons colors and icons
 - [ ] (planned: v3) Use modern event emitter: https://github.com/facebook/react-native/blob/cb2b265c20f0622dec37c8b95c0380f78cb0877b/packages/react-native/ReactAndroid/src/main/java/com/facebook/react/uimanager/events/RCTModernEventEmitter.java#L22
