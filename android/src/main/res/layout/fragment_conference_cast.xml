@@ -19,13 +19,13 @@
 
     <LinearLayout
         android:id="@+id/self_view_container"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="54dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:clipChildren="true"
         android:background="@drawable/self_view_shape">
         <LinearLayout
