@@ -47,9 +47,9 @@ function TrueConfWrapper(props, ref) {
   const initSdk = useCallback(() => {
     callCommand(
       'initSdk',
-      [isMicMuted, isCameraMuted]
+      []
     )
-  }, [callCommand, isMicMuted, isCameraMuted])
+  }, [callCommand])
 
   const stopSdk = useCallback(() => {
     callCommand(

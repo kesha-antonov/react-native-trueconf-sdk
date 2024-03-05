@@ -23,8 +23,6 @@ RCT_EXPORT_VIEW_PROPERTY(onUserStatusUpdate, RCTDirectEventBlock)
 #pragma mark - JS exported methods
 RCT_EXTERN_METHOD(
   initSdk:(nonnull NSNumber *)node
-  isMicMuted:(nonnull BOOL *)isMicMuted
-  isCameraMuted:(nonnull BOOL *)isCameraMuted
 )
 RCT_EXTERN_METHOD(
   stopSdk:(nonnull NSNumber *)node

@@ -38,13 +38,13 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
                 print("react-native-trueconf-sdk: isAudioMuted/set -2: ", String(isAudioMuted))
 
                 // NOT AVAILABLE NOW iN SDK
-                // self.tcsdk!.muteAudio(isAudioMuted)
+                self.tcsdk!.muteAudio = isAudioMuted
 
                 print("react-native-trueconf-sdk: isAudioMuted/set -3: " + String(isAudioMuted))
             }
         }
         get {
-            return self._isCameraMuted
+            return self._isAudioMuted
         }
     }
 
@@ -61,12 +61,6 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
                 self.tcsdk!.muteCamera(isCameraMuted)
 
                 print("react-native-trueconf-sdk: isCameraMuted/set -3: " + String(isCameraMuted))
-
-                if (isCameraMuted) {
-                    self.tcsdk!.xsview = nil
-                } else {
-                    self.tcsdk!.xsview = self.xsview!
-                }
             }
         }
         get {
@@ -123,8 +117,6 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     func initViews() {
         self.xview = UIView()
         self.addSubview(self.xview!)
-        //    self.xview!.backgroundColor = .white
-
         self.xview!.translatesAutoresizingMaskIntoConstraints = false
         self.xview!.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.xview!.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -133,17 +125,15 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
         self.xsview = UIView()
         self.addSubview(self.xsview!)
-        self.xsview!.backgroundColor = UIColor.white
-
         self.xsview!.translatesAutoresizingMaskIntoConstraints = false
-        // MARGIN RIGHT 16
-        self.xsview!.rightAnchor.constraint(equalTo: self.xview!.safeRightAnchor, constant: -16.0).isActive = true
-        // MARGIN TOP 100
-        self.xsview!.topAnchor.constraint(equalTo: self.xview!.safeTopAnchor, constant: 100.0).isActive = true
+        // MARGIN RIGHT
+        self.xsview!.rightAnchor.constraint(equalTo: self.xview!.rightAnchor, constant: -20.0).isActive = true
+        // MARGIN TOP
+        self.xsview!.topAnchor.constraint(equalTo: self.xview!.topAnchor, constant: 20.0).isActive = true
         // WIDTH & HEIGHT
-        let xsview_width = UIScreen.main.bounds.width / 3.5
-        self.xsview!.widthAnchor.constraint(equalToConstant: xsview_width).isActive = true
-        self.xsview!.heightAnchor.constraint(equalToConstant: xsview_width).isActive = true
+        self.xsview!.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        self.xsview!.heightAnchor.constraint(equalToConstant: 110).isActive = true
+        self.xsview!.layer.cornerRadius = 3
         // ADD PAN GESTURE
         let xsviewPanGesture = UIPanGestureRecognizer(target: self, action: #selector(TrueConfView.draggedView(_:)))
         self.xsview!.isUserInteractionEnabled = true
@@ -163,9 +153,10 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
     }
 
     @objc
-    func initSdk(isMicMuted: Bool, isCameraMuted: Bool) {
-        print("react-native-trueconf-sdk TrueConfView initSdk isMicMuted-1: " + String(isMicMuted))
-        print("react-native-trueconf-sdk TrueConfView initSdk isCameraMuted-1: " + String(isCameraMuted))
+    func initSdk() {
+        print("react-native-trueconf-sdk TrueConfView initSdk isAudioMuted: " + String(self.isAudioMuted))
+        print("react-native-trueconf-sdk TrueConfView initSdk isCameraMuted: " + String(self.isCameraMuted))
+        print("react-native-trueconf-sdk TrueConfView initSdk isMicMuted: " + String(self.isMicMuted))
 
         if (self.tcsdk != nil ) { return }
 
@@ -182,16 +173,11 @@ class TrueConfView : UIView, UITextFieldDelegate, TCConfControlsDelegate, TCWind
 
             self.initEvents()
 
-            // CALLS MIC/CAMERA ON/OFF AFTER SDK INIT
-            self.isMicMuted = isMicMuted
-            self.isCameraMuted = isCameraMuted
-
             self.tcsdk!.start()
 
-            print("react-native-trueconf-sdk TrueConfView initSdk isCameraMuted-2: " + String(isCameraMuted))
-
-            self.tcsdk!.muteMicrophone(isMicMuted)
-            self.tcsdk!.muteCamera(!isCameraMuted)
+            self.tcsdk!.muteAudio = self.isAudioMuted
+            self.tcsdk!.muteMicrophone(self.isMicMuted)
+            self.tcsdk!.muteCamera(self.isCameraMuted)
         }
     }
 
