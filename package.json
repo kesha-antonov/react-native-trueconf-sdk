@@ -1,6 +1,6 @@
 {
   "name": "react-native-trueconf-sdk",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "Wrapper for TrueConf React SDK",
   "repository": {
     "type": "git",

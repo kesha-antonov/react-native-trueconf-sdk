@@ -282,18 +282,7 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
         hideCallWindow();
         break;
       case "hangup":
-        hideCallWindow();
-        new Thread(() -> {
-          try {
-            // SET AT LEAST 400ms DELAY TO LET CALL WINDOW HIDE
-            // OTHERWISE YOU'LL SEE WHITE FLICKER (FRAGMENT GETS REMOVED)
-            Thread.sleep(400);
-            hangup(true);
-          } catch (InterruptedException e) {
-            Log.e(TAG, "onPressButton hangup error: " + e.getMessage());
-            e.printStackTrace();
-          }
-        }).start();
+        hangup(false);
         break;
       default:
         break;
@@ -656,8 +645,19 @@ public class TrueConfSDKViewManager extends ViewGroupManager<FrameLayout>
   }
 
   private void hangup(boolean forAll) {
-    boolean result = TrueConfSDK.getInstance().hangup(forAll);
-    Log.d(TAG, "hangup: result " + result);
+    hideCallWindow();
+    new Thread(() -> {
+      try {
+        // SET AT LEAST 400ms DELAY TO LET CALL WINDOW HIDE
+        // OTHERWISE YOU'LL SEE WHITE FLICKER (FRAGMENT GETS REMOVED)
+        Thread.sleep(400);
+        boolean result = TrueConfSDK.getInstance().hangup(forAll);
+        Log.d(TAG, "hangup: result " + result);
+      } catch (InterruptedException e) {
+        Log.e(TAG, "onPressButton hangup error: " + e.getMessage());
+        e.printStackTrace();
+      }
+    }).start();
   }
 
   private void acceptCall(boolean accept) {
