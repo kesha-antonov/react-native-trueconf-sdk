@@ -14,8 +14,8 @@ buildscript {
         ndkVersion = "25.1.8937393"
         kotlinVersion = "1.8.0"
 
-        trueConfSDKRepositoryUsername = ''
-        trueConfSDKRepositoryPassword = ''
+        trueConfSDKRepositoryUsername = 'ruwef'
+        trueConfSDKRepositoryPassword = 'rJO*uEF1Wd'
     }
     repositories {
         google()

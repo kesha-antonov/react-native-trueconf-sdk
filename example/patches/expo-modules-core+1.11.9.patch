@@ -1,0 +1,14 @@
+diff --git a/node_modules/expo-modules-core/android/build.gradle b/node_modules/expo-modules-core/android/build.gradle
+index 3d85ca4..d92a84c 100644
+--- a/node_modules/expo-modules-core/android/build.gradle
++++ b/node_modules/expo-modules-core/android/build.gradle
+@@ -230,7 +230,8 @@ dependencies {
+ 
+   api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+   api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+-  api "androidx.core:core-ktx:1.12.0"
++  // api "androidx.core:core-ktx:1.12.0"
++  api "androidx.core:core-ktx:1.11.0-beta02"
+   api project(':expo-modules-core$android-annotation')
+ 
+   implementation("androidx.tracing:tracing-ktx:1.2.0")
