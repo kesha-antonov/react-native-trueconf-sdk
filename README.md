@@ -141,6 +141,9 @@ To customize colors of buttons etc add the following code to `colors.xml`:
 
 ## TODO
 
+Use this PR to dispatch events
+https://github.com/react-native-menu/menu/pull/749/files#diff-c1d10ac556f96ccfb6b02c68c77af8d0e24c0f45a40dcadc9e742fb3ab191af9
+
 ### General
 - [ ] (planned: v3) Add react-navigation to example and more examples from TrueConf SDK Docs
 
