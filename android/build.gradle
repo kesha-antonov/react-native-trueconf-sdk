@@ -22,9 +22,9 @@ android {
 }
 
 dependencies {
-    api 'com.trueconf:trueconfsdk:2.2.0.93@aar'
-    api 'com.trueconf:media:2.2.0.93@aar'
-    api 'com.trueconf:jnicore:2.2.0.93@aar'
+    api 'com.trueconf:trueconfsdk:2.2.0.94@aar'
+    api 'com.trueconf:media:2.2.0.94@aar'
+    api 'com.trueconf:jnicore:2.2.0.94@aar'
     implementation 'com.facebook.react:react-native:+'
     implementation "androidx.appcompat:appcompat:1.5.0"
     implementation "com.google.android.material:material:1.6.1"
