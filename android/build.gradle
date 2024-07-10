@@ -11,20 +11,20 @@ android {
         namespace "com.kesha_antonov.react_native_true_conf_sdk"
     }
 
-    compileSdkVersion safeExtGet('compileSdkVersion', 33)
+    compileSdkVersion safeExtGet('compileSdkVersion', 34)
 
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 24)
-        targetSdkVersion safeExtGet('targetSdkVersion', 33)
+        targetSdkVersion safeExtGet('targetSdkVersion', 34)
         versionCode 1
         versionName '1.0'
     }
 }
 
 dependencies {
-    api 'com.trueconf:trueconfsdk:2.2.0.95@aar'
-    api 'com.trueconf:media:2.2.0.95@aar'
-    api 'com.trueconf:jnicore:2.2.0.95@aar'
+    api 'com.trueconf:trueconfsdk:2.2.0.99@aar'
+    api 'com.trueconf:media:2.2.0.99@aar'
+    api 'com.trueconf:jnicore:2.2.0.99@aar'
     implementation 'com.facebook.react:react-native:+'
     implementation "androidx.appcompat:appcompat:1.5.0"
     implementation "com.google.android.material:material:1.6.1"
