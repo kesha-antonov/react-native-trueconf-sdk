@@ -95,6 +95,7 @@ typedef void (^TCSDKExtraButtonAction)(id _Nullable sender);
 @property (weak) id <TCWindowsDelegate> _Nullable windowsDelegate;
 @property (nonatomic) NSBundle* _Nullable resources;
 @property (nonatomic) BOOL muteAudio; // NO by default
+@property (nonatomic) BOOL joinWithoutVideo; // NO by default
 @property (nonatomic) BOOL trueConfSDKLogEnable; // NO by default
 
 - (instancetype _Nonnull )initWithViewController:(UIViewController* _Nullable) vc forServer:(NSString* _Nullable) serverIP;

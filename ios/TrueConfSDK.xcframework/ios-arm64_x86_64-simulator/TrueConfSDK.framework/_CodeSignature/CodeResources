@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		IPnzoPIo/zyYgOjaiJQ2jnjMdLc=
+		Jo84ZR5JMsJPAz0DMpy+rVtILbk=
 		</data>
 		<key>Headers/TCTheme.h</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/TrueConf.h</key>
 		<data>
-		lQJYYskfgkmjUyJ2cjPL9VMG6Aw=
+		iU/xmnNuZJ1SQ8P1kZvl29eYEm0=
 		</data>
 		<key>Headers/TrueConfSDK.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		6F6DQHWPiomnRLJd36Rc2VyDwVs=
+		w0aNP5WehO8Mhqr+s5BcBwz3u5Q=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -30,23 +30,23 @@
 		</data>
 		<key>TCAudioModeView.nib</key>
 		<data>
-		ahc33OZECjtuY+mO0EqfRIEfEo0=
+		L21tIPyoDEYEHdGX1PtH+2IDfOA=
 		</data>
 		<key>TCAvatarView.nib</key>
 		<data>
-		AvtsSt6xdXp1ks1y5DmQgBCBkPI=
+		adOjNwdd9CSJFFJtGLFFeQZM6vA=
 		</data>
 		<key>TCInfoPanel.nib</key>
 		<data>
-		y2qVUK+a6fljkPrymDZgfJ16nq8=
+		UvIAoqjj6ZhChEGWQYDpUVhjw3I=
 		</data>
 		<key>TCNoPicView.nib</key>
 		<data>
-		Xy7bO7pVPrapoPhzAUaW52FWKRw=
+		8mmzGAT03omCFqOJDuNXE4WnYZQ=
 		</data>
 		<key>TCSDK.storyboardc/5GS-qu-kds-view-JTl-NA-Wya.nib</key>
 		<data>
-		1315tWd16K2IC3EiLdKNkYOPx64=
+		iF0z7JauNvSUFQ2xD6YIFuoFliI=
 		</data>
 		<key>TCSDK.storyboardc/Info.plist</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>TCSDKchat2.storyboardc/5GS-qu-kds-view-JTl-NA-Wya.nib</key>
 		<data>
-		o+JomoWeKWJ3CSDU6b2gnC+7v2w=
+		2AjJQEtcXmOfbC1SiWlQf0dDOMc=
 		</data>
 		<key>TCSDKchat2.storyboardc/Info.plist</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>TCSDKchat2.storyboardc/TCSelectChatOrUserViewController2.nib</key>
 		<data>
-		J3ca3IKIwmOVbdk5lfAZ0COsEk8=
+		+9ur5b5wEcRF1dfrK+OzpyMBKMg=
 		</data>
 		<key>TCSDKchat2.storyboardc/chatListVC.nib</key>
 		<data>
@@ -82,11 +82,11 @@
 		</data>
 		<key>TCSDKchat2.storyboardc/dxJ-C6-eVh-view-ag7-3M-xE1.nib</key>
 		<data>
-		H8gQOaDeyJPycYoKoMb4qkd7MYo=
+		pwRUnTmNWE9R7/QpG908xjZBQSs=
 		</data>
 		<key>TCSDKchat2.storyboardc/rMj-rI-lMP-view-Joa-gm-vqf.nib</key>
 		<data>
-		eeimbWX7HoSGggBIRq5/a0RCe8Q=
+		w0TeT5A2tqMGPoA1dTZ3rLCjNOE=
 		</data>
 		<key>ar.lproj/Localizable.strings</key>
 		<dict>
@@ -117,7 +117,7 @@
 		</dict>
 		<key>default.metallib</key>
 		<data>
-		mSK+HgiZxiN1adcJKfuLt5RSH/g=
+		nG/AbVW2jPS6Ybu56MX2VEgj+Bo=
 		</data>
 		<key>en.lproj/Localizable.strings</key>
 		<dict>
@@ -157,7 +157,7 @@
 		</dict>
 		<key>iPadSDK.storyboardc/2-view-5.nib</key>
 		<data>
-		/0tQO/G+XKWmGkTc0qRjEMYL5fw=
+		VD93vlPLv/7JvkH2TLKZQgoIXB8=
 		</data>
 		<key>iPadSDK.storyboardc/Info.plist</key>
 		<data>
@@ -177,7 +177,7 @@
 		</data>
 		<key>iPhoneSDK.storyboardc/qLU-ye-WP7-view-huP-F0-MgU.nib</key>
 		<data>
-		corSxa6bq/XjN0QVUnSzWnx+4zY=
+		964s8Hn5gmLbWothG09Qx0TXsoA=
 		</data>
 		<key>it.lproj/Localizable.strings</key>
 		<dict>
@@ -303,7 +303,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Pz19JEFM7EVnpWJeOKs25lqwNZ/JatVQECgu+i+j5SY=
+			71pOu1ujrRiinrXYAiAJ0/kWc4+wi1cZov6RuJp1bvM=
 			</data>
 		</dict>
 		<key>Headers/TCTheme.h</key>
@@ -317,7 +317,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			myfYQPHoG2NKQ3GhltDkoBuJkf0fjbtowQ+4HQt5E5k=
+			d8eJ2ZTr4s4YmO6mWGNrJoO/3LMXpEV5Q2HgRfsNjvg=
 			</data>
 		</dict>
 		<key>Headers/TrueConfSDK.h</key>
@@ -338,35 +338,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			w7E+BsgmKghI188SY62DJEAQGN9Ybw2UBCFXagTEETU=
+			gSUGlEMpQC7OSgWmvmgBGKfTCgs0NVtHucEHIUe2TP8=
 			</data>
 		</dict>
 		<key>TCAvatarView.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			K5m6z05M4mH9BgVYY8LxZvyTjFsWRg3NJZw1rny7SoA=
+			REZLJd6Da78gO/Rwjoqzjbc5DRfs4ppXGt4nY/jXH8c=
 			</data>
 		</dict>
 		<key>TCInfoPanel.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			x4Z75YDo5/IDRR5m6Ya5/30Azu4N0laNjggcu+X4A18=
+			HDZSb1ATjbZR4gMhsDRe/dyfT6AarFKgvEIDYfQAVxI=
 			</data>
 		</dict>
 		<key>TCNoPicView.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			H5JGaidyFV3AKx0DPBj/RUov260VWspPLl4KF7+pqu0=
+			UWvtsDumS9QmtysJdHONdoW40YJiu+aOEqabWUPMR5E=
 			</data>
 		</dict>
 		<key>TCSDK.storyboardc/5GS-qu-kds-view-JTl-NA-Wya.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XeB8HRz9xBGDp+q5Dum8SPOOsyVUl4a8CW22dKf277s=
+			D2Ys/1m/8lDDZ3X2Kp4kQQw4XOJ4kVs/jGdDAjoV9CA=
 			</data>
 		</dict>
 		<key>TCSDK.storyboardc/Info.plist</key>
@@ -387,7 +387,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vXZjzAC/SaLyy49kYZRCNL5JSnQR8KqQgvVUo+2LfAw=
+			8F4sZRT4N6SGHJPj9Z0GjlUBcrlnkBV43/AXWIiH/+Q=
 			</data>
 		</dict>
 		<key>TCSDKchat2.storyboardc/Info.plist</key>
@@ -401,7 +401,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			4L226ANPTQ6+Jc6F+I/c8Zm8ClWDEcq3HOpqPS6Hwy0=
+			SPwhCzhRbrzeNA1hySDFb/yVoQiCdNvIJgVLjipUyLw=
 			</data>
 		</dict>
 		<key>TCSDKchat2.storyboardc/chatListVC.nib</key>
@@ -429,14 +429,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MoW7tALonpfLfL/zpn2fw1QPqFaljJBtqFYLX4Tf2SI=
+			JU3B4xzAB+AjGDa3sAElabFfSiZBKx+0ot4an7nRxYU=
 			</data>
 		</dict>
 		<key>TCSDKchat2.storyboardc/rMj-rI-lMP-view-Joa-gm-vqf.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			x+y361/BeC5oOxmET0g22k7DknOU6WU9sg3HijSkN5Y=
+			X2LRZ1hOo3Zc6c11H35jxBXYtapNbeAtRTf2xRFTGNg=
 			</data>
 		</dict>
 		<key>ar.lproj/Localizable.strings</key>
@@ -470,7 +470,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			meVJpYZBqv93HluW68CwaawrtFhWzZEcBfcBZpkXYsk=
+			+IXgSAVJ1LpIoAtJAflLVtj2+hfpythCraxXG/kdHKM=
 			</data>
 		</dict>
 		<key>en.lproj/Localizable.strings</key>
@@ -513,7 +513,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ujWSzGRQsYtaTkKFW3Pc9BvCKQmP7Ewf4ILhgSZ4+V4=
+			DwUHU2P7KuHJZ0h9+iXNtpxLInZGNr8Q0keaHbeZnfw=
 			</data>
 		</dict>
 		<key>iPadSDK.storyboardc/Info.plist</key>
@@ -548,7 +548,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LunKBzYw5+6HnTRhkkvMa6vzfijIVvz6QknC47hFd/Y=
+			L1/2VmAN/Lm3C+nzuxqronjqTYDx7vZpapofrwDzu0U=
 			</data>
 		</dict>
 		<key>it.lproj/Localizable.strings</key>
